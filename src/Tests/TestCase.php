@@ -23,7 +23,8 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             '--realpath' => true,
         ]);
 
-        $this->artisan('migrate:fresh', ['--database' => 'testbench'])->run();
+        // Here is the changed line
+        $this->artisan('migrate:refresh', ['--database' => 'testbench'])->run();
     }
 
     protected function getEnvironmentSetUp($app)
