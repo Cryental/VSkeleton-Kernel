@@ -106,6 +106,7 @@ class IPValidationRuleTest extends TestCase
     {
         $ipSetMock = $this->createMock(IPSet::class);
         $ipSetMock->method('match')->willReturn($matchResult);
+
         return $ipSetMock;
     }
 }

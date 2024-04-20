@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use PHPUnit\Framework\Attributes\Test;
 use Volistx\FrameworkKernel\AuthValidationRules\Users\IsActiveUserValidationRule;
-use Volistx\FrameworkKernel\Database\Factories\PersonalTokenFactory;
 use Volistx\FrameworkKernel\Database\Factories\PlanFactory;
 use Volistx\FrameworkKernel\Database\Factories\SubscriptionFactory;
 use Volistx\FrameworkKernel\Database\Factories\UserFactory;

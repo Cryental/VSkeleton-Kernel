@@ -2,6 +2,7 @@
 
 namespace Volistx\FrameworkKernel\Tests;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
 use PHPUnit\Framework\Attributes\Test;
 use Volistx\FrameworkKernel\AuthValidationRules\Users\CountryValidationRule;
@@ -9,7 +10,6 @@ use Volistx\FrameworkKernel\Database\Factories\PersonalTokenFactory;
 use Volistx\FrameworkKernel\Database\Factories\UserFactory;
 use Volistx\FrameworkKernel\Enums\AccessRule;
 use Volistx\FrameworkKernel\Facades\PersonalTokens;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CountryValidationRuleTest extends TestCase
 {

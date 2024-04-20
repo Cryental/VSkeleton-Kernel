@@ -19,7 +19,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         parent::setUp();
 
         $this->loadMigrationsFrom([
-            '--path' => realpath(__DIR__ . '/../../database/migrations'),
+            '--path' => realpath(__DIR__.'/../../database/migrations'),
             '--realpath' => true,
         ]);
 
