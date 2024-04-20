@@ -86,7 +86,6 @@ class AdminLogControllerTest extends TestCase
         self::assertCount(1, json_decode($response->getContent())->items);
     }
 
-
     private function GenerateAccessToken(string $key, int $logsCount): Collection|Model
     {
         $salt = Str::random(16);

@@ -2,8 +2,8 @@
 
 namespace Volistx\FrameworkKernel\Tests;
 
-use Volistx\FrameworkKernel\Helpers\AccessTokensCenter;
 use PHPUnit\Framework\Attributes\Test;
+use Volistx\FrameworkKernel\Helpers\AccessTokensCenter;
 
 class AccessTokensCenterTest extends TestCase
 {
