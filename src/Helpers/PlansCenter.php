@@ -9,9 +9,7 @@ class PlansCenter
     /**
      * Set the plan.
      *
-     * @param mixed $plan The plan
-     *
-     * @return void
+     * @param  mixed  $plan  The plan
      */
     public function setPlan(mixed $plan): void
     {

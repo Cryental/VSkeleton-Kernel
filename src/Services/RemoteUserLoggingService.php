@@ -10,6 +10,7 @@ use Volistx\FrameworkKernel\Services\Interfaces\IUserLoggingService;
 class RemoteUserLoggingService implements IUserLoggingService
 {
     private string $httpBaseUrl;
+
     private string $remoteToken;
 
     public function __construct()
@@ -21,9 +22,7 @@ class RemoteUserLoggingService implements IUserLoggingService
     /**
      * Create a new user log entry.
      *
-     * @param array $inputs [log_id, log_data, log_type]
-     *
-     * @return void
+     * @param  array  $inputs  [log_id, log_data, log_type]
      */
     public function CreateUserLog(array $inputs): void
     {
@@ -36,10 +35,6 @@ class RemoteUserLoggingService implements IUserLoggingService
 
     /**
      * Get a user log entry by log ID.
-     *
-     * @param string $logId
-     *
-     * @return mixed
      */
     public function GetLog(string $logId): mixed
     {
@@ -55,19 +50,13 @@ class RemoteUserLoggingService implements IUserLoggingService
 
     /**
      * Get all user log entries with pagination support.
-     *
-     * @param string $search
-     * @param int    $page
-     * @param int    $limit
-     *
-     * @return array|null
      */
     public function GetLogs(string $search, int $page, int $limit): ?array
     {
         $response = Requests::get("$this->httpBaseUrl/users/logs", $this->remoteToken, [
             'search' => $search,
-            'page'   => $page,
-            'limit'  => $limit,
+            'page' => $page,
+            'limit' => $limit,
         ]);
 
         // Retry the job if the request fails
@@ -86,8 +75,8 @@ class RemoteUserLoggingService implements IUserLoggingService
         return [
             'pagination' => [
                 'per_page' => $logs['pagination']['per_page'],
-                'current'  => $logs['pagination']['current'],
-                'total'    => $logs['pagination']['total'],
+                'current' => $logs['pagination']['current'],
+                'total' => $logs['pagination']['total'],
             ],
             'items' => $logDTOs,
         ];
@@ -95,21 +84,13 @@ class RemoteUserLoggingService implements IUserLoggingService
 
     /**
      * Get all subscription log entries for a subscription with pagination support.
-     *
-     * @param string $userId
-     * @param string $subscriptionId
-     * @param string $search
-     * @param int    $page
-     * @param int    $limit
-     *
-     * @return array
      */
     public function GetSubscriptionLogs(string $userId, string $subscriptionId, string $search, int $page, int $limit): array
     {
         $response = Requests::get("$this->httpBaseUrl/users/$userId/subscriptions/$subscriptionId", $this->remoteToken, [
             'search' => $search,
-            'page'   => $page,
-            'limit'  => $limit,
+            'page' => $page,
+            'limit' => $limit,
         ]);
 
         // Retry the job if the request fails
@@ -128,8 +109,8 @@ class RemoteUserLoggingService implements IUserLoggingService
         return [
             'pagination' => [
                 'per_page' => $logs['perPage'],
-                'current'  => $logs['current'],
-                'total'    => $logs['total'],
+                'current' => $logs['current'],
+                'total' => $logs['total'],
             ],
             'items' => $logDTOs,
         ];
@@ -137,11 +118,6 @@ class RemoteUserLoggingService implements IUserLoggingService
 
     /**
      * Get the count of subscription log entries for a subscription.
-     *
-     * @param string $userId
-     * @param string $subscriptionId
-     *
-     * @return int
      */
     public function GetSubscriptionLogsCountInPlanDuration(string $userId, string $subscriptionId): int
     {
@@ -155,11 +131,6 @@ class RemoteUserLoggingService implements IUserLoggingService
 
     /**
      * Get the subscription usages for a subscription.
-     *
-     * @param string $userId
-     * @param string $subscriptionId
-     *
-     * @return array
      */
     public function GetSubscriptionUsages(string $userId, string $subscriptionId): array
     {

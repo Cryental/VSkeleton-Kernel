@@ -9,9 +9,7 @@ class AccessTokensCenter
     /**
      * Set the access token.
      *
-     * @param mixed $token The access token
-     *
-     * @return void
+     * @param  mixed  $token  The access token
      */
     public function setToken(mixed $token): void
     {

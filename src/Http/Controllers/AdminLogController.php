@@ -17,7 +17,7 @@ class AdminLogController extends Controller
     /**
      * AdminLogController constructor.
      *
-     * @param IAdminLoggingService $adminLoggingService The admin logging service
+     * @param  IAdminLoggingService  $adminLoggingService  The admin logging service
      */
     public function __construct(IAdminLoggingService $adminLoggingService)
     {
@@ -28,15 +28,14 @@ class AdminLogController extends Controller
     /**
      * Get an admin log.
      *
-     * @param Request $request The HTTP request
-     * @param string  $logId   The log ID
-     *
+     * @param  Request  $request  The HTTP request
+     * @param  string  $logId  The log ID
      * @return JsonResponse The JSON response
      */
     public function GetAdminLog(Request $request, string $logId): JsonResponse
     {
         try {
-            if (!Permissions::check(AccessTokens::getToken(), $this->module, 'view')) {
+            if (! Permissions::check(AccessTokens::getToken(), $this->module, 'view')) {
                 return response()->json(Messages::E401(), 401);
             }
 
@@ -50,7 +49,7 @@ class AdminLogController extends Controller
 
             $log = $this->adminLoggingService->GetAdminLog($logId);
 
-            if (!$log) {
+            if (! $log) {
                 return response()->json(Messages::E404(), 404);
             }
 
@@ -63,14 +62,13 @@ class AdminLogController extends Controller
     /**
      * Get admin logs.
      *
-     * @param Request $request The HTTP request
-     *
+     * @param  Request  $request  The HTTP request
      * @return JsonResponse The JSON response
      */
     public function GetAdminLogs(Request $request): JsonResponse
     {
         try {
-            if (!Permissions::check(AccessTokens::getToken(), $this->module, 'view-all')) {
+            if (! Permissions::check(AccessTokens::getToken(), $this->module, 'view-all')) {
                 return response()->json(Messages::E401(), 401);
             }
 
@@ -79,7 +77,7 @@ class AdminLogController extends Controller
             $limit = $request->input('limit', 50);
 
             $validator = $this->GetModuleValidation($this->module)->generateGetAllValidation([
-                'page'  => $page,
+                'page' => $page,
                 'limit' => $limit,
             ]);
 
@@ -89,7 +87,7 @@ class AdminLogController extends Controller
 
             $logs = $this->adminLoggingService->GetAdminLogs($search, $page, $limit);
 
-            if (!$logs) {
+            if (! $logs) {
                 return response()->json(Messages::E400(trans('volistx::invalid_search_column')), 400);
             }
 

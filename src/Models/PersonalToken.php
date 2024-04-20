@@ -43,18 +43,18 @@ class PersonalToken extends Model
     ];
 
     protected $casts = [
-        'permissions'     => 'array',
+        'permissions' => 'array',
         'rate_limit_mode' => RateLimitMode::class,
-        'ip_rule'         => AccessRule::class,
-        'ip_range'        => 'array',
-        'country_rule'    => AccessRule::class,
-        'country_range'   => 'array',
-        'activated_at'    => 'date:Y-m-d H:i:s',
-        'expires_at'      => 'date:Y-m-d H:i:s',
-        'hidden'          => 'boolean',
+        'ip_rule' => AccessRule::class,
+        'ip_range' => 'array',
+        'country_rule' => AccessRule::class,
+        'country_range' => 'array',
+        'activated_at' => 'date:Y-m-d H:i:s',
+        'expires_at' => 'date:Y-m-d H:i:s',
+        'hidden' => 'boolean',
         'disable_logging' => 'boolean',
-        'created_at'      => 'date:Y-m-d H:i:s',
-        'updated_at'      => 'date:Y-m-d H:i:s',
+        'created_at' => 'date:Y-m-d H:i:s',
+        'updated_at' => 'date:Y-m-d H:i:s',
     ];
 
     public function setCountryRangeAttribute($value)

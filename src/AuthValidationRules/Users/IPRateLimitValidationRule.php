@@ -38,10 +38,10 @@ class IPRateLimitValidationRule extends ValidationRuleBase
             );
 
             // If the rate limit is exceeded, deny access
-            if (!$executed) {
+            if (! $executed) {
                 return [
                     'message' => Messages::E429(),
-                    'code'    => 429,
+                    'code' => 429,
                 ];
             }
         }

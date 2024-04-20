@@ -15,20 +15,19 @@ class AccessTokenRepository
     /**
      * Create a new access token.
      *
-     * @param array $inputs The input data for creating the access token.
-     *
+     * @param  array  $inputs  The input data for creating the access token.
      * @return Model|Builder The created access token model or builder instance.
      */
     public function Create(array $inputs): Model|Builder
     {
         return AccessToken::query()->create([
-            'key'           => substr($inputs['key'], 0, 32),
-            'secret'        => SHA256Hasher::make(substr($inputs['key'], 32), ['salt' => $inputs['salt']]),
-            'secret_salt'   => $inputs['salt'],
-            'permissions'   => $inputs['permissions'],
-            'ip_rule'       => $inputs['ip_rule'] ?? AccessRule::NONE,
-            'ip_range'      => $inputs['ip_range'] ?? [],
-            'country_rule'  => $inputs['country_rule'] ?? AccessRule::NONE,
+            'key' => substr($inputs['key'], 0, 32),
+            'secret' => SHA256Hasher::make(substr($inputs['key'], 32), ['salt' => $inputs['salt']]),
+            'secret_salt' => $inputs['salt'],
+            'permissions' => $inputs['permissions'],
+            'ip_rule' => $inputs['ip_rule'] ?? AccessRule::NONE,
+            'ip_range' => $inputs['ip_range'] ?? [],
+            'country_rule' => $inputs['country_rule'] ?? AccessRule::NONE,
             'country_range' => $inputs['country_range'] ?? [],
         ]);
     }
@@ -36,15 +35,14 @@ class AccessTokenRepository
     /**
      * Update an existing access token.
      *
-     * @param string $tokenId The ID of the access token to update.
-     * @param array  $inputs  The input data for updating the access token.
-     *
+     * @param  string  $tokenId  The ID of the access token to update.
+     * @param  array  $inputs  The input data for updating the access token.
      * @return object|null The updated access token object or null if token not found.
      */
     public function Update(string $tokenId, array $inputs): ?object
     {
         $token = $this->Find($tokenId);
-        if (!$token) {
+        if (! $token) {
             return null;
         }
 
@@ -76,11 +74,10 @@ class AccessTokenRepository
     /**
      * Find an access token by ID.
      *
-     * @param string $tokenId The ID of the access token to find.
-     *
+     * @param  string  $tokenId  The ID of the access token to find.
      * @return object|null The found access token object or null if not found.
      */
-    public function Find(string $tokenId): object|null
+    public function Find(string $tokenId): ?object
     {
         return AccessToken::query()->where('id', $tokenId)->first();
     }
@@ -88,15 +85,14 @@ class AccessTokenRepository
     /**
      * Reset an access token.
      *
-     * @param string $tokenId The ID of the access token to reset.
-     * @param array  $inputs  The input data for resetting the access token.
-     *
+     * @param  string  $tokenId  The ID of the access token to reset.
+     * @param  array  $inputs  The input data for resetting the access token.
      * @return object|null The reset access token object or null if token not found.
      */
     public function Reset(string $tokenId, $inputs): ?object
     {
         $token = $this->Find($tokenId);
-        if (!$token) {
+        if (! $token) {
             return null;
         }
 
@@ -112,14 +108,13 @@ class AccessTokenRepository
     /**
      * Delete an access token.
      *
-     * @param string $tokenId The ID of the access token to delete.
-     *
+     * @param  string  $tokenId  The ID of the access token to delete.
      * @return bool|null True if token deleted, null if token not found.
      */
     public function Delete(string $tokenId): ?bool
     {
         $toBeDeletedToken = $this->Find($tokenId);
-        if (!$toBeDeletedToken) {
+        if (! $toBeDeletedToken) {
             return null;
         }
 
@@ -131,13 +126,12 @@ class AccessTokenRepository
     /**
      * Find all access tokens with pagination support.
      *
-     * @param string $search The search query.
-     * @param int    $page   The page number.
-     * @param int    $limit  The number of items per page.
-     *
+     * @param  string  $search  The search query.
+     * @param  int  $page  The page number.
+     * @param  int  $limit  The number of items per page.
      * @return LengthAwarePaginator|null The paginated access tokens or null if search query is invalid.
      */
-    public function FindAll(string $search, int $page, int $limit): LengthAwarePaginator|null
+    public function FindAll(string $search, int $page, int $limit): ?LengthAwarePaginator
     {
         // Handle empty search query
         if ($search === '') {
@@ -145,7 +139,7 @@ class AccessTokenRepository
         }
 
         // Check if search query is in valid format
-        if (!str_contains($search, ':')) {
+        if (! str_contains($search, ':')) {
             return null;
         }
 
@@ -154,7 +148,7 @@ class AccessTokenRepository
         $columnName = strtolower(trim($values[0]));
 
         // Check if the column name is valid
-        if (!in_array($columnName, $columns)) {
+        if (! in_array($columnName, $columns)) {
             return null;
         }
 
@@ -168,8 +162,7 @@ class AccessTokenRepository
     /**
      * Authenticate an access token.
      *
-     * @param string $token The access token to authenticate.
-     *
+     * @param  string  $token  The access token to authenticate.
      * @return object|null The authenticated access token object or null if authentication fails.
      */
     public function AuthAccessToken(string $token): ?object

@@ -67,7 +67,7 @@ class PersonalTokenExpiryValidationRuleTest extends TestCase
         $this->assertEquals(
             [
                 'message' => Messages::E403(trans('volistx::token.expired')),
-                'code'    => 403,
+                'code' => 403,
             ],
             $result
         );
@@ -78,7 +78,7 @@ class PersonalTokenExpiryValidationRuleTest extends TestCase
         return SubscriptionFactory::new()->create([
             'user_id' => $user_id,
             'plan_id' => $plan_id,
-            'status'  => $status,
+            'status' => $status,
         ]);
     }
 

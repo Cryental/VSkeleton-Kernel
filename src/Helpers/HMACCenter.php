@@ -14,8 +14,7 @@ class HMACCenter
     /**
      * Signs the content with HMAC.
      *
-     * @param mixed $content The content to sign
-     *
+     * @param  mixed  $content  The content to sign
      * @return array The HMAC signature headers
      */
     public static function sign(mixed $content): array
@@ -35,20 +34,19 @@ class HMACCenter
         $signature = base64_encode($signedValue);
 
         return [
-            'X-HMAC-Timestamp'      => $timestamp,
+            'X-HMAC-Timestamp' => $timestamp,
             'X-HMAC-Content-SHA256' => $signature,
-            'X-HMAC-Nonce'          => $nonce,
+            'X-HMAC-Nonce' => $nonce,
         ];
     }
 
     /**
      * Verifies the HMAC token.
      *
-     * @param string            $hmacToken The HMAC token
-     * @param string            $method    The HTTP method
-     * @param string            $url       The URL
-     * @param ResponseInterface $response  The response object
-     *
+     * @param  string  $hmacToken  The HMAC token
+     * @param  string  $method  The HTTP method
+     * @param  string  $url  The URL
+     * @param  ResponseInterface  $response  The response object
      * @return bool True if the HMAC token is valid, false otherwise
      */
     public static function verify(string $hmacToken, string $method, string $url, ResponseInterface $response): bool

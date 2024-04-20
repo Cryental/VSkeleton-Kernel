@@ -15,7 +15,9 @@ class SubscriptionExpired implements ShouldQueue
     use SerializesModels;
 
     public string $subscriptionId;
+
     public int $attemptNumber;
+
     public string $userId;
 
     public function __construct(string $subscriptionId, string $userId, int $attemptNumber = 1)
@@ -30,15 +32,15 @@ class SubscriptionExpired implements ShouldQueue
         $url = config('volistx.webhooks.subscription.expired.url');
         $token = config('volistx.webhooks.subscription.expired.token');
 
-        if ($this->attemptNumber > 3 || !$url || !$token) {
+        if ($this->attemptNumber > 3 || ! $url || ! $token) {
             return;
         }
 
         $response = Requests::Post($url, $token, [
-            'type'    => 'subscription_expired',
+            'type' => 'subscription_expired',
             'payload' => [
                 'subscription_id' => $this->subscriptionId,
-                'user_id'         => $this->userId,
+                'user_id' => $this->userId,
             ],
         ]);
 

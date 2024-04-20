@@ -22,9 +22,9 @@ class AdminLogFactory extends Factory
     public function definition()
     {
         return [
-            'url'        => $this->faker->url(),
-            'method'     => $this->faker->randomElement(['POST', 'GET', 'PUT', 'DELETE', 'PATCH']),
-            'ip'         => $this->faker->ipv4(),
+            'url' => $this->faker->url(),
+            'method' => $this->faker->randomElement(['POST', 'GET', 'PUT', 'DELETE', 'PATCH']),
+            'ip' => $this->faker->ipv4(),
             'user_agent' => $this->faker->userAgent(),
         ];
     }

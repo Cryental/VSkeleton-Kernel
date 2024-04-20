@@ -21,10 +21,9 @@ class RequestHelper
     /**
      * Sends a GET request.
      *
-     * @param string $url   The URL to send the request to
-     * @param string $token The authorization token
-     * @param array  $query The query parameters
-     *
+     * @param  string  $url  The URL to send the request to
+     * @param  string  $token  The authorization token
+     * @param  array  $query  The query parameters
      * @return ProcessedResponse The processed response
      */
     public function get(string $url, string $token, array $query = []): ProcessedResponse
@@ -33,7 +32,7 @@ class RequestHelper
             $response = $this->client->request('GET', $url, [
                 'headers' => [
                     'Authorization' => "Bearer {$token}",
-                    'Content-Type'  => 'application/json',
+                    'Content-Type' => 'application/json',
                 ],
                 'query' => $query,
             ]);
@@ -47,10 +46,9 @@ class RequestHelper
     /**
      * Sends a POST request.
      *
-     * @param string $url   The URL to send the request to
-     * @param string $token The authorization token
-     * @param array  $query The request body
-     *
+     * @param  string  $url  The URL to send the request to
+     * @param  string  $token  The authorization token
+     * @param  array  $query  The request body
      * @return ProcessedResponse The processed response
      */
     public function post(string $url, string $token, array $query = []): ProcessedResponse
@@ -59,7 +57,7 @@ class RequestHelper
             $response = $this->client->request('POST', $url, [
                 'headers' => [
                     'Authorization' => "Bearer {$token}",
-                    'Content-Type'  => 'application/json',
+                    'Content-Type' => 'application/json',
                 ],
                 'json' => $query,
             ]);
@@ -73,10 +71,9 @@ class RequestHelper
     /**
      * Sends a PUT request.
      *
-     * @param string $url   The URL to send the request to
-     * @param string $token The authorization token
-     * @param array  $query The request body
-     *
+     * @param  string  $url  The URL to send the request to
+     * @param  string  $token  The authorization token
+     * @param  array  $query  The request body
      * @return ProcessedResponse The processed response
      */
     public function put(string $url, string $token, array $query = []): ProcessedResponse
@@ -85,7 +82,7 @@ class RequestHelper
             $response = $this->client->request('PUT', $url, [
                 'headers' => [
                     'Authorization' => "Bearer {$token}",
-                    'Content-Type'  => 'application/json',
+                    'Content-Type' => 'application/json',
                 ],
                 'json' => $query,
             ]);
@@ -99,10 +96,9 @@ class RequestHelper
     /**
      * Sends a PATCH request.
      *
-     * @param string $url   The URL to send the request to
-     * @param string $token The authorization token
-     * @param array  $query The request body
-     *
+     * @param  string  $url  The URL to send the request to
+     * @param  string  $token  The authorization token
+     * @param  array  $query  The request body
      * @return ProcessedResponse The processed response
      */
     public function patch(string $url, string $token, array $query = []): ProcessedResponse
@@ -111,7 +107,7 @@ class RequestHelper
             $response = $this->client->request('PATCH', $url, [
                 'headers' => [
                     'Authorization' => "Bearer {$token}",
-                    'Content-Type'  => 'application/json',
+                    'Content-Type' => 'application/json',
                 ],
                 'json' => $query,
             ]);
@@ -125,9 +121,8 @@ class RequestHelper
     /**
      * Sends a DELETE request.
      *
-     * @param string $url   The URL to send the request to
-     * @param string $token The authorization token
-     *
+     * @param  string  $url  The URL to send the request to
+     * @param  string  $token  The authorization token
      * @return ProcessedResponse The processed response
      */
     public function delete(string $url, string $token): ProcessedResponse
@@ -136,7 +131,7 @@ class RequestHelper
             $response = $this->client->request('DELETE', $url, [
                 'headers' => [
                     'Authorization' => "Bearer {$token}",
-                    'Content-Type'  => 'application/json',
+                    'Content-Type' => 'application/json',
                 ],
             ]);
 

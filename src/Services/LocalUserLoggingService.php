@@ -11,6 +11,7 @@ use Volistx\FrameworkKernel\Services\Interfaces\IUserLoggingService;
 class LocalUserLoggingService implements IUserLoggingService
 {
     private UserLogRepository $logRepository;
+
     private SubscriptionRepository $subscriptionRepository;
 
     public function __construct(UserLogRepository $logRepository, SubscriptionRepository $subscriptionRepository)
@@ -22,9 +23,7 @@ class LocalUserLoggingService implements IUserLoggingService
     /**
      * Create a new user log entry.
      *
-     * @param array $inputs [log_id, log_data, log_type]
-     *
-     * @return void
+     * @param  array  $inputs  [log_id, log_data, log_type]
      */
     public function CreateUserLog(array $inputs): void
     {
@@ -33,10 +32,6 @@ class LocalUserLoggingService implements IUserLoggingService
 
     /**
      * Get a user log entry by log ID.
-     *
-     * @param string $logId
-     *
-     * @return mixed
      */
     public function GetLog(string $logId): mixed
     {
@@ -51,14 +46,8 @@ class LocalUserLoggingService implements IUserLoggingService
 
     /**
      * Get all user log entries with pagination support.
-     *
-     * @param string $search
-     * @param int    $page
-     * @param int    $limit
-     *
-     * @return array|null
      */
-    public function GetLogs(string $search, int $page, int $limit): array|null
+    public function GetLogs(string $search, int $page, int $limit): ?array
     {
         $logs = $this->logRepository->FindAll($search, $page, $limit);
 
@@ -75,8 +64,8 @@ class LocalUserLoggingService implements IUserLoggingService
         return [
             'pagination' => [
                 'per_page' => $logs->perPage(),
-                'current'  => $logs->currentPage(),
-                'total'    => $logs->lastPage(),
+                'current' => $logs->currentPage(),
+                'total' => $logs->lastPage(),
             ],
             'items' => $logDTOs,
         ];
@@ -84,14 +73,6 @@ class LocalUserLoggingService implements IUserLoggingService
 
     /**
      * Get all subscription log entries for a user and subscription with pagination support.
-     *
-     * @param string $userId
-     * @param string $subscriptionId
-     * @param string $search
-     * @param int    $page
-     * @param int    $limit
-     *
-     * @return array
      */
     public function GetSubscriptionLogs(string $userId, string $subscriptionId, string $search, int $page, int $limit): array
     {
@@ -110,8 +91,8 @@ class LocalUserLoggingService implements IUserLoggingService
         return [
             'pagination' => [
                 'per_page' => $logs->perPage(),
-                'current'  => $logs->currentPage(),
-                'total'    => $logs->lastPage(),
+                'current' => $logs->currentPage(),
+                'total' => $logs->lastPage(),
             ],
             'items' => $logDTOs,
         ];
@@ -119,11 +100,6 @@ class LocalUserLoggingService implements IUserLoggingService
 
     /**
      * Get the count of subscription log entries for a user and subscription within the plan duration.
-     *
-     * @param string $userId
-     * @param string $subscriptionId
-     *
-     * @return int
      */
     public function GetSubscriptionLogsCountInPlanDuration(string $userId, string $subscriptionId): int
     {
@@ -132,7 +108,7 @@ class LocalUserLoggingService implements IUserLoggingService
         $startDate = Carbon::createFromFormat('Y-m-d H:i:s', $subscription->activated_at);
         $endDate = $startDate->clone()->addDays($planDuration);
 
-        while (!Carbon::now()->between($startDate, $endDate)) {
+        while (! Carbon::now()->between($startDate, $endDate)) {
             $startDate->addDays($planDuration);
             $endDate->addDays($planDuration);
         }
@@ -142,11 +118,6 @@ class LocalUserLoggingService implements IUserLoggingService
 
     /**
      * Get the subscription usages for a user and subscription.
-     *
-     * @param string $userId
-     * @param string $subscriptionId
-     *
-     * @return array
      */
     public function GetSubscriptionUsages(string $userId, string $subscriptionId): array
     {
@@ -158,7 +129,7 @@ class LocalUserLoggingService implements IUserLoggingService
             $count = count($dayLogs);
             $totalCount += $count;
             $stats[] = [
-                'date'  => Carbon::createFromFormat('Y-m-d H:i:s', $dayLogs[0]->created_at)->format('Y-m-d'),
+                'date' => Carbon::createFromFormat('Y-m-d H:i:s', $dayLogs[0]->created_at)->format('Y-m-d'),
                 'count' => $count,
             ];
         }
@@ -168,7 +139,7 @@ class LocalUserLoggingService implements IUserLoggingService
         return [
             'usages' => [
                 'current' => $totalCount,
-                'max'     => (int) $requestsCount,
+                'max' => (int) $requestsCount,
                 'percent' => $requestsCount ? (float) number_format(($totalCount * 100) / $requestsCount, 2) : null,
             ],
             'details' => $stats,

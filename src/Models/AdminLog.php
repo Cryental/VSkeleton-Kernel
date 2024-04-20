@@ -12,12 +12,14 @@ class AdminLog extends Model
 {
     use HasFactory;
     use HasUlids;
+
     /**
      * The name of the "updated at" column.
      *
      * @var string
      */
     const UPDATED_AT = null;
+
     /**
      * Indicates if the model should be timestamped.
      *
@@ -35,9 +37,9 @@ class AdminLog extends Model
 
     protected $casts = [
         'created_at' => 'date:Y-m-d H:i:s',
-        'url'        => 'encrypted',
-        'method'     => 'encrypted',
-        'ip'         => 'encrypted',
+        'url' => 'encrypted',
+        'method' => 'encrypted',
+        'ip' => 'encrypted',
     ];
 
     public function newUniqueId()
