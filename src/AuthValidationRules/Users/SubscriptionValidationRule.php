@@ -41,7 +41,7 @@ class SubscriptionValidationRule extends ValidationRuleBase
         // If the user does not have an active or inactive subscription, deny access
         return [
             'message' => Messages::E403(trans('volistx::subscription.expired')),
-            'code'    => 403,
+            'code' => 403,
         ];
     }
 }

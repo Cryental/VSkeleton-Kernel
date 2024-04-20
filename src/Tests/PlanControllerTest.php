@@ -29,16 +29,16 @@ class PlanControllerTest extends TestCase
         $token = $this->generateAccessToken($key);
 
         $this->TestPermissions($token, $key, 'postJson', '/sys-bin/admin/plans', [
-            ''             => 401,
+            '' => 401,
             'plans:create' => 201,
         ], [
-            'name'        => 'plan name',
-            'tag'         => 'plan-tag',
+            'name' => 'plan name',
+            'tag' => 'plan-tag',
             'description' => 'plan description',
-            'data'        => ['requests' => 500],
-            'price'       => 10,
-            'tier'        => 1,
-            'custom'      => false,
+            'data' => ['requests' => 500],
+            'price' => 10,
+            'tier' => 1,
+            'custom' => false,
         ]);
     }
 
@@ -52,13 +52,13 @@ class PlanControllerTest extends TestCase
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '.$key,
         ])->postJson('/sys-bin/admin/plans', [
-            'name'        => 'plan name',
-            'tag'         => 'plan-tag',
+            'name' => 'plan name',
+            'tag' => 'plan-tag',
             'description' => 'plan description',
-            'data'        => ['requests' => 500],
-            'price'       => 10,
-            'tier'        => 1,
-            'custom'      => false,
+            'data' => ['requests' => 500],
+            'price' => 10,
+            'tier' => 1,
+            'custom' => false,
         ]);
 
         $response->assertStatus(201);
@@ -74,8 +74,8 @@ class PlanControllerTest extends TestCase
         $plan = Plan::query()->first();
 
         $this->TestPermissions($token, $key, 'patchJson', "/sys-bin/admin/plans/$plan->id", [
-            'plans:*'      => 200,
-            ''             => 401,
+            'plans:*' => 200,
+            '' => 401,
             'plans:update' => 200,
         ]);
     }
@@ -91,7 +91,7 @@ class PlanControllerTest extends TestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '.$key,
-            'Content-Type'  => 'application/json',
+            'Content-Type' => 'application/json',
         ])->patchJson("/sys-bin/admin/plans/$plan->id", [
             'name' => 'updated name',
         ]);
@@ -111,7 +111,7 @@ class PlanControllerTest extends TestCase
         $plan = Plan::query()->first();
 
         $this->testPermissions($token, $key, 'delete', "/sys-bin/admin/plans/$plan->id", [
-            ''             => 401,
+            '' => 401,
             'plans:delete' => 204,
         ]);
     }
@@ -127,7 +127,7 @@ class PlanControllerTest extends TestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '.$key,
-            'Content-Type'  => 'application/json',
+            'Content-Type' => 'application/json',
         ])->delete("/sys-bin/admin/plans/$plan->id");
 
         $response->assertStatus(204);
@@ -144,8 +144,8 @@ class PlanControllerTest extends TestCase
         $plan = Plan::query()->first();
 
         $this->testPermissions($token, $key, 'get', "/sys-bin/admin/plans/$plan->id", [
-            'plans:*'    => 200,
-            ''           => 401,
+            'plans:*' => 200,
+            '' => 401,
             'plans:view' => 200,
         ]);
     }
@@ -161,7 +161,7 @@ class PlanControllerTest extends TestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '.$key,
-            'Content-Type'  => 'application/json',
+            'Content-Type' => 'application/json',
         ])->get("/sys-bin/admin/plans/$plan->id");
 
         $response->assertStatus(200);
@@ -177,8 +177,8 @@ class PlanControllerTest extends TestCase
         $token = $this->generateAccessToken($key);
 
         $this->testPermissions($token, $key, 'get', '/sys-bin/admin/plans', [
-            'plans:*'        => 200,
-            ''               => 401,
+            'plans:*' => 200,
+            '' => 401,
             'plans:view-all' => 200,
         ]);
     }
@@ -195,7 +195,7 @@ class PlanControllerTest extends TestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '.$key,
-            'Content-Type'  => 'application/json',
+            'Content-Type' => 'application/json',
         ])->get('/sys-bin/admin/plans');
 
         $response->assertStatus(200);
@@ -207,8 +207,8 @@ class PlanControllerTest extends TestCase
         $salt = Str::random(16);
 
         $token = AccessTokenFactory::new()
-            ->create(['key'   => substr($key, 0, 32),
-                'secret'      => SHA256Hasher::make(substr($key, 32), ['salt' => $salt]),
+            ->create(['key' => substr($key, 0, 32),
+                'secret' => SHA256Hasher::make(substr($key, 32), ['salt' => $salt]),
                 'secret_salt' => $salt,
                 'permissions' => ['plans:*'], ]);
 

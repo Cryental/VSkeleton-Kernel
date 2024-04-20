@@ -15,7 +15,7 @@ class AdminRequestCompleted
     /**
      * Create a new AdminRequestCompleted event instance.
      *
-     * @param array $inputs The inputs for the admin request.
+     * @param  array  $inputs  The inputs for the admin request.
      */
     public function __construct(array $inputs)
     {

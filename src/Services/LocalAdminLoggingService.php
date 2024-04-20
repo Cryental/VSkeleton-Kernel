@@ -17,10 +17,6 @@ class LocalAdminLoggingService implements IAdminLoggingService
 
     /**
      * Create a new admin log entry.
-     *
-     * @param array $inputs
-     *
-     * @return void
      */
     public function CreateAdminLog(array $inputs): void
     {
@@ -29,10 +25,6 @@ class LocalAdminLoggingService implements IAdminLoggingService
 
     /**
      * Get an admin log entry by log ID.
-     *
-     * @param string $logId
-     *
-     * @return mixed
      */
     public function GetAdminLog(string $logId): mixed
     {
@@ -47,14 +39,8 @@ class LocalAdminLoggingService implements IAdminLoggingService
 
     /**
      * Get all admin log entries with pagination support.
-     *
-     * @param string $search
-     * @param int    $page
-     * @param int    $limit
-     *
-     * @return array|null
      */
-    public function GetAdminLogs(string $search, int $page, int $limit): array|null
+    public function GetAdminLogs(string $search, int $page, int $limit): ?array
     {
         $logs = $this->logRepository->FindAll($search, $page, $limit);
 
@@ -71,8 +57,8 @@ class LocalAdminLoggingService implements IAdminLoggingService
         return [
             'pagination' => [
                 'per_page' => $logs->perPage(),
-                'current'  => $logs->currentPage(),
-                'total'    => $logs->lastPage(),
+                'current' => $logs->currentPage(),
+                'total' => $logs->lastPage(),
             ],
             'items' => $logDTOs,
         ];

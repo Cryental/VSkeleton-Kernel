@@ -9,14 +9,17 @@ use Psr\Http\Message\ResponseInterface;
 class ProcessedResponse
 {
     public ?int $statusCode;
+
     public ?array $headers;
+
     public mixed $body;
+
     public bool $isError;
 
     /**
      * ProcessedResponse constructor.
      *
-     * @param mixed $response The response object
+     * @param  mixed  $response  The response object
      */
     public function __construct(mixed $response)
     {

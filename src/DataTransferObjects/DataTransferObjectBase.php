@@ -24,7 +24,7 @@ abstract class DataTransferObjectBase
         } elseif (is_object($entity) && method_exists($entity, 'toArray')) {
             $parameters = $entity->toArray();
         } else {
-            throw new InvalidArgumentException("Constructor parameter must be an array, a stdClass object or an object with a toArray method.");
+            throw new InvalidArgumentException('Constructor parameter must be an array, a stdClass object or an object with a toArray method.');
         }
 
         foreach ($class->getProperties(ReflectionProperty::IS_PUBLIC) as $reflectionProperty) {

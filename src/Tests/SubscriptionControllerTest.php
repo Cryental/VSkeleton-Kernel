@@ -32,13 +32,13 @@ class SubscriptionControllerTest extends TestCase
         $plan = $this->GeneratePlan();
 
         $this->TestPermissions($token, $key, 'postJson', "/sys-bin/admin/users/$user->id/subscriptions", [
-            'subscriptions:*'      => 201,
-            ''                     => 401,
+            'subscriptions:*' => 201,
+            '' => 401,
             'subscriptions:create' => 201,
         ], [
-            'plan_id'      => $plan->id,
+            'plan_id' => $plan->id,
             'activated_at' => Carbon::now()->toString(),
-            'expires_at'   => null,
+            'expires_at' => null,
         ]);
     }
 
@@ -54,11 +54,11 @@ class SubscriptionControllerTest extends TestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '.$key,
-            'Content-Type'  => 'application/json',
+            'Content-Type' => 'application/json',
         ])->postJson("/sys-bin/admin/users/$user->id/subscriptions", [
-            'plan_id'      => $plan->id,
+            'plan_id' => $plan->id,
             'activated_at' => Carbon::now()->toString(),
-            'expires_at'   => null,
+            'expires_at' => null,
         ]);
 
         $response->assertStatus(201);
@@ -76,8 +76,8 @@ class SubscriptionControllerTest extends TestCase
         $subscription = $this->GenerateSubscription($user->id, $plan->id);
 
         $this->TestPermissions($token, $key, 'postJson', "/sys-bin/admin/users/$user->id/subscriptions/$subscription->id", [
-            'subscriptions:*'      => 200,
-            ''                     => 401,
+            'subscriptions:*' => 200,
+            '' => 401,
             'subscriptions:mutate' => 200,
         ], [
             'expires_at' => null,
@@ -97,7 +97,7 @@ class SubscriptionControllerTest extends TestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '.$key,
-            'Content-Type'  => 'application/json',
+            'Content-Type' => 'application/json',
         ])->postJson("/sys-bin/admin/users/$user->id/subscriptions/$subscription->id", [
             'expires_at' => Carbon::now(),
         ]);
@@ -120,7 +120,7 @@ class SubscriptionControllerTest extends TestCase
         $subscription = $this->GenerateSubscription($user->id, $plan->id);
 
         $this->TestPermissions($token, $key, 'delete', "/sys-bin/admin/users/$user->id/subscriptions/$subscription->id", [
-            ''                     => 401,
+            '' => 401,
             'subscriptions:delete' => 204,
         ]);
     }
@@ -138,7 +138,7 @@ class SubscriptionControllerTest extends TestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '.$key,
-            'Content-Type'  => 'application/json',
+            'Content-Type' => 'application/json',
         ])->delete("/sys-bin/admin/users/$user->id/subscriptions/$subscription->id");
 
         $response->assertStatus(204);
@@ -157,8 +157,8 @@ class SubscriptionControllerTest extends TestCase
         $subscription = $this->GenerateSubscription($user->id, $plan->id);
 
         $this->TestPermissions($token, $key, 'patchJson', "/sys-bin/admin/users/$user->id/subscriptions/$subscription->id/cancel", [
-            'subscriptions:*'      => 200,
-            ''                     => 401,
+            'subscriptions:*' => 200,
+            '' => 401,
             'subscriptions:cancel' => 200,
         ], [
             'cancels_at' => Carbon::now()->addDay()->toString(),
@@ -179,7 +179,7 @@ class SubscriptionControllerTest extends TestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '.$key,
-            'Content-Type'  => 'application/json',
+            'Content-Type' => 'application/json',
         ])->patchJson("/sys-bin/admin/users/$user->id/subscriptions/$subscription->id/cancel", [
             'cancels_at' => $cancels_at_date,
         ]);
@@ -202,7 +202,7 @@ class SubscriptionControllerTest extends TestCase
         ]);
 
         $this->TestPermissions($token, $key, 'patchJson', "/sys-bin/admin/users/$user->id/subscriptions/$subscription->id/revert-cancel", [
-            ''                            => 401,
+            '' => 401,
             'subscriptions:revert-cancel' => 200,
         ]);
     }
@@ -222,7 +222,7 @@ class SubscriptionControllerTest extends TestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '.$key,
-            'Content-Type'  => 'application/json',
+            'Content-Type' => 'application/json',
         ])->patchJson("/sys-bin/admin/users/$user->id/subscriptions/$subscription->id/revert-cancel");
 
         $response->assertStatus(200);
@@ -241,8 +241,8 @@ class SubscriptionControllerTest extends TestCase
         $subscription = $this->GenerateSubscription($user->id, $plan->id);
 
         $this->TestPermissions($token, $key, 'get', "/sys-bin/admin/users/$user->id/subscriptions/$subscription->id", [
-            'subscriptions:*'    => 200,
-            ''                   => 401,
+            'subscriptions:*' => 200,
+            '' => 401,
             'subscriptions:view' => 200,
         ]);
     }
@@ -260,7 +260,7 @@ class SubscriptionControllerTest extends TestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '.$key,
-            'Content-Type'  => 'application/json',
+            'Content-Type' => 'application/json',
         ])->get("/sys-bin/admin/users/$user->id/subscriptions/$subscription->id");
 
         $response->assertStatus(200)
@@ -277,8 +277,8 @@ class SubscriptionControllerTest extends TestCase
         $user = $this->GenerateUser();
 
         $this->TestPermissions($token, $key, 'get', "/sys-bin/admin/users/$user->id/subscriptions", [
-            'subscriptions:*'        => 200,
-            ''                       => 401,
+            'subscriptions:*' => 200,
+            '' => 401,
             'subscriptions:view-all' => 200,
         ]);
     }
@@ -296,7 +296,7 @@ class SubscriptionControllerTest extends TestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '.$key,
-            'Content-Type'  => 'application/json',
+            'Content-Type' => 'application/json',
         ])->get("/sys-bin/admin/users/$user->id/subscriptions");
 
         $response->assertStatus(200);
@@ -315,8 +315,8 @@ class SubscriptionControllerTest extends TestCase
         $subscription = $this->GenerateSubscription($user->id, $plan->id);
 
         $this->TestPermissions($token, $key, 'get', "/sys-bin/admin/users/$user->id/subscriptions/$subscription->id/logs", [
-            'subscriptions:*'    => 200,
-            ''                   => 401,
+            'subscriptions:*' => 200,
+            '' => 401,
             'subscriptions:logs' => 200,
         ]);
     }
@@ -335,7 +335,7 @@ class SubscriptionControllerTest extends TestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '.$key,
-            'Content-Type'  => 'application/json',
+            'Content-Type' => 'application/json',
         ])->get("/sys-bin/admin/users/$user->id/subscriptions/$subscription->id/logs");
 
         $response->assertStatus(200);
@@ -354,8 +354,8 @@ class SubscriptionControllerTest extends TestCase
         $subscription = $this->GenerateSubscription($user->id, $plan->id);
 
         $this->TestPermissions($token, $key, 'get', "/sys-bin/admin/users/$user->id/subscriptions/$subscription->id/usages", [
-            'subscriptions:*'     => 200,
-            ''                    => 401,
+            'subscriptions:*' => 200,
+            '' => 401,
             'subscriptions:stats' => 200,
         ]);
     }
@@ -374,7 +374,7 @@ class SubscriptionControllerTest extends TestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '.$key,
-            'Content-Type'  => 'application/json',
+            'Content-Type' => 'application/json',
         ])->get("/sys-bin/admin/users/$user->id/subscriptions/$subscription->id/usages");
 
         $response->assertStatus(200);
@@ -386,8 +386,8 @@ class SubscriptionControllerTest extends TestCase
         $salt = Str::random(16);
 
         return AccessTokenFactory::new()
-            ->create(['key'   => substr($key, 0, 32),
-                'secret'      => SHA256Hasher::make(substr($key, 32), ['salt' => $salt]),
+            ->create(['key' => substr($key, 0, 32),
+                'secret' => SHA256Hasher::make(substr($key, 32), ['salt' => $salt]),
                 'secret_salt' => $salt,
                 'permissions' => ['subscriptions:*'],
             ]);

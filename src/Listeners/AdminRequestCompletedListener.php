@@ -11,8 +11,6 @@ class AdminRequestCompletedListener
 
     /**
      * AdminRequestCompletedListener constructor.
-     *
-     * @param IAdminLoggingService $adminLoggingService
      */
     public function __construct(IAdminLoggingService $adminLoggingService)
     {
@@ -22,7 +20,6 @@ class AdminRequestCompletedListener
     /**
      * Handle the event.
      *
-     * @param AdminRequestCompleted $event
      *
      * @return void
      */

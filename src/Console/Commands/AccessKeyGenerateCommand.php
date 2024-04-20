@@ -14,7 +14,7 @@ class AccessKeyGenerateCommand extends Command
     /**
      * Create a new AccessKeyGenerateCommand instance.
      *
-     * @param AccessTokenRepository $accessTokenRepository The access token repository.
+     * @param  AccessTokenRepository  $accessTokenRepository  The access token repository.
      */
     public function __construct(AccessTokenRepository $accessTokenRepository)
     {
@@ -38,8 +38,6 @@ class AccessKeyGenerateCommand extends Command
 
     /**
      * Handle the console command.
-     *
-     * @return void
      */
     public function handle(): void
     {
@@ -48,13 +46,13 @@ class AccessKeyGenerateCommand extends Command
 
         // Create the access token
         $this->accessTokenRepository->Create([
-            'key'             => $saltedKey['key'],
-            'salt'            => $saltedKey['salt'],
-            'permissions'     => ['*'],
-            'ip_rule'         => AccessRule::NONE,
-            'ip_range'        => [],
-            'country_rule'    => AccessRule::NONE,
-            'country_range'   => [],
+            'key' => $saltedKey['key'],
+            'salt' => $saltedKey['salt'],
+            'permissions' => ['*'],
+            'ip_rule' => AccessRule::NONE,
+            'ip_range' => [],
+            'country_rule' => AccessRule::NONE,
+            'country_range' => [],
         ]);
 
         // Display the created access key

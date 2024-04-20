@@ -46,9 +46,9 @@ class HMACCenterTest extends TestCase
         $timestamp = Carbon::now()->timestamp;
         $valueToSign = $method.$url.$nonce.$timestamp.json_encode($content);
         $expectedSignature = [
-            'X-HMAC-Timestamp'      => $timestamp,
+            'X-HMAC-Timestamp' => $timestamp,
             'X-HMAC-Content-SHA256' => base64_encode(hash_hmac('sha256', $valueToSign, 'test_token', true)),
-            'X-HMAC-Nonce'          => $nonce,
+            'X-HMAC-Nonce' => $nonce,
         ];
 
         // Act

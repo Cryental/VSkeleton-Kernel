@@ -25,8 +25,8 @@ class UserControllerTest extends TestCase
         $token = $this->GenerateAccessToken($key);
 
         $this->TestPermissions($token, $key, 'post', '/sys-bin/admin/users', [
-            'user:*'      => 201,
-            ''            => 401,
+            'user:*' => 201,
+            '' => 401,
             'user:create' => 201,
         ]);
     }
@@ -56,8 +56,8 @@ class UserControllerTest extends TestCase
         $user = User::query()->first();
 
         $this->TestPermissions($token, $key, 'patchJson', "/sys-bin/admin/users/$user->id", [
-            'user:*'      => 200,
-            ''            => 401,
+            'user:*' => 200,
+            '' => 401,
             'user:update' => 200,
         ]);
     }
@@ -73,7 +73,7 @@ class UserControllerTest extends TestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '.$key,
-            'Content-Type'  => 'application/json',
+            'Content-Type' => 'application/json',
         ])->patchJson("/sys-bin/admin/users/$user->id", [
             'is_active' => false,
         ]);
@@ -93,7 +93,7 @@ class UserControllerTest extends TestCase
         $user = User::query()->first();
 
         $this->TestPermissions($token, $key, 'delete', "/sys-bin/admin/users/$user->id", [
-            ''            => 401,
+            '' => 401,
             'user:delete' => 204,
         ]);
     }
@@ -109,7 +109,7 @@ class UserControllerTest extends TestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '.$key,
-            'Content-Type'  => 'application/json',
+            'Content-Type' => 'application/json',
         ])->delete("/sys-bin/admin/users/$user->id");
 
         $response->assertStatus(204);
@@ -125,8 +125,8 @@ class UserControllerTest extends TestCase
         $user = User::query()->first();
 
         $this->TestPermissions($token, $key, 'get', "/sys-bin/admin/users/$user->id", [
-            'user:*'    => 200,
-            ''          => 401,
+            'user:*' => 200,
+            '' => 401,
             'user:view' => 200,
         ]);
     }
@@ -142,7 +142,7 @@ class UserControllerTest extends TestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '.$key,
-            'Content-Type'  => 'application/json',
+            'Content-Type' => 'application/json',
         ])->get("/sys-bin/admin/users/$user->id");
 
         $response->assertStatus(200);
@@ -154,8 +154,8 @@ class UserControllerTest extends TestCase
         $salt = Str::random(16);
 
         $token = AccessTokenFactory::new()
-            ->create(['key'   => substr($key, 0, 32),
-                'secret'      => SHA256Hasher::make(substr($key, 32), ['salt' => $salt]),
+            ->create(['key' => substr($key, 0, 32),
+                'secret' => SHA256Hasher::make(substr($key, 32), ['salt' => $salt]),
                 'secret_salt' => $salt,
                 'permissions' => ['user:*'], ]);
 

@@ -12,8 +12,8 @@ class Controller extends BaseController
 {
     use AuthorizesRequests;
     use DispatchesJobs;
-    use ValidatesRequests;
     use HasKernelValidations;
+    use ValidatesRequests;
 
     public string $module;
 }

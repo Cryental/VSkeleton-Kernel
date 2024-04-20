@@ -70,7 +70,7 @@ class RequestsCountValidationRuleTest extends TestCase
         return SubscriptionFactory::new()->create([
             'user_id' => $user_id,
             'plan_id' => $plan_id,
-            'status'  => $status,
+            'status' => $status,
         ]);
     }
 

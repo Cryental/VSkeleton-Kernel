@@ -23,15 +23,11 @@ class UserController extends Controller
 
     /**
      * Create a new user.
-     *
-     * @param Request $request
-     *
-     * @return JsonResponse
      */
     public function CreateUser(Request $request): JsonResponse
     {
         try {
-            if (!Permissions::check(AccessTokens::getToken(), $this->module, 'create')) {
+            if (! Permissions::check(AccessTokens::getToken(), $this->module, 'create')) {
                 return response()->json(Messages::E401(), 401);
             }
 
@@ -51,16 +47,11 @@ class UserController extends Controller
 
     /**
      * Update a user.
-     *
-     * @param Request $request
-     * @param string  $userId
-     *
-     * @return JsonResponse
      */
     public function UpdateUser(Request $request, string $userId): JsonResponse
     {
         try {
-            if (!Permissions::check(AccessTokens::getToken(), $this->module, 'update')) {
+            if (! Permissions::check(AccessTokens::getToken(), $this->module, 'update')) {
                 return response()->json(Messages::E401(), 401);
             }
 
@@ -74,7 +65,7 @@ class UserController extends Controller
 
             $updatedUser = $this->userRepository->Update($userId, $request->all());
 
-            if (!$updatedUser) {
+            if (! $updatedUser) {
                 return response()->json(Messages::E404(), 404);
             }
 
@@ -86,16 +77,11 @@ class UserController extends Controller
 
     /**
      * Delete a user.
-     *
-     * @param Request $request
-     * @param string  $userId
-     *
-     * @return JsonResponse
      */
     public function DeleteUser(Request $request, string $userId): JsonResponse
     {
         try {
-            if (!Permissions::check(AccessTokens::getToken(), $this->module, 'delete')) {
+            if (! Permissions::check(AccessTokens::getToken(), $this->module, 'delete')) {
                 return response()->json(Messages::E401(), 401);
             }
 
@@ -125,16 +111,11 @@ class UserController extends Controller
 
     /**
      * Get a user.
-     *
-     * @param Request $request
-     * @param string  $userId
-     *
-     * @return JsonResponse
      */
     public function GetUser(Request $request, string $userId): JsonResponse
     {
         try {
-            if (!Permissions::check(AccessTokens::getToken(), $this->module, 'view')) {
+            if (! Permissions::check(AccessTokens::getToken(), $this->module, 'view')) {
                 return response()->json(Messages::E401(), 401);
             }
 
@@ -148,7 +129,7 @@ class UserController extends Controller
 
             $user = $this->userRepository->Find($userId);
 
-            if (!$user) {
+            if (! $user) {
                 return response()->json(Messages::E404(), 404);
             }
 

@@ -9,9 +9,7 @@ class PersonalTokensCenter
     /**
      * Set the personal token.
      *
-     * @param mixed $token The personal token
-     *
-     * @return void
+     * @param  mixed  $token  The personal token
      */
     public function setToken(mixed $token): void
     {

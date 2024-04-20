@@ -9,6 +9,7 @@ use Volistx\FrameworkKernel\Services\Interfaces\IAdminLoggingService;
 class RemoteAdminLoggingService implements IAdminLoggingService
 {
     private string $httpBaseUrl;
+
     private string $remoteToken;
 
     public function __construct()
@@ -19,10 +20,6 @@ class RemoteAdminLoggingService implements IAdminLoggingService
 
     /**
      * Create a new admin log entry.
-     *
-     * @param array $inputs
-     *
-     * @return void
      */
     public function CreateAdminLog(array $inputs): void
     {
@@ -35,10 +32,6 @@ class RemoteAdminLoggingService implements IAdminLoggingService
 
     /**
      * Get an admin log entry by log ID.
-     *
-     * @param string $logId
-     *
-     * @return mixed
      */
     public function GetAdminLog(string $logId): mixed
     {
@@ -54,19 +47,13 @@ class RemoteAdminLoggingService implements IAdminLoggingService
 
     /**
      * Get all admin log entries with pagination support.
-     *
-     * @param string $search
-     * @param int    $page
-     * @param int    $limit
-     *
-     * @return array|null
      */
-    public function GetAdminLogs(string $search, int $page, int $limit): array|null
+    public function GetAdminLogs(string $search, int $page, int $limit): ?array
     {
         $response = Requests::get("$this->httpBaseUrl/admins/logs", $this->remoteToken, [
             'search' => $search,
-            'page'   => $page,
-            'limit'  => $limit,
+            'page' => $page,
+            'limit' => $limit,
         ]);
 
         // Retry the job if the request fails
@@ -85,8 +72,8 @@ class RemoteAdminLoggingService implements IAdminLoggingService
         return [
             'pagination' => [
                 'per_page' => $logs['pagination']['per_page'],
-                'current'  => $logs['pagination']['current'],
-                'total'    => $logs['pagination']['total'],
+                'current' => $logs['pagination']['current'],
+                'total' => $logs['pagination']['total'],
             ],
             'items' => $logDTOs,
         ];

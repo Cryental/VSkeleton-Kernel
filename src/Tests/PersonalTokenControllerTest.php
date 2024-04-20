@@ -29,17 +29,17 @@ class PersonalTokenControllerTest extends TestCase
         $user = $this->generateUserWithTokens(1);
 
         $this->TestPermissions($token, $key, 'postJson', "/sys-bin/admin/users/$user->id/personal-tokens", [
-            'personal-tokens:*'      => 201,
-            ''                       => 401,
+            'personal-tokens:*' => 201,
+            '' => 401,
             'personal-tokens:create' => 201,
         ], [
-            'name'            => 'Test Token',
-            'expires_at'      => null,
-            'permissions'     => ['*'],
-            'ip_rule'         => AccessRule::NONE,
-            'ip_range'        => [],
-            'country_rule'    => 0,
-            'country_range'   => [],
+            'name' => 'Test Token',
+            'expires_at' => null,
+            'permissions' => ['*'],
+            'ip_rule' => AccessRule::NONE,
+            'ip_range' => [],
+            'country_rule' => 0,
+            'country_range' => [],
             'disable_logging' => false,
             'rate_limit_mode' => RateLimitMode::SUBSCRIPTION,
         ]);
@@ -57,13 +57,13 @@ class PersonalTokenControllerTest extends TestCase
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '.$key,
         ])->postJson("/sys-bin/admin/users/$user->id/personal-tokens", [
-            'name'            => 'Test Token',
-            'expires_at'      => null,
-            'permissions'     => ['*'],
-            'ip_rule'         => AccessRule::NONE,
-            'ip_range'        => [],
-            'country_rule'    => 0,
-            'country_range'   => [],
+            'name' => 'Test Token',
+            'expires_at' => null,
+            'permissions' => ['*'],
+            'ip_rule' => AccessRule::NONE,
+            'ip_range' => [],
+            'country_rule' => 0,
+            'country_range' => [],
             'disable_logging' => false,
             'rate_limit_mode' => RateLimitMode::SUBSCRIPTION,
         ]);
@@ -82,8 +82,8 @@ class PersonalTokenControllerTest extends TestCase
         $personalToken = PersonalToken::query()->first();
 
         $this->TestPermissions($token, $key, 'patchJson', "/sys-bin/admin/users/$user->id/personal-tokens/$personalToken->id", [
-            'personal-tokens:*'      => 200,
-            ''                       => 401,
+            'personal-tokens:*' => 200,
+            '' => 401,
             'personal-tokens:update' => 200,
         ], ['name' => 'Updated Token']);
     }
@@ -100,7 +100,7 @@ class PersonalTokenControllerTest extends TestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '.$key,
-            'Content-Type'  => 'application/json',
+            'Content-Type' => 'application/json',
         ])->patchJson("/sys-bin/admin/users/{$user->id}/personal-tokens/{$personalToken->id}", [
             'name' => 'Updated Token',
         ]);
@@ -121,8 +121,8 @@ class PersonalTokenControllerTest extends TestCase
         $personalToken = PersonalToken::query()->first();
 
         $this->TestPermissions($token, $key, 'post', "/sys-bin/admin/users/$user->id/personal-tokens/$personalToken->id/reset", [
-            'personal-tokens:*'     => 200,
-            ''                      => 401,
+            'personal-tokens:*' => 200,
+            '' => 401,
             'personal-tokens:reset' => 200,
         ]);
     }
@@ -158,7 +158,7 @@ class PersonalTokenControllerTest extends TestCase
         $personalToken = PersonalToken::query()->first();
 
         $this->TestPermissions($token, $key, 'delete', "/sys-bin/admin/users/$user->id/personal-tokens/$personalToken->id", [
-            ''                       => 401,
+            '' => 401,
             'personal-tokens:delete' => 204,
         ]);
     }
@@ -175,7 +175,7 @@ class PersonalTokenControllerTest extends TestCase
 
         $response = $this->withHeaders([
             'Authorization' => 'Bearer '.$key,
-            'Content-Type'  => 'application/json',
+            'Content-Type' => 'application/json',
         ])->delete("/sys-bin/admin/users/{$user->id}/personal-tokens/{$personalToken->id}");
 
         $response->assertStatus(204);
@@ -193,8 +193,8 @@ class PersonalTokenControllerTest extends TestCase
         $personalToken = PersonalToken::query()->first();
 
         $this->TestPermissions($token, $key, 'get', "/sys-bin/admin/users/$user->id/personal-tokens/$personalToken->id", [
-            'personal-tokens:*'    => 200,
-            ''                     => 401,
+            'personal-tokens:*' => 200,
+            '' => 401,
             'personal-tokens:view' => 200,
         ]);
     }
@@ -228,8 +228,8 @@ class PersonalTokenControllerTest extends TestCase
         $user = $this->generateUserWithTokens(5);
 
         $this->TestPermissions($token, $key, 'get', "/sys-bin/admin/users/$user->id/personal-tokens", [
-            'personal-tokens:*'        => 200,
-            ''                         => 401,
+            'personal-tokens:*' => 200,
+            '' => 401,
             'personal-tokens:view-all' => 200,
         ]);
     }
@@ -272,8 +272,8 @@ class PersonalTokenControllerTest extends TestCase
         $salt = Str::random(16);
 
         return AccessTokenFactory::new()
-            ->create(['key'   => substr($key, 0, 32),
-                'secret'      => SHA256Hasher::make(substr($key, 32), ['salt' => $salt]),
+            ->create(['key' => substr($key, 0, 32),
+                'secret' => SHA256Hasher::make(substr($key, 32), ['salt' => $salt]),
                 'secret_salt' => $salt,
                 'permissions' => ['personal-tokens:*'], ]);
     }

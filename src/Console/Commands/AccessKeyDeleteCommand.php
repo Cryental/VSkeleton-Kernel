@@ -12,7 +12,7 @@ class AccessKeyDeleteCommand extends Command
     /**
      * Create a new AccessKeyDeleteCommand instance.
      *
-     * @param AccessTokenRepository $accessTokenRepository The access token repository.
+     * @param  AccessTokenRepository  $accessTokenRepository  The access token repository.
      */
     public function __construct(AccessTokenRepository $accessTokenRepository)
     {
@@ -54,7 +54,7 @@ class AccessKeyDeleteCommand extends Command
         $accessToken = $this->accessTokenRepository->AuthAccessToken($token);
 
         // Check if the access token exists
-        if (!$accessToken) {
+        if (! $accessToken) {
             $this->error('The specified access key is invalid.');
 
             return;

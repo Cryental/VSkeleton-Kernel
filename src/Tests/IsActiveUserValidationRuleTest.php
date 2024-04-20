@@ -46,7 +46,7 @@ class IsActiveUserValidationRuleTest extends TestCase
         $this->assertEquals(
             [
                 'message' => Messages::E403(trans('volistx::user:inactive_user')),
-                'code'    => 403,
+                'code' => 403,
             ],
             $result
         );
@@ -57,7 +57,7 @@ class IsActiveUserValidationRuleTest extends TestCase
         return SubscriptionFactory::new()->create([
             'user_id' => $user_id,
             'plan_id' => $plan_id,
-            'status'  => $status,
+            'status' => $status,
         ]);
     }
 
