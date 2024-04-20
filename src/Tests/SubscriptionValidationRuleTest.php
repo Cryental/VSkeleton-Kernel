@@ -109,11 +109,11 @@ class SubscriptionValidationRuleTest extends TestCase
     {
         return PersonalTokenFactory::new()->create(
             array_merge(
-            [
-                'user_id' => $user_id,
-            ],
-            $inputs
-        )
+                [
+                    'user_id' => $user_id,
+                ],
+                $inputs
+            )
         );
     }
 
@@ -121,11 +121,11 @@ class SubscriptionValidationRuleTest extends TestCase
     {
         return SubscriptionFactory::new()->create(
             array_merge(
-            [
-                'user_id' => $user_id,
-            ],
-            $inputs
-        )
+                [
+                    'user_id' => $user_id,
+                ],
+                $inputs
+            )
         );
     }
 }

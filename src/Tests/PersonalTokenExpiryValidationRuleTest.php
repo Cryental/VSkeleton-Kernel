@@ -93,11 +93,11 @@ class PersonalTokenExpiryValidationRuleTest extends TestCase
     {
         return PersonalTokenFactory::new()->create(
             array_merge(
-            [
-                'user_id' => $user_id,
-            ],
-            $inputs
-        )
+                [
+                    'user_id' => $user_id,
+                ],
+                $inputs
+            )
         );
     }
 }
