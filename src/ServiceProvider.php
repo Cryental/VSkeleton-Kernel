@@ -2,7 +2,6 @@
 
 namespace Volistx\FrameworkKernel;
 
-use ESolution\DBEncryption\Providers\DBEncryptionServiceProvider;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Console\Scheduling\ScheduleClearCacheCommand;
 use Illuminate\Console\Scheduling\ScheduleListCommand;
@@ -52,8 +51,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             PlansServiceProvider::class,
             UserLoggingServiceProvider::class,
             RequestsServiceProvider::class,
-            ValidationProvider::class,
-            DBEncryptionServiceProvider::class,
+            ValidationProvider::class
         ];
 
         foreach ($serviceProvider as $provider) {

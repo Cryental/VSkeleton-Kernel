@@ -43,9 +43,7 @@ class GeoPoint extends AbstractService
         ]);
 
         // Verify server response
-        if ($this->client->getErrors() !== null || empty($data[0])) {
-            throw new Exception('Request failed ('.$this->client->getErrors().')');
-        }
+        throw_if($this->client->getErrors() !== null || empty($data[0]), new Exception('Request failed ('.$this->client->getErrors().')'));
 
         $json = json_decode($data[0], true);
 
