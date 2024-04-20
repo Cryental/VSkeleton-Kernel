@@ -14,37 +14,32 @@ class PlanRepository
     /**
      * Create a new plan.
      *
-     * @param array $inputs [name, tag, description, data, price, tier, custom]
-     *
-     * @return Model|Builder
+     * @param  array  $inputs  [name, tag, description, data, price, tier, custom]
      */
     public function Create(array $inputs): Model|Builder
     {
         return Plan::query()->create([
-            'name'        => $inputs['name'],
-            'tag'         => $inputs['tag'],
+            'name' => $inputs['name'],
+            'tag' => $inputs['tag'],
             'description' => $inputs['description'],
-            'data'        => $inputs['data'],
-            'price'       => $inputs['price'],
-            'tier'        => $inputs['tier'],
-            'custom'      => $inputs['custom'],
-            'is_active'   => true,
+            'data' => $inputs['data'],
+            'price' => $inputs['price'],
+            'tier' => $inputs['tier'],
+            'custom' => $inputs['custom'],
+            'is_active' => true,
         ]);
     }
 
     /**
      * Update an existing plan.
      *
-     * @param string $planId
-     * @param array  $inputs [name, tag, description, data, price, tier, custom, is_active]
-     *
-     * @return object|null
+     * @param  array  $inputs  [name, tag, description, data, price, tier, custom, is_active]
      */
     public function Update(string $planId, array $inputs): ?object
     {
         $plan = $this->Find($planId);
 
-        if (!$plan) {
+        if (! $plan) {
             return null;
         }
 
@@ -87,10 +82,6 @@ class PlanRepository
 
     /**
      * Find a plan by ID.
-     *
-     * @param string $planId
-     *
-     * @return object|null
      */
     public function Find(string $planId): ?object
     {
@@ -99,16 +90,12 @@ class PlanRepository
 
     /**
      * Delete a plan by ID.
-     *
-     * @param string $planId
-     *
-     * @return bool|null
      */
     public function Delete(string $planId): ?bool
     {
         $toBeDeletedPlan = $this->Find($planId);
 
-        if (!$toBeDeletedPlan) {
+        if (! $toBeDeletedPlan) {
             return null;
         }
 
@@ -123,12 +110,6 @@ class PlanRepository
 
     /**
      * Find all plans with pagination support.
-     *
-     * @param string $search
-     * @param int    $page
-     * @param int    $limit
-     *
-     * @return LengthAwarePaginator|null
      */
     public function FindAll(string $search, int $page, int $limit): ?LengthAwarePaginator
     {
@@ -137,7 +118,7 @@ class PlanRepository
             $search = 'id:';
         }
 
-        if (!str_contains($search, ':')) {
+        if (! str_contains($search, ':')) {
             return null;
         }
 
@@ -145,7 +126,7 @@ class PlanRepository
         $values = explode(':', $search, 2);
         $columnName = strtolower(trim($values[0]));
 
-        if (!in_array($columnName, $columns)) {
+        if (! in_array($columnName, $columns)) {
             return null;
         }
 

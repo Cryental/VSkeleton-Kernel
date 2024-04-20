@@ -24,7 +24,7 @@ class GeoPoint extends AbstractService
     {
         $this->client = new HttpClient([
             'base_uri' => ($this->config('secure') ? 'https' : 'http').'://'.$this->config('base_uri', 'geopoint.api.volistx.io').'/',
-            'headers'  => [
+            'headers' => [
                 'Authorization' => 'Bearer '.$this->config('key'),
             ],
         ]);
@@ -48,17 +48,17 @@ class GeoPoint extends AbstractService
         $json = json_decode($data[0], true);
 
         return $this->hydrate([
-            'ip'          => $ip,
-            'iso_code'    => $json->country->code,
-            'country'     => $json->country->name,
-            'city'        => $json->city->name,
-            'state'       => $json->region->code,
-            'state_name'  => $json->region->name,
+            'ip' => $ip,
+            'iso_code' => $json->country->code,
+            'country' => $json->country->name,
+            'city' => $json->city->name,
+            'state' => $json->region->code,
+            'state_name' => $json->region->name,
             'postal_code' => $json->postal_code,
-            'lat'         => $json->location->latitude,
-            'lon'         => $json->location->longitude,
-            'timezone'    => $json->timezone->id,
-            'continent'   => $json->continent->code,
+            'lat' => $json->location->latitude,
+            'lon' => $json->location->longitude,
+            'timezone' => $json->timezone->id,
+            'continent' => $json->continent->code,
         ]);
     }
 }

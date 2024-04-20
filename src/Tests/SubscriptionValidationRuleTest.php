@@ -26,7 +26,7 @@ class SubscriptionValidationRuleTest extends TestCase
         $subscription = $this->GenerateSubscription(
             $user->id,
             [
-                'status'  => SubscriptionStatus::ACTIVE,
+                'status' => SubscriptionStatus::ACTIVE,
                 'plan_id' => $plan->id,
             ]
         );
@@ -52,7 +52,7 @@ class SubscriptionValidationRuleTest extends TestCase
         $subscription = $this->GenerateSubscription(
             $user->id,
             [
-                'status'  => SubscriptionStatus::INACTIVE,
+                'status' => SubscriptionStatus::INACTIVE,
                 'plan_id' => $plan->id,
             ]
         );
@@ -89,7 +89,7 @@ class SubscriptionValidationRuleTest extends TestCase
         $this->assertEquals(
             [
                 'message' => Messages::E403(trans('volistx::subscription.expired')),
-                'code'    => 403,
+                'code' => 403,
             ],
             $result
         );

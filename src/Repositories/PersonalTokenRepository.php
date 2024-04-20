@@ -15,28 +15,27 @@ class PersonalTokenRepository
     /**
      * Create a new personal token.
      *
-     * @param array $inputs The input data for creating the personal token.
-     *
+     * @param  array  $inputs  The input data for creating the personal token.
      * @return Model|Builder The created personal token model or builder instance.
      */
     public function Create(array $inputs): Model|Builder
     {
         return PersonalToken::query()->create([
-            'user_id'         => $inputs['user_id'],
-            'name'            => $inputs['name'],
-            'key'             => substr($inputs['key'], 0, 32),
-            'secret'          => SHA256Hasher::make(substr($inputs['key'], 32), ['salt' => $inputs['salt']]),
-            'secret_salt'     => $inputs['salt'],
-            'permissions'     => $inputs['permissions'],
+            'user_id' => $inputs['user_id'],
+            'name' => $inputs['name'],
+            'key' => substr($inputs['key'], 0, 32),
+            'secret' => SHA256Hasher::make(substr($inputs['key'], 32), ['salt' => $inputs['salt']]),
+            'secret_salt' => $inputs['salt'],
+            'permissions' => $inputs['permissions'],
             'rate_limit_mode' => $inputs['rate_limit_mode'],
-            'ip_rule'         => $inputs['ip_rule'],
-            'ip_range'        => $inputs['ip_range'],
-            'country_rule'    => $inputs['country_rule'],
-            'country_range'   => $inputs['country_range'],
-            'hmac_token'      => $inputs['hmac_token'],
-            'activated_at'    => Carbon::now(),
-            'expires_at'      => $inputs['expires_at'],
-            'hidden'          => $inputs['hidden'],
+            'ip_rule' => $inputs['ip_rule'],
+            'ip_range' => $inputs['ip_range'],
+            'country_rule' => $inputs['country_rule'],
+            'country_range' => $inputs['country_range'],
+            'hmac_token' => $inputs['hmac_token'],
+            'activated_at' => Carbon::now(),
+            'expires_at' => $inputs['expires_at'],
+            'hidden' => $inputs['hidden'],
             'disable_logging' => $inputs['disable_logging'],
         ]);
     }
@@ -44,16 +43,15 @@ class PersonalTokenRepository
     /**
      * Update an existing personal token.
      *
-     * @param string $userId  The ID of the user.
-     * @param string $tokenId The ID of the personal token to update.
-     * @param array  $inputs  The input data for updating the personal token.
-     *
+     * @param  string  $userId  The ID of the user.
+     * @param  string  $tokenId  The ID of the personal token to update.
+     * @param  array  $inputs  The input data for updating the personal token.
      * @return object|null The updated personal token object or null if token not found.
      */
     public function Update(string $userId, string $tokenId, array $inputs): ?object
     {
         $token = $this->Find($userId, $tokenId);
-        if (!$token) {
+        if (! $token) {
             return null;
         }
 
@@ -96,9 +94,8 @@ class PersonalTokenRepository
     /**
      * Find a personal token by user ID and token ID.
      *
-     * @param string $userId  The ID of the user.
-     * @param string $tokenId The ID of the personal token to find.
-     *
+     * @param  string  $userId  The ID of the user.
+     * @param  string  $tokenId  The ID of the personal token to find.
      * @return object|null The found personal token object or null if not found.
      */
     public function Find(string $userId, string $tokenId): ?object
@@ -112,16 +109,15 @@ class PersonalTokenRepository
     /**
      * Reset a personal token.
      *
-     * @param string $userId  The ID of the user.
-     * @param string $tokenId The ID of the personal token to reset.
-     * @param array  $inputs  The input data for resetting the personal token.
-     *
+     * @param  string  $userId  The ID of the user.
+     * @param  string  $tokenId  The ID of the personal token to reset.
+     * @param  array  $inputs  The input data for resetting the personal token.
      * @return object|null The reset personal token object or null if token not found.
      */
     public function Reset(string $userId, string $tokenId, array $inputs): ?object
     {
         $token = $this->Find($userId, $tokenId);
-        if (!$token) {
+        if (! $token) {
             return null;
         }
 
@@ -136,15 +132,14 @@ class PersonalTokenRepository
     /**
      * Delete a personal token.
      *
-     * @param string $userId  The ID of the user.
-     * @param string $tokenId The ID of the personal token to delete.
-     *
+     * @param  string  $userId  The ID of the user.
+     * @param  string  $tokenId  The ID of the personal token to delete.
      * @return bool|null True if token deleted, null if token not found.
      */
     public function Delete(string $userId, string $tokenId): ?bool
     {
         $toBeDeletedToken = $this->Find($userId, $tokenId);
-        if (!$toBeDeletedToken) {
+        if (! $toBeDeletedToken) {
             return null;
         }
 
@@ -156,13 +151,12 @@ class PersonalTokenRepository
     /**
      * Find all personal tokens with pagination support.
      *
-     * @param string $search The search query.
-     * @param int    $page   The page number.
-     * @param int    $limit  The number of items per page.
-     *
+     * @param  string  $search  The search query.
+     * @param  int  $page  The page number.
+     * @param  int  $limit  The number of items per page.
      * @return LengthAwarePaginator|null The paginated personal tokens or null if search query is invalid.
      */
-    public function FindAll(string $search, int $page, int $limit): LengthAwarePaginator|null
+    public function FindAll(string $search, int $page, int $limit): ?LengthAwarePaginator
     {
         // Handle empty search query
         if ($search === '') {
@@ -170,7 +164,7 @@ class PersonalTokenRepository
         }
 
         // Check if search query is in valid format
-        if (!str_contains($search, ':')) {
+        if (! str_contains($search, ':')) {
             return null;
         }
 
@@ -179,7 +173,7 @@ class PersonalTokenRepository
         $columnName = strtolower(trim($values[0]));
 
         // Check if the column name is valid
-        if (!in_array($columnName, $columns)) {
+        if (! in_array($columnName, $columns)) {
             return null;
         }
 
@@ -194,8 +188,7 @@ class PersonalTokenRepository
     /**
      * Authenticate a personal token.
      *
-     * @param string $token The personal token to authenticate.
-     *
+     * @param  string  $token  The personal token to authenticate.
      * @return object|null The authenticated personal token object or null if authentication fails.
      */
     public function AuthPersonalToken(string $token): ?object
@@ -209,8 +202,7 @@ class PersonalTokenRepository
     /**
      * Delete hidden tokens for a user.
      *
-     * @param string $userId The ID of the user.
-     *
+     * @param  string  $userId  The ID of the user.
      * @return bool True if hidden tokens deleted.
      */
     public function DeleteHiddenTokens(string $userId): bool

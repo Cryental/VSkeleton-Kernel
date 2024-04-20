@@ -15,7 +15,9 @@ class SubscriptionExpiresSoon implements ShouldQueue
     use SerializesModels;
 
     public string $subscriptionId;
+
     public int $attemptNumber;
+
     public string $userId;
 
     public function __construct(string $subscriptionId, string $userId, int $attemptNumber = 1)
@@ -36,15 +38,15 @@ class SubscriptionExpiresSoon implements ShouldQueue
         $token = config('volistx.webhooks.subscription.expires_soon.token');
 
         // Check if the attempt number exceeds the limit or if the URL or token is not provided
-        if ($this->attemptNumber > 3 || !$url || !$token) {
+        if ($this->attemptNumber > 3 || ! $url || ! $token) {
             return;
         }
 
         $response = Requests::post($url, $token, [
-            'type'    => 'subscription_expires_soon',
+            'type' => 'subscription_expires_soon',
             'payload' => [
                 'subscription_id' => $this->subscriptionId,
-                'user_id'         => $this->userId,
+                'user_id' => $this->userId,
             ],
         ]);
 

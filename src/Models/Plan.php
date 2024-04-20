@@ -20,12 +20,14 @@ class Plan extends Model
      * @var bool
      */
     public $timestamps = true;
+
     /**
      * The table associated with the model.
      *
      * @var string
      */
     protected $table = 'plans';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -43,11 +45,11 @@ class Plan extends Model
     ];
 
     protected $casts = [
-        'is_active'  => 'boolean',
-        'data'       => 'array',
-        'price'      => 'float',
-        'custom'     => 'boolean',
-        'tier'       => 'integer',
+        'is_active' => 'boolean',
+        'data' => 'array',
+        'price' => 'float',
+        'custom' => 'boolean',
+        'tier' => 'integer',
         'created_at' => 'date:Y-m-d H:i:s',
         'updated_at' => 'date:Y-m-d H:i:s',
     ];

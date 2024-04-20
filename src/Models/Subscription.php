@@ -21,12 +21,14 @@ class Subscription extends Model
      * @var bool
      */
     public $timestamps = true;
+
     /**
      * The table associated with the model.
      *
      * @var string
      */
     protected $table = 'subscriptions';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -43,13 +45,13 @@ class Subscription extends Model
     ];
 
     protected $casts = [
-        'status'              => SubscriptionStatus::class,
-        'activated_at'        => 'date:Y-m-d H:i:s',
-        'expires_at'          => 'date:Y-m-d H:i:s',
-        'cancels_at'          => 'date:Y-m-d H:i:s',
-        'cancelled_at'        => 'date:Y-m-d H:i:s',
-        'created_at'          => 'date:Y-m-d H:i:s',
-        'updated_at'          => 'date:Y-m-d H:i:s',
+        'status' => SubscriptionStatus::class,
+        'activated_at' => 'date:Y-m-d H:i:s',
+        'expires_at' => 'date:Y-m-d H:i:s',
+        'cancels_at' => 'date:Y-m-d H:i:s',
+        'cancelled_at' => 'date:Y-m-d H:i:s',
+        'created_at' => 'date:Y-m-d H:i:s',
+        'updated_at' => 'date:Y-m-d H:i:s',
     ];
 
     public function plan(): BelongsTo

@@ -28,8 +28,8 @@ class UserLogControllerTest extends TestCase
         $log = UserLog::query()->first();
 
         $this->TestPermissions($token, $key, 'get', "/sys-bin/admin/user-logs/$log->id", [
-            'user-logs:*'    => 200,
-            ''               => 401,
+            'user-logs:*' => 200,
+            '' => 401,
             'user-logs:view' => 200,
         ]);
     }
@@ -60,8 +60,8 @@ class UserLogControllerTest extends TestCase
         $token = $this->GenerateAccessToken($key, 5);
 
         $this->TestPermissions($token, $key, 'get', '/sys-bin/admin/user-logs', [
-            'user-logs:*'        => 200,
-            ''                   => 401,
+            'user-logs:*' => 200,
+            '' => 401,
             'user-logs:view-all' => 200,
         ]);
     }
@@ -102,8 +102,8 @@ class UserLogControllerTest extends TestCase
     {
         $salt = Str::random(16);
         $token = AccessTokenFactory::new()
-            ->create(['key'   => substr($key, 0, 32),
-                'secret'      => SHA256Hasher::make(substr($key, 32), ['salt' => $salt]),
+            ->create(['key' => substr($key, 0, 32),
+                'secret' => SHA256Hasher::make(substr($key, 32), ['salt' => $salt]),
                 'secret_salt' => $salt,
                 'permissions' => ['user-logs:*'], ]);
 

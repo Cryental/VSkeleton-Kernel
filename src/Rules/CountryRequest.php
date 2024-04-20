@@ -17,7 +17,7 @@ class CountryRequest implements Rule
     public function passes($attribute, $value): bool
     {
         foreach ($value as $country) {
-            if (!in_array(strtoupper($country), $this->countries)) {
+            if (! in_array(strtoupper($country), $this->countries)) {
                 return false;
             }
         }

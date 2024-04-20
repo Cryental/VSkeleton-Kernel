@@ -17,8 +17,6 @@ class AdminAuthMiddleware
 
     /**
      * AdminAuthMiddleware constructor.
-     *
-     * @param AccessTokenRepository $accessTokenRepository
      */
     public function __construct(AccessTokenRepository $accessTokenRepository)
     {
@@ -28,8 +26,6 @@ class AdminAuthMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param Request $request
-     * @param Closure $next
      *
      * @return mixed
      */
@@ -37,7 +33,7 @@ class AdminAuthMiddleware
     {
         // Authenticate the access token
         $token = $this->accessTokenRepository->AuthAccessToken($request->bearerToken());
-        if (!$token) {
+        if (! $token) {
             return response()->json(Messages::E401(), 401);
         }
 

@@ -14,8 +14,6 @@ class UserAuthMiddleware
 
     /**
      * UserAuthMiddleware constructor.
-     *
-     * @param PersonalTokenRepository $personalTokenRepository
      */
     public function __construct(PersonalTokenRepository $personalTokenRepository)
     {
@@ -25,8 +23,6 @@ class UserAuthMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param Request $request
-     * @param Closure $next
      *
      * @return mixed
      */
@@ -34,7 +30,7 @@ class UserAuthMiddleware
     {
         // Authenticate the personal token
         $token = $this->personalTokenRepository->AuthPersonalToken($request->bearerToken());
-        if (!$token) {
+        if (! $token) {
             return response()->json(Messages::E401(), 401);
         }
 

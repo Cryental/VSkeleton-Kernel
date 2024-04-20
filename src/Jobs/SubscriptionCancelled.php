@@ -15,7 +15,9 @@ class SubscriptionCancelled implements ShouldQueue
     use SerializesModels;
 
     public string $subscriptionId;
+
     public int $attemptNumber;
+
     public string $userId;
 
     public function __construct(string $subscriptionId, string $userId, int $attemptNumber = 1)
@@ -36,15 +38,15 @@ class SubscriptionCancelled implements ShouldQueue
         $token = config('volistx.webhooks.subscription.cancelled.token');
 
         // Check if the attempt number exceeds the limit or if the URL or token is not provided
-        if ($this->attemptNumber > 3 || !$url || !$token) {
+        if ($this->attemptNumber > 3 || ! $url || ! $token) {
             return;
         }
 
         $response = Requests::post($url, $token, [
-            'type'    => 'subscription_cancelled',
+            'type' => 'subscription_cancelled',
             'payload' => [
                 'subscription_id' => $this->subscriptionId,
-                'user_id'         => $this->userId,
+                'user_id' => $this->userId,
             ],
         ]);
 

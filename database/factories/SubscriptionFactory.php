@@ -25,13 +25,13 @@ class SubscriptionFactory extends Factory
     public function definition()
     {
         return [
-            'user_id'           => Str::ulid()->toRfc4122(),
-            'plan_id'           => Str::ulid()->toRfc4122(),
-            'activated_at'      => Carbon::now(),
-            'expires_at'        => Carbon::now()->addHours($this->faker->numberBetween(24, 720)),
-            'status'            => SubscriptionStatus::ACTIVE,
-            'cancels_at'        => null,
-            'cancelled_at'      => null,
+            'user_id' => Str::ulid()->toRfc4122(),
+            'plan_id' => Str::ulid()->toRfc4122(),
+            'activated_at' => Carbon::now(),
+            'expires_at' => Carbon::now()->addHours($this->faker->numberBetween(24, 720)),
+            'status' => SubscriptionStatus::ACTIVE,
+            'cancels_at' => null,
+            'cancelled_at' => null,
         ];
     }
 }

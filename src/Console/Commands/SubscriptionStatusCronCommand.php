@@ -29,8 +29,6 @@ class SubscriptionStatusCronCommand extends Command
 
     /**
      * Handle the console command.
-     *
-     * @return void
      */
     public function handle(): void
     {

@@ -14,7 +14,7 @@ class UserRequestCompletedListener
     /**
      * UserRequestCompletedListener constructor.
      *
-     * @param IUserLoggingService $userLoggingService The user logging service.
+     * @param  IUserLoggingService  $userLoggingService  The user logging service.
      */
     public function __construct(IUserLoggingService $userLoggingService)
     {
@@ -24,8 +24,7 @@ class UserRequestCompletedListener
     /**
      * Handle the UserRequestCompleted event.
      *
-     * @param UserRequestCompleted $event The UserRequestCompleted event instance.
-     *
+     * @param  UserRequestCompleted  $event  The UserRequestCompleted event instance.
      * @return void
      */
     public function handle(UserRequestCompleted $event)

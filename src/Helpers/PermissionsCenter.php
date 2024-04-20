@@ -53,10 +53,9 @@ class PermissionsCenter
     /**
      * Checks if a key has the required permissions for a module and operation.
      *
-     * @param mixed  $key       The key object
-     * @param string $module    The module name
-     * @param string $operation The operation name
-     *
+     * @param  mixed  $key  The key object
+     * @param  string  $module  The module name
+     * @param  string  $operation  The operation name
      * @return bool True if the key has the required permissions, false otherwise
      */
     public function check(mixed $key, string $module, string $operation): bool

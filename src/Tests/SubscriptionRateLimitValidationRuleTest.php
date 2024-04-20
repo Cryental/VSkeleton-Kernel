@@ -74,7 +74,7 @@ class SubscriptionRateLimitValidationRuleTest extends TestCase
         $this->assertEquals(
             [
                 'message' => Messages::E429(),
-                'code'    => 429,
+                'code' => 429,
             ],
             $result
         );

@@ -29,8 +29,6 @@ class SubscriptionExpiresSoonCronCommand extends Command
 
     /**
      * Handle the console command.
-     *
-     * @return void
      */
     public function handle(): void
     {

@@ -35,7 +35,7 @@ class IPValidationRuleTest extends TestCase
     {
         $user = $this->GenerateUser();
         $token = $this->generatePersonalToken($user->id, [
-            'ip_rule'  => AccessRule::BLACKLIST,
+            'ip_rule' => AccessRule::BLACKLIST,
             'ip_range' => ['192.168.1.1', '192.168.2.1'],
         ]);
         PersonalTokens::shouldReceive('getToken')->andReturn($token);
@@ -52,7 +52,7 @@ class IPValidationRuleTest extends TestCase
         $this->assertEquals(
             [
                 'message' => Messages::E403(trans('volistx::service.not_allowed_to_access_from_your_ip')),
-                'code'    => 403,
+                'code' => 403,
             ],
             $result
         );
@@ -62,7 +62,7 @@ class IPValidationRuleTest extends TestCase
     {
         $user = $this->GenerateUser();
         $token = $this->generatePersonalToken($user->id, [
-            'ip_rule'  => AccessRule::WHITELIST,
+            'ip_rule' => AccessRule::WHITELIST,
             'ip_range' => ['192.168.1.1', '192.168.2.1'],
         ]);
         PersonalTokens::shouldReceive('getToken')->andReturn($token);
@@ -79,7 +79,7 @@ class IPValidationRuleTest extends TestCase
         $this->assertEquals(
             [
                 'message' => Messages::E403(trans('volistx::service.not_allowed_to_access_from_your_ip')),
-                'code'    => 403,
+                'code' => 403,
             ],
             $result
         );
