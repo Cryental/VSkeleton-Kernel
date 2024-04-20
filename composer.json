@@ -37,7 +37,6 @@
       "Volistx\\FrameworkKernel\\Database\\Factories\\": "database/factories",
       "Volistx\\FrameworkKernel\\Database\\Seeders\\": "database/seeders",
       "Volistx\\FrameworkKernel\\Tests\\": "src/Tests/"
-
     },
     "classmap": [
       "src/Helpers"

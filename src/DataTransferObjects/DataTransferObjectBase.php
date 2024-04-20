@@ -6,7 +6,7 @@ use ReflectionClass;
 use ReflectionProperty;
 use stdClass;
 
-abstract class DataTransferObjectBase
+class DataTransferObjectBase
 {
     protected $entity;
 
