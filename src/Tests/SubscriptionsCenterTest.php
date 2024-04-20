@@ -4,6 +4,7 @@ namespace Volistx\FrameworkKernel\Tests;
 
 use Carbon\Carbon;
 use Illuminate\Contracts\Events\Dispatcher;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\MockObject\MockObject;
 use Volistx\FrameworkKernel\Helpers\SubscriptionCenter;
 use Volistx\FrameworkKernel\Jobs\SubscriptionCancelled;
@@ -33,6 +34,7 @@ class SubscriptionsCenterTest extends TestCase
         $this->eventDispatcherMock = null;
     }
 
+    #[Test]
     public function testShouldSubscriptionBeExpired()
     {
         $subscription = (object) [
@@ -44,6 +46,7 @@ class SubscriptionsCenterTest extends TestCase
         $this->assertTrue($result);
     }
 
+    #[Test]
     public function testShouldSubscriptionBeCancelled()
     {
         $subscription = (object) [
@@ -55,6 +58,7 @@ class SubscriptionsCenterTest extends TestCase
         $this->assertTrue($result);
     }
 
+    #[Test]
     public function testUpdateSubscriptionExpiryStatus()
     {
         $userId = 'user123';
@@ -76,6 +80,7 @@ class SubscriptionsCenterTest extends TestCase
         $this->subscriptionCenter->updateSubscriptionExpiryStatus($userId, $subscription);
     }
 
+    #[Test]
     public function testUpdateSubscriptionCancellationStatus()
     {
         $userId = 'user123';
@@ -97,6 +102,7 @@ class SubscriptionsCenterTest extends TestCase
         $this->subscriptionCenter->updateSubscriptionCancellationStatus($userId, $subscription);
     }
 
+    #[Test]
     public function testProcessUserActiveSubscriptionsStatus()
     {
         $userId = 'user123';
@@ -117,6 +123,7 @@ class SubscriptionsCenterTest extends TestCase
         $this->assertSame($activeSubscription, $result);
     }
 
+    #[Test]
     public function testProcessUserInactiveSubscriptionsStatus()
     {
         $userId = 'user123';

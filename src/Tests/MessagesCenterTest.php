@@ -2,10 +2,12 @@
 
 namespace Volistx\FrameworkKernel\Tests;
 
+use PHPUnit\Framework\Attributes\Test;
 use Volistx\FrameworkKernel\Helpers\MessagesCenter;
 
 class MessagesCenterTest extends TestCase
 {
+    #[Test]
     public function testError()
     {
         $type = 'InvalidParameter';
@@ -23,6 +25,7 @@ class MessagesCenterTest extends TestCase
         $this->assertEquals($expectedResult, $result);
     }
 
+    #[Test]
     public function testE400()
     {
         $error = 'Some specific error message';
@@ -39,6 +42,7 @@ class MessagesCenterTest extends TestCase
         $this->assertEquals($expectedResult, $result);
     }
 
+    #[Test]
     public function testE401()
     {
         $error = 'Some specific error message';
@@ -55,6 +59,7 @@ class MessagesCenterTest extends TestCase
         $this->assertEquals($expectedResult, $result);
     }
 
+    #[Test]
     public function testE403()
     {
         $error = 'Some specific error message';
@@ -71,6 +76,7 @@ class MessagesCenterTest extends TestCase
         $this->assertEquals($expectedResult, $result);
     }
 
+    #[Test]
     public function testE404()
     {
         $error = 'Some specific error message';
@@ -87,6 +93,7 @@ class MessagesCenterTest extends TestCase
         $this->assertEquals($expectedResult, $result);
     }
 
+    #[Test]
     public function testE409()
     {
         $error = 'Some specific error message';
@@ -103,6 +110,7 @@ class MessagesCenterTest extends TestCase
         $this->assertEquals($expectedResult, $result);
     }
 
+    #[Test]
     public function testE429()
     {
         $error = 'Some specific error message';
@@ -119,6 +127,7 @@ class MessagesCenterTest extends TestCase
         $this->assertEquals($expectedResult, $result);
     }
 
+    #[Test]
     public function testE500()
     {
         $error = 'Some specific error message';

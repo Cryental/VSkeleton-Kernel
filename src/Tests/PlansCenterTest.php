@@ -2,6 +2,7 @@
 
 namespace Volistx\FrameworkKernel\Tests;
 
+use PHPUnit\Framework\Attributes\Test;
 use Volistx\FrameworkKernel\Helpers\PlansCenter;
 
 class PlansCenterTest extends TestCase
@@ -18,6 +19,7 @@ class PlansCenterTest extends TestCase
         $this->plansCenter = null;
     }
 
+    #[Test]
     public function testSetPlan()
     {
         $plan = 'my_plan';
@@ -26,6 +28,7 @@ class PlansCenterTest extends TestCase
         $this->assertEquals($plan, $this->plansCenter->getPlan());
     }
 
+    #[Test]
     public function testGetPlan()
     {
         $plan = 'my_plan';

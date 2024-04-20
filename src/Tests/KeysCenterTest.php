@@ -2,10 +2,12 @@
 
 namespace Volistx\FrameworkKernel\Tests;
 
+use PHPUnit\Framework\Attributes\Test;
 use Volistx\FrameworkKernel\Helpers\KeysCenter;
 
 class KeysCenterTest extends TestCase
 {
+    #[Test]
     public function testRandomKey()
     {
         $length = 64;
@@ -15,6 +17,7 @@ class KeysCenterTest extends TestCase
         $this->assertMatchesRegularExpression('/^[0-9a-zA-Z]+$/', $key);
     }
 
+    #[Test]
     public function testRandomSaltedKey()
     {
         $keyLength = 64;

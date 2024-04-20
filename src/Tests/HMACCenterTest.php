@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\URL;
 use Mockery;
+use PHPUnit\Framework\Attributes\Test;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 use Ramsey\Uuid\Uuid;
@@ -16,6 +17,7 @@ use Volistx\FrameworkKernel\Helpers\HMACCenter;
 
 class HMACCenterTest extends TestCase
 {
+    #[Test]
     public function testSign()
     {
         // Arrange

@@ -2,10 +2,12 @@
 
 namespace Volistx\FrameworkKernel\Tests;
 
+use PHPUnit\Framework\Attributes\Test;
 use Volistx\FrameworkKernel\Helpers\PermissionsCenter;
 
 class PermissionsCenterTest extends TestCase
 {
+    #[Test]
     public function testCheckWithMatchingPermission()
     {
         $key = (object) ['permissions' => ['subscriptions:view']];
@@ -18,6 +20,7 @@ class PermissionsCenterTest extends TestCase
         $this->assertTrue($result);
     }
 
+    #[Test]
     public function testCheckWithWildcardPermission()
     {
         $key = (object) ['permissions' => ['*']];
@@ -30,6 +33,7 @@ class PermissionsCenterTest extends TestCase
         $this->assertTrue($result);
     }
 
+    #[Test]
     public function testCheckWithNoMatchingPermission()
     {
         $key = (object) ['permissions' => ['subscriptions:view']];
@@ -42,6 +46,7 @@ class PermissionsCenterTest extends TestCase
         $this->assertFalse($result);
     }
 
+    #[Test]
     public function testCheckWithEmptyPermissions()
     {
         $key = (object) ['permissions' => []];
@@ -54,6 +59,7 @@ class PermissionsCenterTest extends TestCase
         $this->assertFalse($result);
     }
 
+    #[Test]
     public function testGetAdminPermissions()
     {
         $expectedResult = [

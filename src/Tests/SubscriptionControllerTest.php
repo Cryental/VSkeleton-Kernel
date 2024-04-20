@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
+use PHPUnit\Framework\Attributes\Test;
 use Volistx\FrameworkKernel\Database\Factories\AccessTokenFactory;
 use Volistx\FrameworkKernel\Database\Factories\PlanFactory;
 use Volistx\FrameworkKernel\Database\Factories\SubscriptionFactory;
@@ -21,9 +22,7 @@ class SubscriptionControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * @test
-     */
+    #[Test]
     public function AuthorizeCreateSubscriptionPermissions()
     {
         $key = Str::random(64);
@@ -42,9 +41,7 @@ class SubscriptionControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function CreateSubscription(): void
     {
         $key = Str::random(64);
@@ -64,9 +61,7 @@ class SubscriptionControllerTest extends TestCase
         $response->assertStatus(201);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function AuthorizeMutateSubscriptionPermissions()
     {
         $key = Str::random(64);
@@ -84,9 +79,7 @@ class SubscriptionControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function MutateSubscription(): void
     {
         $key = Str::random(64);
@@ -108,9 +101,7 @@ class SubscriptionControllerTest extends TestCase
         self::assertSame(SubscriptionStatus::ACTIVE, Subscription::query()->get()[1]->status);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function AuthorizeDeleteSubscriptionPermissions()
     {
         $key = Str::random(64);
@@ -125,9 +116,7 @@ class SubscriptionControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function DeleteSubscription(): void
     {
         $key = Str::random(64);
@@ -145,9 +134,7 @@ class SubscriptionControllerTest extends TestCase
         self::assertSame(0, Subscription::query()->count());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function AuthorizeCancelSubscriptionPermissions()
     {
         $key = Str::random(64);
@@ -165,9 +152,7 @@ class SubscriptionControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function CancelSubscription(): void
     {
         $key = Str::random(64);
@@ -188,9 +173,7 @@ class SubscriptionControllerTest extends TestCase
         self::assertSame($cancels_at_date, Subscription::query()->first()->cancels_at->toString());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function AuthorizeRevertCancelSubscriptionPermissions()
     {
         $key = Str::random(64);
@@ -207,9 +190,7 @@ class SubscriptionControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function RevertCancelSubscription(): void
     {
         $key = Str::random(64);
@@ -229,9 +210,7 @@ class SubscriptionControllerTest extends TestCase
         self::assertNull(Subscription::query()->first()->cancels_at);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function AuthorizeGetSubscriptionPermissions()
     {
         $key = Str::random(64);
@@ -247,9 +226,7 @@ class SubscriptionControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function GetSubscription(): void
     {
         $key = Str::random(64);
@@ -267,9 +244,7 @@ class SubscriptionControllerTest extends TestCase
             ->assertJson(SubscriptionDTO::fromModel(Subscription::query()->first())->GetDTO());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function AuthorizeGetSubscriptionsPermissions()
     {
         $key = Str::random(64);
@@ -283,9 +258,7 @@ class SubscriptionControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function GetSubscriptions(): void
     {
         $key = Str::random(64);
@@ -303,9 +276,7 @@ class SubscriptionControllerTest extends TestCase
         self::assertCount(3, json_decode($response->getContent())->items);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function AuthorizeGetSubscriptionLogsPermissions()
     {
         $key = Str::random(64);
@@ -321,9 +292,7 @@ class SubscriptionControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function GetSubscriptionLogs(): void
     {
         $key = Str::random(64);
@@ -342,9 +311,7 @@ class SubscriptionControllerTest extends TestCase
         self::assertCount(5, json_decode($response->getContent())->items);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function AuthorizeGetSubscriptionUsagesPermissions()
     {
         $key = Str::random(64);
@@ -360,9 +327,7 @@ class SubscriptionControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function GetSubscriptionUsages(): void
     {
         $key = Str::random(64);

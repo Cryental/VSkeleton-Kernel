@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
+use PHPUnit\Framework\Attributes\Test;
 use Volistx\FrameworkKernel\Database\Factories\AccessTokenFactory;
 use Volistx\FrameworkKernel\Database\Factories\PlanFactory;
 use Volistx\FrameworkKernel\DataTransferObjects\PlanDTO;
@@ -20,9 +21,7 @@ class PlanControllerTest extends TestCase
 
     private PlanRepository $planRepository;
 
-    /**
-     * @test
-     */
+    #[Test]
     public function AuthorizeCreatePlanPermissions()
     {
         $key = Str::random(64);
@@ -42,9 +41,7 @@ class PlanControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function CreatePlan(): void
     {
         $key = Str::random(64);
@@ -64,9 +61,7 @@ class PlanControllerTest extends TestCase
         $response->assertStatus(201);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function AuthorizeUpdatePlanPermissions()
     {
         $key = Str::random(64);
@@ -80,9 +75,7 @@ class PlanControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function UpdatePlan(): void
     {
         $key = Str::random(64);
@@ -101,9 +94,7 @@ class PlanControllerTest extends TestCase
         $response->assertJson(PlanDTO::fromModel($plan)->getDTO());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function AuthorizeDeletePlanPermissions()
     {
         $key = Str::random(64);
@@ -116,9 +107,7 @@ class PlanControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function DeletePlan(): void
     {
         $key = Str::random(64);
@@ -134,9 +123,7 @@ class PlanControllerTest extends TestCase
         self::assertNull(PersonalToken::query()->first());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function AuthorizeGetPlanPermissions()
     {
         $key = Str::random(64);
@@ -150,9 +137,7 @@ class PlanControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function GetPlan(): void
     {
         $key = Str::random(64);
@@ -168,9 +153,7 @@ class PlanControllerTest extends TestCase
         $response->assertJson(PlanDTO::fromModel($plan)->getDTO());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function AuthorizeGetPlansPermissions()
     {
         $key = Str::random(64);
@@ -183,9 +166,7 @@ class PlanControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function GetPlans(): void
     {
         $key = Str::random(64);

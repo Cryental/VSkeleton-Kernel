@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
+use PHPUnit\Framework\Attributes\Test;
 use Volistx\FrameworkKernel\Database\Factories\AccessTokenFactory;
 use Volistx\FrameworkKernel\Database\Factories\PlanFactory;
 use Volistx\FrameworkKernel\Database\Factories\SubscriptionFactory;
@@ -18,9 +19,7 @@ class UserLogControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * @test
-     */
+    #[Test]
     public function AuthorizeGetLogPermissions()
     {
         $key = Str::random(64);
@@ -34,9 +33,7 @@ class UserLogControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function GetLog(): void
     {
         $key = Str::random(64);
@@ -51,9 +48,7 @@ class UserLogControllerTest extends TestCase
         self::assertSame($log->id, json_decode($response->getContent())->id);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function AuthorizeGetLogsPermissions(): void
     {
         $key = Str::random(64);
@@ -66,9 +61,7 @@ class UserLogControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function GetLogsWithDefaultPagination(): void
     {
         $key = Str::random(64);
@@ -82,9 +75,7 @@ class UserLogControllerTest extends TestCase
         self::assertCount(50, json_decode($response->getContent())->items);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function GetLogsWithCustomPagination(): void
     {
         $key = Str::random(64);

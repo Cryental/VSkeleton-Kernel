@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
+use PHPUnit\Framework\Attributes\Test;
 use Volistx\FrameworkKernel\Database\Factories\AccessTokenFactory;
 use Volistx\FrameworkKernel\Database\Factories\PersonalTokenFactory;
 use Volistx\FrameworkKernel\Database\Factories\UserFactory;
@@ -19,9 +20,7 @@ class PersonalTokenControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * @test
-     */
+    #[Test]
     public function AuthorizeCreatePersonalTokenPermissions()
     {
         $key = Str::random(64);
@@ -45,9 +44,7 @@ class PersonalTokenControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function CreatePersonalToken(): void
     {
         $key = Str::random(64);
@@ -71,9 +68,7 @@ class PersonalTokenControllerTest extends TestCase
         $response->assertStatus(201);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function AuthorizeUpdatePersonalTokenPermissions()
     {
         $key = Str::random(64);
@@ -88,9 +83,7 @@ class PersonalTokenControllerTest extends TestCase
         ], ['name' => 'Updated Token']);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function UpdatePersonalToken(): void
     {
         $key = Str::random(64);
@@ -110,9 +103,7 @@ class PersonalTokenControllerTest extends TestCase
         $response->assertJson(PersonalTokenDTO::fromModel($personalToken)->GetDTO());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function AuthorizeResetPersonalToken()
     {
         $key = Str::random(64);
@@ -127,9 +118,7 @@ class PersonalTokenControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function ResetPersonalToken(): void
     {
         $key = Str::random(64);
@@ -147,9 +136,7 @@ class PersonalTokenControllerTest extends TestCase
         self::assertNotSame($oldKey, $newKey);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function AuthorizeDeletePersonalToken()
     {
         $key = Str::random(64);
@@ -163,9 +150,7 @@ class PersonalTokenControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function DeletePersonalToken(): void
     {
         $key = Str::random(64);
@@ -182,9 +167,7 @@ class PersonalTokenControllerTest extends TestCase
         self::assertNull(PersonalToken::query()->first());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function AuthorizeGetPersonalToken()
     {
         $key = Str::random(64);
@@ -199,9 +182,7 @@ class PersonalTokenControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function GetPersonalToken(): void
     {
         $key = Str::random(64);
@@ -218,9 +199,7 @@ class PersonalTokenControllerTest extends TestCase
         $response->assertJson(PersonalTokenDTO::fromModel($personalToken)->GetDTO());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function AuthorizeGetPersonalTokens()
     {
         $key = Str::random(64);
@@ -234,9 +213,7 @@ class PersonalTokenControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function GetPersonalTokens(): void
     {
         $key = Str::random(64);
@@ -251,9 +228,7 @@ class PersonalTokenControllerTest extends TestCase
         self::assertCount(5, json_decode($response->getContent())->items);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function SyncPersonalTokens(): void
     {
         $key = Str::random(64);

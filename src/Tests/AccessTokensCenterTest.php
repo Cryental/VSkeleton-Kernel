@@ -3,6 +3,7 @@
 namespace Volistx\FrameworkKernel\Tests;
 
 use Volistx\FrameworkKernel\Helpers\AccessTokensCenter;
+use PHPUnit\Framework\Attributes\Test;
 
 class AccessTokensCenterTest extends TestCase
 {
@@ -18,6 +19,7 @@ class AccessTokensCenterTest extends TestCase
         $this->accessTokenCenter = null;
     }
 
+    #[Test]
     public function testSetToken()
     {
         $token = 'test_token';
@@ -26,6 +28,7 @@ class AccessTokensCenterTest extends TestCase
         $this->assertEquals($token, $this->accessTokenCenter->getToken());
     }
 
+    #[Test]
     public function testGetToken()
     {
         $token = 'test_token';

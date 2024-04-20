@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
+use PHPUnit\Framework\Attributes\Test;
 use Volistx\FrameworkKernel\Database\Factories\AccessTokenFactory;
 use Volistx\FrameworkKernel\Database\Factories\UserFactory;
 use Volistx\FrameworkKernel\DataTransferObjects\UserDTO;
@@ -16,9 +17,7 @@ class UserControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * @test
-     */
+    #[Test]
     public function AuthorizeCreateUserPermissions()
     {
         $key = Str::random(64);
@@ -31,9 +30,7 @@ class UserControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function CreateUser(): void
     {
         $key = Str::random(64);
@@ -46,9 +43,7 @@ class UserControllerTest extends TestCase
         $response->assertStatus(201);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function AuthorizeUpdateUserPermissions()
     {
         $key = Str::random(64);
@@ -62,9 +57,7 @@ class UserControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function UpdateUser(): void
     {
         $key = Str::random(64);
@@ -83,9 +76,7 @@ class UserControllerTest extends TestCase
         $response->assertJson(UserDTO::fromModel($user)->GetDTO());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function AuthorizeDeleteUserPermissions()
     {
         $key = Str::random(64);
@@ -98,9 +89,7 @@ class UserControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function DeleteUser(): void
     {
         $key = Str::random(64);
@@ -115,9 +104,7 @@ class UserControllerTest extends TestCase
         $response->assertStatus(204);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function AuthorizeGetUserPermissions()
     {
         $key = Str::random(64);
@@ -131,9 +118,7 @@ class UserControllerTest extends TestCase
         ]);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function GetUser(): void
     {
         $key = Str::random(64);

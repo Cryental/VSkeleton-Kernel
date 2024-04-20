@@ -5,6 +5,7 @@ namespace Volistx\FrameworkKernel\Tests;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use PHPUnit\Framework\Attributes\Test;
 use Volistx\FrameworkKernel\AuthValidationRules\Users\SubscriptionValidationRule;
 use Volistx\FrameworkKernel\Database\Factories\PersonalTokenFactory;
 use Volistx\FrameworkKernel\Database\Factories\PlanFactory;
@@ -18,12 +19,13 @@ use Volistx\FrameworkKernel\Facades\Subscriptions;
 
 class SubscriptionValidationRuleTest extends TestCase
 {
+    #[Test]
     public function testAccessAllowedWithActiveSubscription()
     {
-        $user = $this->GenerateUser();
-        $plan = $this->GeneratePlan(['requests' => 500]);
+        $user = $this->generateUser();
+        $plan = $this->generatePlan(['requests' => 500]);
         $personalToken = $this->generatePersonalToken($user->id, []);
-        $subscription = $this->GenerateSubscription(
+        $subscription = $this->generateSubscription(
             $user->id,
             [
                 'status' => SubscriptionStatus::ACTIVE,
@@ -31,25 +33,24 @@ class SubscriptionValidationRuleTest extends TestCase
             ]
         );
         PersonalTokens::shouldReceive('getToken')->andReturn($personalToken);
-
         Subscriptions::shouldReceive('ProcessUserActiveSubscriptionsStatus')->andReturn($subscription);
-
         Subscriptions::shouldReceive('setSubscription')->once();
         Plans::shouldReceive('setPlan')->once();
 
-        $requestMock = $this->createMock(Request::class);
-        $subscriptionValidationRule = new SubscriptionValidationRule($requestMock);
+        $request = new Request();
+        $subscriptionValidationRule = new SubscriptionValidationRule($request);
         $result = $subscriptionValidationRule->validate();
 
         $this->assertTrue($result);
     }
 
+    #[Test]
     public function testAccessAllowedWithInactiveSubscription()
     {
-        $user = $this->GenerateUser();
-        $plan = $this->GeneratePlan(['requests' => 500]);
+        $user = $this->generateUser();
+        $plan = $this->generatePlan(['requests' => 500]);
         $personalToken = $this->generatePersonalToken($user->id, []);
-        $subscription = $this->GenerateSubscription(
+        $subscription = $this->generateSubscription(
             $user->id,
             [
                 'status' => SubscriptionStatus::INACTIVE,
@@ -57,33 +58,29 @@ class SubscriptionValidationRuleTest extends TestCase
             ]
         );
         PersonalTokens::shouldReceive('getToken')->andReturn($personalToken);
-
         Subscriptions::shouldReceive('ProcessUserActiveSubscriptionsStatus')->andReturn(null);
-
         Subscriptions::shouldReceive('ProcessUserInactiveSubscriptionsStatus')->andReturn($subscription);
-
         Subscriptions::shouldReceive('setSubscription')->once();
         Plans::shouldReceive('setPlan')->once();
 
-        $requestMock = $this->createMock(Request::class);
-        $subscriptionValidationRule = new SubscriptionValidationRule($requestMock);
+        $request = new Request();
+        $subscriptionValidationRule = new SubscriptionValidationRule($request);
         $result = $subscriptionValidationRule->validate();
 
         $this->assertTrue($result);
     }
 
+    #[Test]
     public function testAccessDeniedWithoutActiveOrInactiveSubscription()
     {
-        $user = $this->GenerateUser();
+        $user = $this->generateUser();
         $personalToken = $this->generatePersonalToken($user->id, []);
-
         PersonalTokens::shouldReceive('getToken')->andReturn($personalToken);
-
         Subscriptions::shouldReceive('ProcessUserActiveSubscriptionsStatus')->andReturn(null);
         Subscriptions::shouldReceive('ProcessUserInactiveSubscriptionsStatus')->andReturn(null);
 
-        $requestMock = $this->createMock(Request::class);
-        $subscriptionValidationRule = new SubscriptionValidationRule($requestMock);
+        $request = new Request();
+        $subscriptionValidationRule = new SubscriptionValidationRule($request);
         $result = $subscriptionValidationRule->validate();
 
         $this->assertEquals(
@@ -95,12 +92,12 @@ class SubscriptionValidationRuleTest extends TestCase
         );
     }
 
-    private function GenerateUser(): Collection|Model
+    private function generateUser(): Collection|Model
     {
         return UserFactory::new()->create();
     }
 
-    private function GeneratePlan(array $data): Collection|Model
+    private function generatePlan(array $data): Collection|Model
     {
         return PlanFactory::new()->create(['data' => $data]);
     }
@@ -117,7 +114,7 @@ class SubscriptionValidationRuleTest extends TestCase
         );
     }
 
-    private function GenerateSubscription(string $user_id, array $inputs): Collection|Model
+    private function generateSubscription(string $user_id, array $inputs): Collection|Model
     {
         return SubscriptionFactory::new()->create(
             array_merge(

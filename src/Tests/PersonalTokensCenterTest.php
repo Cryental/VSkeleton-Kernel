@@ -2,6 +2,7 @@
 
 namespace Volistx\FrameworkKernel\Tests;
 
+use PHPUnit\Framework\Attributes\Test;
 use Volistx\FrameworkKernel\Helpers\PersonalTokensCenter;
 
 class PersonalTokensCenterTest extends TestCase
@@ -18,6 +19,7 @@ class PersonalTokensCenterTest extends TestCase
         $this->personalTokensCenter = null;
     }
 
+    #[Test]
     public function testSetToken()
     {
         $token = 'my_personal_token';
@@ -26,6 +28,7 @@ class PersonalTokensCenterTest extends TestCase
         $this->assertEquals($token, $this->personalTokensCenter->getToken());
     }
 
+    #[Test]
     public function testGetToken()
     {
         $token = 'my_personal_token';

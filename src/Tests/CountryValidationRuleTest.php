@@ -2,45 +2,50 @@
 
 namespace Volistx\FrameworkKernel\Tests;
 
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use PHPUnit\Framework\Attributes\Test;
 use Volistx\FrameworkKernel\AuthValidationRules\Users\CountryValidationRule;
 use Volistx\FrameworkKernel\Database\Factories\PersonalTokenFactory;
 use Volistx\FrameworkKernel\Database\Factories\UserFactory;
 use Volistx\FrameworkKernel\Enums\AccessRule;
 use Volistx\FrameworkKernel\Facades\PersonalTokens;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CountryValidationRuleTest extends TestCase
 {
+    use RefreshDatabase;
+
+    #[Test]
     public function testAccessAllowedWhenCountryRuleIsNone()
     {
-        $user = $this->GenerateUser();
-        $personal_Token = $this->GeneratePersonalToken($user->id, [
+        $user = $this->generateUser();
+        $personalToken = $this->generatePersonalToken($user->id, [
             'country_rule' => AccessRule::NONE,
         ]);
 
-        $requestMock = $this->createMock(Request::class);
-        $countryValidationRule = new CountryValidationRule($requestMock);
-        PersonalTokens::shouldReceive('getToken')->andReturn($personal_Token);
+        // Use an actual request object
+        $request = new Request();
+        $countryValidationRule = new CountryValidationRule($request);
 
+        // Set up the facade to return the expected token
+        PersonalTokens::shouldReceive('getToken')->andReturn($personalToken);
+
+        // Perform the validation
         $result = $countryValidationRule->validate();
 
         $this->assertTrue($result);
     }
 
-    private function GenerateUser(): Collection|Model
+    private function generateUser()
     {
         return UserFactory::new()->create();
     }
 
-    private function GeneratePersonalToken(string $user_id, array $inputs): Collection|Model
+    private function generatePersonalToken(string $user_id, array $inputs)
     {
         return PersonalTokenFactory::new()->create(
             array_merge(
-                [
-                    'user_id' => $user_id,
-                ],
+                ['user_id' => $user_id],
                 $inputs
             )
         );

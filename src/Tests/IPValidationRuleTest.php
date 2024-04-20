@@ -5,6 +5,7 @@ namespace Volistx\FrameworkKernel\Tests;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use PHPUnit\Framework\Attributes\Test;
 use Volistx\FrameworkKernel\AuthValidationRules\Users\IPValidationRule;
 use Volistx\FrameworkKernel\Database\Factories\PersonalTokenFactory;
 use Volistx\FrameworkKernel\Database\Factories\UserFactory;
@@ -15,6 +16,7 @@ use Wikimedia\IPSet;
 
 class IPValidationRuleTest extends TestCase
 {
+    #[Test]
     public function testAccessAllowedWhenIPRuleIsNone()
     {
         $user = $this->GenerateUser();
@@ -23,14 +25,15 @@ class IPValidationRuleTest extends TestCase
         ]);
         PersonalTokens::shouldReceive('getToken')->andReturn($token);
 
-        $requestMock = $this->createMock(Request::class);
-        $ipValidationRule = new IPValidationRule($requestMock);
+        $request = new Request(); // Real request instance
+        $ipValidationRule = new IPValidationRule($request);
 
         $result = $ipValidationRule->validate();
 
         $this->assertTrue($result);
     }
 
+    #[Test]
     public function testAccessDeniedWhenIPBlacklisted()
     {
         $user = $this->GenerateUser();
@@ -40,12 +43,10 @@ class IPValidationRuleTest extends TestCase
         ]);
         PersonalTokens::shouldReceive('getToken')->andReturn($token);
 
-        $ipSetMock = $this->createMock(IPSet::class);
-        $ipSetMock->method('match')->willReturn(true);
-        $this->mockIPSet($ipSetMock);
-
-        $requestMock = $this->getRequestMock('192.168.1.1');
-        $ipValidationRule = new IPValidationRule($requestMock);
+        $request = new Request();
+        $request->server->set('REMOTE_ADDR', '192.168.1.1');
+        $ipValidationRule = new IPValidationRule($request);
+        $this->app->instance(IPSet::class, $this->createIPSetMock(true));
 
         $result = $ipValidationRule->validate();
 
@@ -58,6 +59,7 @@ class IPValidationRuleTest extends TestCase
         );
     }
 
+    #[Test]
     public function testAccessDeniedWhenIPWhitelisted()
     {
         $user = $this->GenerateUser();
@@ -67,12 +69,10 @@ class IPValidationRuleTest extends TestCase
         ]);
         PersonalTokens::shouldReceive('getToken')->andReturn($token);
 
-        $ipSetMock = $this->createMock(IPSet::class);
-        $ipSetMock->method('match')->willReturn(true);
-        $this->mockIPSet($ipSetMock);
-
-        $requestMock = $this->getRequestMock('111.111.1.1');
-        $ipValidationRule = new IPValidationRule($requestMock);
+        $request = new Request();
+        $request->server->set('REMOTE_ADDR', '111.111.1.1');
+        $ipValidationRule = new IPValidationRule($request);
+        $this->app->instance(IPSet::class, $this->createIPSetMock(false));
 
         $result = $ipValidationRule->validate();
 
@@ -102,22 +102,10 @@ class IPValidationRuleTest extends TestCase
         );
     }
 
-    private function mockIPSet($ipSetMock): void
+    private function createIPSetMock(bool $matchResult): IPSet
     {
-        // Mock the IPSet instance in the IPValidationRule class
-        $this->app->instance(IPSet::class, $ipSetMock);
-    }
-
-    private function getRequestMock(string $clientIp): Request
-    {
-        $requestMock = $this->getMockBuilder(Request::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $requestMock->expects($this->any())
-            ->method('getClientIp')
-            ->willReturn($clientIp);
-
-        return $requestMock;
+        $ipSetMock = $this->createMock(IPSet::class);
+        $ipSetMock->method('match')->willReturn($matchResult);
+        return $ipSetMock;
     }
 }

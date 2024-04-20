@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
+use PHPUnit\Framework\Attributes\Test;
 use Volistx\FrameworkKernel\AuthValidationRules\Users\SubscriptionRateLimitValidationRule;
 use Volistx\FrameworkKernel\Database\Factories\PersonalTokenFactory;
 use Volistx\FrameworkKernel\Database\Factories\PlanFactory;
@@ -17,15 +18,15 @@ use Volistx\FrameworkKernel\Facades\Plans;
 
 class SubscriptionRateLimitValidationRuleTest extends TestCase
 {
+    #[Test]
     public function testAccessAllowedWhenRateLimitModeIsNotSubscription()
     {
-        // Set rate limit mode to something other than SUBSCRIPTION
-        $this->GeneratePlan(['requests' => 500]);
-        $user = $this->GenerateUser();
+        $this->generatePlan(['requests' => 500]);
+        $user = $this->generateUser();
         $token = $this->generatePersonalToken($user->id, ['rate_limit_mode' => RateLimitMode::IP]);
         PersonalTokens::shouldReceive('getToken')->andReturn($token);
 
-        $request = $this->createMock(Request::class);
+        $request = new Request(); // Use a real request instance
         $subscriptionRateLimitValidationRule = new SubscriptionRateLimitValidationRule($request);
 
         $result = $subscriptionRateLimitValidationRule->validate();
@@ -33,41 +34,40 @@ class SubscriptionRateLimitValidationRuleTest extends TestCase
         $this->assertTrue($result);
     }
 
+    #[Test]
     public function testAccessAllowedWhenRateLimitNotExceeded()
     {
-        $plan = $this->GeneratePlan(['requests' => 500]);
-        $user = $this->GenerateUser();
+        $plan = $this->generatePlan(['requests' => 500]);
+        $user = $this->generateUser();
         $token = $this->generatePersonalToken($user->id, ['rate_limit_mode' => RateLimitMode::SUBSCRIPTION]);
         PersonalTokens::shouldReceive('getToken')->andReturn($token);
 
         Plans::shouldReceive('getPlan')->andReturn($plan);
 
-        // Mock the RateLimiter to always return success
         RateLimiter::shouldReceive('attempt')->andReturn(true);
 
-        $requestMock = $this->createMock(Request::class);
-        $subscriptionRateLimitValidationRule = new SubscriptionRateLimitValidationRule($requestMock);
+        $request = new Request(); // Use a real request instance
+        $subscriptionRateLimitValidationRule = new SubscriptionRateLimitValidationRule($request);
 
         $result = $subscriptionRateLimitValidationRule->validate();
 
         $this->assertTrue($result);
     }
 
+    #[Test]
     public function testAccessDeniedWhenRateLimitExceeded()
     {
-        // Set rate limit mode to SUBSCRIPTION
-        $plan = $this->GeneratePlan(['requests' => 500, 'rate_limit' => 1]);
-        $user = $this->GenerateUser();
+        $plan = $this->generatePlan(['requests' => 500, 'rate_limit' => 1]);
+        $user = $this->generateUser();
         $token = $this->generatePersonalToken($user->id, ['rate_limit_mode' => RateLimitMode::SUBSCRIPTION]);
         PersonalTokens::shouldReceive('getToken')->andReturn($token);
 
         Plans::shouldReceive('getPlan')->andReturn($plan);
 
-        // Mock the RateLimiter to always return failure
         RateLimiter::shouldReceive('attempt')->andReturn(false);
 
-        $requestMock = $this->createMock(Request::class);
-        $subscriptionRateLimitValidationRule = new SubscriptionRateLimitValidationRule($requestMock);
+        $request = new Request(); // Use a real request instance
+        $subscriptionRateLimitValidationRule = new SubscriptionRateLimitValidationRule($request);
 
         $result = $subscriptionRateLimitValidationRule->validate();
 
@@ -80,12 +80,12 @@ class SubscriptionRateLimitValidationRuleTest extends TestCase
         );
     }
 
-    private function GenerateUser(): Collection|Model
+    private function generateUser(): Collection|Model
     {
         return UserFactory::new()->create();
     }
 
-    private function GeneratePlan(array $data): Collection|Model
+    private function generatePlan(array $data): Collection|Model
     {
         return PlanFactory::new()->create(['data' => $data]);
     }

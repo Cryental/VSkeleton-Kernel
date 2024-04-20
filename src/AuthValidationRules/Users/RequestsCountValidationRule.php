@@ -37,7 +37,7 @@ class RequestsCountValidationRule extends ValidationRuleBase
         // If the plan has a requests limit
         if (isset($plan['data']['requests'])) {
             $requestsMadeCount = $this->loggingService->GetSubscriptionLogsCountInPlanDuration($subscription->user_id, $subscription->id);
-            $planRequestsLimit = $plan['data']['requests'] ?? null;
+            $planRequestsLimit = $plan['data']['requests'];
 
             // If the requests count cannot be retrieved, deny access
             if ($requestsMadeCount === null) {
