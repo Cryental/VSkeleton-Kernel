@@ -20,7 +20,7 @@ class AccessTokensCenterTest extends TestCase
     }
 
     #[Test]
-    public function testSetToken()
+    public function test_set_token()
     {
         $token = 'test_token';
         $this->accessTokenCenter->setToken($token);
@@ -29,7 +29,7 @@ class AccessTokensCenterTest extends TestCase
     }
 
     #[Test]
-    public function testGetToken()
+    public function test_get_token()
     {
         $token = 'test_token';
         $this->accessTokenCenter->setToken($token);

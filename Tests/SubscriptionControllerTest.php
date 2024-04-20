@@ -23,7 +23,7 @@ class SubscriptionControllerTest extends TestCase
     use RefreshDatabase;
 
     #[Test]
-    public function AuthorizeCreateSubscriptionPermissions()
+    public function authorize_create_subscription_permissions()
     {
         $key = Str::random(64);
         $token = $this->generateAccessToken($key);
@@ -42,7 +42,7 @@ class SubscriptionControllerTest extends TestCase
     }
 
     #[Test]
-    public function CreateSubscription(): void
+    public function create_subscription(): void
     {
         $key = Str::random(64);
         $this->generateAccessToken($key);
@@ -62,7 +62,7 @@ class SubscriptionControllerTest extends TestCase
     }
 
     #[Test]
-    public function AuthorizeMutateSubscriptionPermissions()
+    public function authorize_mutate_subscription_permissions()
     {
         $key = Str::random(64);
         $token = $this->generateAccessToken($key);
@@ -80,7 +80,7 @@ class SubscriptionControllerTest extends TestCase
     }
 
     #[Test]
-    public function MutateSubscription(): void
+    public function mutate_subscription(): void
     {
         $key = Str::random(64);
         $this->generateAccessToken($key);
@@ -102,7 +102,7 @@ class SubscriptionControllerTest extends TestCase
     }
 
     #[Test]
-    public function AuthorizeDeleteSubscriptionPermissions()
+    public function authorize_delete_subscription_permissions()
     {
         $key = Str::random(64);
         $token = $this->generateAccessToken($key);
@@ -117,7 +117,7 @@ class SubscriptionControllerTest extends TestCase
     }
 
     #[Test]
-    public function DeleteSubscription(): void
+    public function delete_subscription(): void
     {
         $key = Str::random(64);
         $this->generateAccessToken($key);
@@ -135,7 +135,7 @@ class SubscriptionControllerTest extends TestCase
     }
 
     #[Test]
-    public function AuthorizeCancelSubscriptionPermissions()
+    public function authorize_cancel_subscription_permissions()
     {
         $key = Str::random(64);
         $token = $this->generateAccessToken($key);
@@ -153,7 +153,7 @@ class SubscriptionControllerTest extends TestCase
     }
 
     #[Test]
-    public function CancelSubscription(): void
+    public function cancel_subscription(): void
     {
         $key = Str::random(64);
         $this->generateAccessToken($key);
@@ -174,7 +174,7 @@ class SubscriptionControllerTest extends TestCase
     }
 
     #[Test]
-    public function AuthorizeRevertCancelSubscriptionPermissions()
+    public function authorize_revert_cancel_subscription_permissions()
     {
         $key = Str::random(64);
         $token = $this->generateAccessToken($key);
@@ -191,7 +191,7 @@ class SubscriptionControllerTest extends TestCase
     }
 
     #[Test]
-    public function RevertCancelSubscription(): void
+    public function revert_cancel_subscription(): void
     {
         $key = Str::random(64);
         $this->generateAccessToken($key);
@@ -211,7 +211,7 @@ class SubscriptionControllerTest extends TestCase
     }
 
     #[Test]
-    public function AuthorizeGetSubscriptionPermissions()
+    public function authorize_get_subscription_permissions()
     {
         $key = Str::random(64);
         $token = $this->generateAccessToken($key);
@@ -227,7 +227,7 @@ class SubscriptionControllerTest extends TestCase
     }
 
     #[Test]
-    public function GetSubscription(): void
+    public function get_subscription(): void
     {
         $key = Str::random(64);
         $this->generateAccessToken($key);
@@ -245,7 +245,7 @@ class SubscriptionControllerTest extends TestCase
     }
 
     #[Test]
-    public function AuthorizeGetSubscriptionsPermissions()
+    public function authorize_get_subscriptions_permissions()
     {
         $key = Str::random(64);
         $token = $this->generateAccessToken($key);
@@ -259,7 +259,7 @@ class SubscriptionControllerTest extends TestCase
     }
 
     #[Test]
-    public function GetSubscriptions(): void
+    public function get_subscriptions(): void
     {
         $key = Str::random(64);
         $this->generateAccessToken($key);
@@ -277,7 +277,7 @@ class SubscriptionControllerTest extends TestCase
     }
 
     #[Test]
-    public function AuthorizeGetSubscriptionLogsPermissions()
+    public function authorize_get_subscription_logs_permissions()
     {
         $key = Str::random(64);
         $token = $this->generateAccessToken($key);
@@ -293,7 +293,7 @@ class SubscriptionControllerTest extends TestCase
     }
 
     #[Test]
-    public function GetSubscriptionLogs(): void
+    public function get_subscription_logs(): void
     {
         $key = Str::random(64);
         $this->generateAccessToken($key);
@@ -312,7 +312,7 @@ class SubscriptionControllerTest extends TestCase
     }
 
     #[Test]
-    public function AuthorizeGetSubscriptionUsagesPermissions()
+    public function authorize_get_subscription_usages_permissions()
     {
         $key = Str::random(64);
         $token = $this->generateAccessToken($key);
@@ -328,7 +328,7 @@ class SubscriptionControllerTest extends TestCase
     }
 
     #[Test]
-    public function GetSubscriptionUsages(): void
+    public function get_subscription_usages(): void
     {
         $key = Str::random(64);
         $this->generateAccessToken($key);

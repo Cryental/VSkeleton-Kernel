@@ -35,7 +35,7 @@ class SubscriptionsCenterTest extends TestCase
     }
 
     #[Test]
-    public function testShouldSubscriptionBeExpired()
+    public function test_should_subscription_be_expired()
     {
         $subscription = (object) [
             'expires_at' => Carbon::now()->subDay(),
@@ -47,7 +47,7 @@ class SubscriptionsCenterTest extends TestCase
     }
 
     #[Test]
-    public function testShouldSubscriptionBeCancelled()
+    public function test_should_subscription_be_cancelled()
     {
         $subscription = (object) [
             'cancels_at' => Carbon::now()->subDay(),
@@ -59,7 +59,7 @@ class SubscriptionsCenterTest extends TestCase
     }
 
     #[Test]
-    public function testUpdateSubscriptionExpiryStatus()
+    public function test_update_subscription_expiry_status()
     {
         $userId = 'user123';
         $subscriptionId = 'subscription123';
@@ -81,7 +81,7 @@ class SubscriptionsCenterTest extends TestCase
     }
 
     #[Test]
-    public function testUpdateSubscriptionCancellationStatus()
+    public function test_update_subscription_cancellation_status()
     {
         $userId = 'user123';
         $subscriptionId = 'subscription123';
@@ -103,7 +103,7 @@ class SubscriptionsCenterTest extends TestCase
     }
 
     #[Test]
-    public function testProcessUserActiveSubscriptionsStatus()
+    public function test_process_user_active_subscriptions_status()
     {
         $userId = 'user123';
         $activeSubscription = new Subscription([
@@ -124,7 +124,7 @@ class SubscriptionsCenterTest extends TestCase
     }
 
     #[Test]
-    public function testProcessUserInactiveSubscriptionsStatus()
+    public function test_process_user_inactive_subscriptions_status()
     {
         $userId = 'user123';
         $inactiveSubscriptionId = 'subscription123';

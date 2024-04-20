@@ -20,7 +20,7 @@ class PlansCenterTest extends TestCase
     }
 
     #[Test]
-    public function testSetPlan()
+    public function test_set_plan()
     {
         $plan = 'my_plan';
         $this->plansCenter->setPlan($plan);
@@ -29,7 +29,7 @@ class PlansCenterTest extends TestCase
     }
 
     #[Test]
-    public function testGetPlan()
+    public function test_get_plan()
     {
         $plan = 'my_plan';
         $this->plansCenter->setPlan($plan);

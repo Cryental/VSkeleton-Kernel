@@ -17,7 +17,7 @@ use Wikimedia\IPSet;
 class IPValidationRuleTest extends TestCase
 {
     #[Test]
-    public function testAccessAllowedWhenIPRuleIsNone()
+    public function test_access_allowed_when_i_p_rule_is_none()
     {
         $user = $this->GenerateUser();
         $token = $this->generatePersonalToken($user->id, [
@@ -34,7 +34,7 @@ class IPValidationRuleTest extends TestCase
     }
 
     #[Test]
-    public function testAccessDeniedWhenIPBlacklisted()
+    public function test_access_denied_when_i_p_blacklisted()
     {
         $user = $this->GenerateUser();
         $token = $this->generatePersonalToken($user->id, [
@@ -60,7 +60,7 @@ class IPValidationRuleTest extends TestCase
     }
 
     #[Test]
-    public function testAccessDeniedWhenIPWhitelisted()
+    public function test_access_denied_when_i_p_whitelisted()
     {
         $user = $this->GenerateUser();
         $token = $this->generatePersonalToken($user->id, [

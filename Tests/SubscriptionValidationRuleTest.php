@@ -20,7 +20,7 @@ use Volistx\FrameworkKernel\Facades\Subscriptions;
 class SubscriptionValidationRuleTest extends TestCase
 {
     #[Test]
-    public function testAccessAllowedWithActiveSubscription()
+    public function test_access_allowed_with_active_subscription()
     {
         $user = $this->generateUser();
         $plan = $this->generatePlan(['requests' => 500]);
@@ -45,7 +45,7 @@ class SubscriptionValidationRuleTest extends TestCase
     }
 
     #[Test]
-    public function testAccessAllowedWithInactiveSubscription()
+    public function test_access_allowed_with_inactive_subscription()
     {
         $user = $this->generateUser();
         $plan = $this->generatePlan(['requests' => 500]);
@@ -71,7 +71,7 @@ class SubscriptionValidationRuleTest extends TestCase
     }
 
     #[Test]
-    public function testAccessDeniedWithoutActiveOrInactiveSubscription()
+    public function test_access_denied_without_active_or_inactive_subscription()
     {
         $user = $this->generateUser();
         $personalToken = $this->generatePersonalToken($user->id, []);

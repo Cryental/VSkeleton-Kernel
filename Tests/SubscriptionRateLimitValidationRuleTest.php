@@ -19,7 +19,7 @@ use Volistx\FrameworkKernel\Facades\Plans;
 class SubscriptionRateLimitValidationRuleTest extends TestCase
 {
     #[Test]
-    public function testAccessAllowedWhenRateLimitModeIsNotSubscription()
+    public function test_access_allowed_when_rate_limit_mode_is_not_subscription()
     {
         $this->generatePlan(['requests' => 500]);
         $user = $this->generateUser();
@@ -35,7 +35,7 @@ class SubscriptionRateLimitValidationRuleTest extends TestCase
     }
 
     #[Test]
-    public function testAccessAllowedWhenRateLimitNotExceeded()
+    public function test_access_allowed_when_rate_limit_not_exceeded()
     {
         $plan = $this->generatePlan(['requests' => 500]);
         $user = $this->generateUser();
@@ -55,7 +55,7 @@ class SubscriptionRateLimitValidationRuleTest extends TestCase
     }
 
     #[Test]
-    public function testAccessDeniedWhenRateLimitExceeded()
+    public function test_access_denied_when_rate_limit_exceeded()
     {
         $plan = $this->generatePlan(['requests' => 500, 'rate_limit' => 1]);
         $user = $this->generateUser();

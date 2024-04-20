@@ -18,7 +18,7 @@ class UserControllerTest extends TestCase
     use RefreshDatabase;
 
     #[Test]
-    public function AuthorizeCreateUserPermissions()
+    public function authorize_create_user_permissions()
     {
         $key = Str::random(64);
         $token = $this->GenerateAccessToken($key);
@@ -31,7 +31,7 @@ class UserControllerTest extends TestCase
     }
 
     #[Test]
-    public function CreateUser(): void
+    public function create_user(): void
     {
         $key = Str::random(64);
         $this->GenerateAccessToken($key);
@@ -44,7 +44,7 @@ class UserControllerTest extends TestCase
     }
 
     #[Test]
-    public function AuthorizeUpdateUserPermissions()
+    public function authorize_update_user_permissions()
     {
         $key = Str::random(64);
         $token = $this->GenerateAccessToken($key);
@@ -58,7 +58,7 @@ class UserControllerTest extends TestCase
     }
 
     #[Test]
-    public function UpdateUser(): void
+    public function update_user(): void
     {
         $key = Str::random(64);
         $this->GenerateAccessToken($key);
@@ -77,7 +77,7 @@ class UserControllerTest extends TestCase
     }
 
     #[Test]
-    public function AuthorizeDeleteUserPermissions()
+    public function authorize_delete_user_permissions()
     {
         $key = Str::random(64);
         $token = $this->GenerateAccessToken($key);
@@ -90,7 +90,7 @@ class UserControllerTest extends TestCase
     }
 
     #[Test]
-    public function DeleteUser(): void
+    public function delete_user(): void
     {
         $key = Str::random(64);
         $this->GenerateAccessToken($key);
@@ -105,7 +105,7 @@ class UserControllerTest extends TestCase
     }
 
     #[Test]
-    public function AuthorizeGetUserPermissions()
+    public function authorize_get_user_permissions()
     {
         $key = Str::random(64);
         $token = $this->GenerateAccessToken($key);
@@ -119,7 +119,7 @@ class UserControllerTest extends TestCase
     }
 
     #[Test]
-    public function GetUser(): void
+    public function get_user(): void
     {
         $key = Str::random(64);
         $this->GenerateAccessToken($key);

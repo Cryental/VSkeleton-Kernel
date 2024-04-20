@@ -19,7 +19,7 @@ use Volistx\FrameworkKernel\Facades\Subscriptions;
 class RequestsCountValidationRuleTest extends TestCase
 {
     #[Test]
-    public function testAccessAllowedWhenRequestsCountWithinLimit()
+    public function test_access_allowed_when_requests_count_within_limit()
     {
         $user = $this->generateUser(true);
         $plan = $this->generatePlan(['requests' => 500, 'duration' => 30]);
@@ -36,7 +36,7 @@ class RequestsCountValidationRuleTest extends TestCase
     }
 
     #[Test]
-    public function testAccessAllowedWhenPlanHasNoRequests()
+    public function test_access_allowed_when_plan_has_no_requests()
     {
         $user = $this->generateUser(true);
         $plan = $this->generatePlan(['duration' => 30]);
@@ -53,7 +53,7 @@ class RequestsCountValidationRuleTest extends TestCase
     }
 
     #[Test]
-    public function testAccessNotAllowedWhenRequestsCountExceedsLimit()
+    public function test_access_not_allowed_when_requests_count_exceeds_limit()
     {
         $user = $this->generateUser(true);
         $plan = $this->generatePlan(['requests' => 500, 'duration' => 30]);

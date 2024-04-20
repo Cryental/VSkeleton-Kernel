@@ -16,7 +16,7 @@ class CountryValidationRuleTest extends TestCase
     use RefreshDatabase;
 
     #[Test]
-    public function testAccessAllowedWhenCountryRuleIsNone()
+    public function test_access_allowed_when_country_rule_is_none()
     {
         $user = $this->generateUser();
         $personalToken = $this->generatePersonalToken($user->id, [

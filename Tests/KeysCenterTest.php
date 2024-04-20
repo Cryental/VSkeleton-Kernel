@@ -8,7 +8,7 @@ use Volistx\FrameworkKernel\Helpers\KeysCenter;
 class KeysCenterTest extends TestCase
 {
     #[Test]
-    public function testRandomKey()
+    public function test_random_key()
     {
         $length = 64;
         $key = KeysCenter::randomKey($length);
@@ -18,7 +18,7 @@ class KeysCenterTest extends TestCase
     }
 
     #[Test]
-    public function testRandomSaltedKey()
+    public function test_random_salted_key()
     {
         $keyLength = 64;
         $saltLength = 16;

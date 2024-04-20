@@ -18,7 +18,7 @@ use Volistx\FrameworkKernel\Facades\Subscriptions;
 class IsActiveUserValidationRuleTest extends TestCase
 {
     #[Test]
-    public function testAccessAllowedWhenUserIsActive()
+    public function test_access_allowed_when_user_is_active()
     {
         $user = $this->generateUser(true);
         $plan = $this->generatePlan(['requests' => 500]);
@@ -34,7 +34,7 @@ class IsActiveUserValidationRuleTest extends TestCase
     }
 
     #[Test]
-    public function testAccessDeniedWhenUserIsInactive()
+    public function test_access_denied_when_user_is_inactive()
     {
         $user = $this->generateUser(false);
         $plan = $this->generatePlan(['requests' => 500]);

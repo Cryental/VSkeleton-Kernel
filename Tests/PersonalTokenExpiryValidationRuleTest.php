@@ -16,7 +16,7 @@ use Volistx\FrameworkKernel\Facades\PersonalTokens;
 class PersonalTokenExpiryValidationRuleTest extends TestCase
 {
     #[Test]
-    public function testAccessAllowedWhenTokenNotExpired()
+    public function test_access_allowed_when_token_not_expired()
     {
         $user = $this->generateUser(true);
         $personalToken = $this->generatePersonalToken($user->id, [
@@ -34,7 +34,7 @@ class PersonalTokenExpiryValidationRuleTest extends TestCase
     }
 
     #[Test]
-    public function testAccessAllowedWhenTokenHasNoExpiry()
+    public function test_access_allowed_when_token_has_no_expiry()
     {
         $user = $this->generateUser(true);
         $personalToken = $this->generatePersonalToken($user->id, [
@@ -52,7 +52,7 @@ class PersonalTokenExpiryValidationRuleTest extends TestCase
     }
 
     #[Test]
-    public function testAccessDeniedWhenTokenExpired()
+    public function test_access_denied_when_token_expired()
     {
         $user = $this->generateUser(true);
         $personalToken = $this->generatePersonalToken($user->id, [

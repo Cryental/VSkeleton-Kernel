@@ -8,7 +8,7 @@ use Volistx\FrameworkKernel\Helpers\SHA256Hasher;
 class SHA256HasherTest extends TestCase
 {
     #[Test]
-    public function testInfo()
+    public function test_info()
     {
         $hashedValue = password_hash('password123', PASSWORD_DEFAULT);
         $info = SHA256Hasher::info($hashedValue);
@@ -20,7 +20,7 @@ class SHA256HasherTest extends TestCase
     }
 
     #[Test]
-    public function testMake()
+    public function test_make()
     {
         $value = 'password123';
         $hashedValue = SHA256Hasher::make($value);
@@ -30,7 +30,7 @@ class SHA256HasherTest extends TestCase
     }
 
     #[Test]
-    public function testCheck()
+    public function test_check()
     {
         $value = 'password123';
         $hashedValue = SHA256Hasher::make($value);

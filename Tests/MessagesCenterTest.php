@@ -8,7 +8,7 @@ use Volistx\FrameworkKernel\Helpers\MessagesCenter;
 class MessagesCenterTest extends TestCase
 {
     #[Test]
-    public function testError()
+    public function test_error()
     {
         $type = 'InvalidParameter';
         $info = 'Some information about the error';
@@ -26,7 +26,7 @@ class MessagesCenterTest extends TestCase
     }
 
     #[Test]
-    public function testE400()
+    public function test_e400()
     {
         $error = 'Some specific error message';
         $expectedResult = [
@@ -43,7 +43,7 @@ class MessagesCenterTest extends TestCase
     }
 
     #[Test]
-    public function testE401()
+    public function test_e401()
     {
         $error = 'Some specific error message';
         $expectedResult = [
@@ -60,7 +60,7 @@ class MessagesCenterTest extends TestCase
     }
 
     #[Test]
-    public function testE403()
+    public function test_e403()
     {
         $error = 'Some specific error message';
         $expectedResult = [
@@ -77,7 +77,7 @@ class MessagesCenterTest extends TestCase
     }
 
     #[Test]
-    public function testE404()
+    public function test_e404()
     {
         $error = 'Some specific error message';
         $expectedResult = [
@@ -94,7 +94,7 @@ class MessagesCenterTest extends TestCase
     }
 
     #[Test]
-    public function testE409()
+    public function test_e409()
     {
         $error = 'Some specific error message';
         $expectedResult = [
@@ -111,7 +111,7 @@ class MessagesCenterTest extends TestCase
     }
 
     #[Test]
-    public function testE429()
+    public function test_e429()
     {
         $error = 'Some specific error message';
         $expectedResult = [
@@ -128,7 +128,7 @@ class MessagesCenterTest extends TestCase
     }
 
     #[Test]
-    public function testE500()
+    public function test_e500()
     {
         $error = 'Some specific error message';
         $expectedResult = [

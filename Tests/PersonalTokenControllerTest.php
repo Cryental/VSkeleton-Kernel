@@ -21,7 +21,7 @@ class PersonalTokenControllerTest extends TestCase
     use RefreshDatabase;
 
     #[Test]
-    public function AuthorizeCreatePersonalTokenPermissions()
+    public function authorize_create_personal_token_permissions()
     {
         $key = Str::random(64);
         $token = $this->generateAccessToken($key, 1);
@@ -45,7 +45,7 @@ class PersonalTokenControllerTest extends TestCase
     }
 
     #[Test]
-    public function CreatePersonalToken(): void
+    public function create_personal_token(): void
     {
         $key = Str::random(64);
         $this->generateAccessToken($key, 1);
@@ -69,7 +69,7 @@ class PersonalTokenControllerTest extends TestCase
     }
 
     #[Test]
-    public function AuthorizeUpdatePersonalTokenPermissions()
+    public function authorize_update_personal_token_permissions()
     {
         $key = Str::random(64);
         $token = $this->generateAccessToken($key);
@@ -84,7 +84,7 @@ class PersonalTokenControllerTest extends TestCase
     }
 
     #[Test]
-    public function UpdatePersonalToken(): void
+    public function update_personal_token(): void
     {
         $key = Str::random(64);
         $this->generateAccessToken($key);
@@ -104,7 +104,7 @@ class PersonalTokenControllerTest extends TestCase
     }
 
     #[Test]
-    public function AuthorizeResetPersonalToken()
+    public function authorize_reset_personal_token()
     {
         $key = Str::random(64);
         $token = $this->generateAccessToken($key);
@@ -119,7 +119,7 @@ class PersonalTokenControllerTest extends TestCase
     }
 
     #[Test]
-    public function ResetPersonalToken(): void
+    public function reset_personal_token(): void
     {
         $key = Str::random(64);
         $this->generateAccessToken($key);
@@ -137,7 +137,7 @@ class PersonalTokenControllerTest extends TestCase
     }
 
     #[Test]
-    public function AuthorizeDeletePersonalToken()
+    public function authorize_delete_personal_token()
     {
         $key = Str::random(64);
         $token = $this->generateAccessToken($key);
@@ -151,7 +151,7 @@ class PersonalTokenControllerTest extends TestCase
     }
 
     #[Test]
-    public function DeletePersonalToken(): void
+    public function delete_personal_token(): void
     {
         $key = Str::random(64);
         $this->generateAccessToken($key);
@@ -168,7 +168,7 @@ class PersonalTokenControllerTest extends TestCase
     }
 
     #[Test]
-    public function AuthorizeGetPersonalToken()
+    public function authorize_get_personal_token()
     {
         $key = Str::random(64);
         $token = $this->generateAccessToken($key);
@@ -183,7 +183,7 @@ class PersonalTokenControllerTest extends TestCase
     }
 
     #[Test]
-    public function GetPersonalToken(): void
+    public function get_personal_token(): void
     {
         $key = Str::random(64);
         $this->generateAccessToken($key);
@@ -200,7 +200,7 @@ class PersonalTokenControllerTest extends TestCase
     }
 
     #[Test]
-    public function AuthorizeGetPersonalTokens()
+    public function authorize_get_personal_tokens()
     {
         $key = Str::random(64);
         $token = $this->generateAccessToken($key);
@@ -214,7 +214,7 @@ class PersonalTokenControllerTest extends TestCase
     }
 
     #[Test]
-    public function GetPersonalTokens(): void
+    public function get_personal_tokens(): void
     {
         $key = Str::random(64);
         $this->generateAccessToken($key);
@@ -229,7 +229,7 @@ class PersonalTokenControllerTest extends TestCase
     }
 
     #[Test]
-    public function SyncPersonalTokens(): void
+    public function sync_personal_tokens(): void
     {
         $key = Str::random(64);
         $this->generateAccessToken($key);

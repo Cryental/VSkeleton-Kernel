@@ -8,7 +8,7 @@ use Volistx\FrameworkKernel\Helpers\PermissionsCenter;
 class PermissionsCenterTest extends TestCase
 {
     #[Test]
-    public function testCheckWithMatchingPermission()
+    public function test_check_with_matching_permission()
     {
         $key = (object) ['permissions' => ['subscriptions:view']];
         $module = 'subscriptions';
@@ -21,7 +21,7 @@ class PermissionsCenterTest extends TestCase
     }
 
     #[Test]
-    public function testCheckWithWildcardPermission()
+    public function test_check_with_wildcard_permission()
     {
         $key = (object) ['permissions' => ['*']];
         $module = 'plans';
@@ -34,7 +34,7 @@ class PermissionsCenterTest extends TestCase
     }
 
     #[Test]
-    public function testCheckWithNoMatchingPermission()
+    public function test_check_with_no_matching_permission()
     {
         $key = (object) ['permissions' => ['subscriptions:view']];
         $module = 'plans';
@@ -47,7 +47,7 @@ class PermissionsCenterTest extends TestCase
     }
 
     #[Test]
-    public function testCheckWithEmptyPermissions()
+    public function test_check_with_empty_permissions()
     {
         $key = (object) ['permissions' => []];
         $module = 'subscriptions';
@@ -60,7 +60,7 @@ class PermissionsCenterTest extends TestCase
     }
 
     #[Test]
-    public function testGetAdminPermissions()
+    public function test_get_admin_permissions()
     {
         $expectedResult = [
             '*', // Wildcard permission for all

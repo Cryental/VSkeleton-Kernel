@@ -22,7 +22,7 @@ class PlanControllerTest extends TestCase
     private PlanRepository $planRepository;
 
     #[Test]
-    public function AuthorizeCreatePlanPermissions()
+    public function authorize_create_plan_permissions()
     {
         $key = Str::random(64);
         $token = $this->generateAccessToken($key);
@@ -42,7 +42,7 @@ class PlanControllerTest extends TestCase
     }
 
     #[Test]
-    public function CreatePlan(): void
+    public function create_plan(): void
     {
         $key = Str::random(64);
         $this->generateAccessToken($key);
@@ -62,7 +62,7 @@ class PlanControllerTest extends TestCase
     }
 
     #[Test]
-    public function AuthorizeUpdatePlanPermissions()
+    public function authorize_update_plan_permissions()
     {
         $key = Str::random(64);
         $token = $this->generateAccessToken($key);
@@ -76,7 +76,7 @@ class PlanControllerTest extends TestCase
     }
 
     #[Test]
-    public function UpdatePlan(): void
+    public function update_plan(): void
     {
         $key = Str::random(64);
         $this->generateAccessToken($key);
@@ -95,7 +95,7 @@ class PlanControllerTest extends TestCase
     }
 
     #[Test]
-    public function AuthorizeDeletePlanPermissions()
+    public function authorize_delete_plan_permissions()
     {
         $key = Str::random(64);
         $token = $this->generateAccessToken($key);
@@ -108,7 +108,7 @@ class PlanControllerTest extends TestCase
     }
 
     #[Test]
-    public function DeletePlan(): void
+    public function delete_plan(): void
     {
         $key = Str::random(64);
         $this->generateAccessToken($key);
@@ -124,7 +124,7 @@ class PlanControllerTest extends TestCase
     }
 
     #[Test]
-    public function AuthorizeGetPlanPermissions()
+    public function authorize_get_plan_permissions()
     {
         $key = Str::random(64);
         $token = $this->generateAccessToken($key);
@@ -138,7 +138,7 @@ class PlanControllerTest extends TestCase
     }
 
     #[Test]
-    public function GetPlan(): void
+    public function get_plan(): void
     {
         $key = Str::random(64);
         $this->generateAccessToken($key);
@@ -154,7 +154,7 @@ class PlanControllerTest extends TestCase
     }
 
     #[Test]
-    public function AuthorizeGetPlansPermissions()
+    public function authorize_get_plans_permissions()
     {
         $key = Str::random(64);
         $token = $this->generateAccessToken($key);
@@ -167,7 +167,7 @@ class PlanControllerTest extends TestCase
     }
 
     #[Test]
-    public function GetPlans(): void
+    public function get_plans(): void
     {
         $key = Str::random(64);
         $this->generateAccessToken($key);

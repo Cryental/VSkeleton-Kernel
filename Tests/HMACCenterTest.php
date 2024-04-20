@@ -18,7 +18,7 @@ use Volistx\FrameworkKernel\Helpers\HMACCenter;
 class HMACCenterTest extends TestCase
 {
     #[Test]
-    public function testSign()
+    public function test_sign()
     {
         // Arrange
         app()->bind(
@@ -60,7 +60,8 @@ class HMACCenterTest extends TestCase
         $this->assertEquals($expectedSignature, $signature);
     }
 
-    public function testVerify()
+    #[Test]
+    public function verify()
     {
         $hmacToken = 'test_token';
         $method = 'GET';

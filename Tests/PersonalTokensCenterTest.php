@@ -20,7 +20,7 @@ class PersonalTokensCenterTest extends TestCase
     }
 
     #[Test]
-    public function testSetToken()
+    public function test_set_token()
     {
         $token = 'my_personal_token';
         $this->personalTokensCenter->setToken($token);
@@ -29,7 +29,7 @@ class PersonalTokensCenterTest extends TestCase
     }
 
     #[Test]
-    public function testGetToken()
+    public function test_get_token()
     {
         $token = 'my_personal_token';
         $this->personalTokensCenter->setToken($token);
