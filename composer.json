@@ -29,7 +29,8 @@
   "require-dev": {
     "mockery/mockery": "^1.5",
     "phpunit/phpunit": "^9.5",
-    "orchestra/testbench": "^8.15"
+    "orchestra/testbench": "^8.15",
+    "laravel-shift/cli-premium": "^0.2.9"
   },
   "autoload": {
     "psr-4": {
@@ -47,6 +48,12 @@
       "providers": [
         "Volistx\\FrameworkKernel\\ServiceProvider"
       ]
+    }
+  },
+  "repositories": {
+    "shift": {
+      "type": "composer",
+      "url": "https://satis.laravelshift.com"
     }
   }
 }
