@@ -73,7 +73,7 @@ class UserLogRepository
 
         return UserLog::query()
             ->where($values[0], 'LIKE', "%$searchValue%")
-            ->orderBy('created_at', 'DESC')
+            ->orderByDesc('created_at')
             ->paginate($limit, ['*'], 'page', $page);
     }
 
@@ -115,7 +115,7 @@ class UserLogRepository
             ->where('subscriptions.user_id', $userId)
             ->select('user_logs.*')
             ->where("user_logs.$values[0]", 'LIKE', "%$searchValue%")
-            ->orderBy('created_at', 'DESC')
+            ->orderByDesc('created_at')
             ->paginate($limit, ['*'], 'page', $page);
     }
 

@@ -146,7 +146,7 @@ class SubscriptionRepository
         return Subscription::with('plan')
             ->where('user_id', $userId)
             ->where('status', SubscriptionStatus::INACTIVE)
-            ->orderBy('activated_at', 'ASC')
+            ->orderBy('activated_at')
             ->first();
     }
 

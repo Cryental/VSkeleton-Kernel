@@ -74,7 +74,7 @@ class AdminLogRepository
 
         return AdminLog::query()
             ->where($values[0], 'LIKE', "%$searchValue%")
-            ->orderBy('created_at', 'DESC')
+            ->orderByDesc('created_at')
             ->paginate($limit, ['*'], 'page', $page);
     }
 }
