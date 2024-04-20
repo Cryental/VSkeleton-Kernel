@@ -14,17 +14,17 @@
     }
   ],
   "require": {
-    "php": "^8.1",
+    "php": "^8.2",
     "ext-curl": "*",
     "ext-json": "*",
     "fakerphp/faker": "^1.20",
     "wikimedia/ip-set": "^3.1",
     "guzzlehttp/guzzle": "^7.5",
-    "nesbot/carbon": "^2.64",
+    "nesbot/carbon": "^2.0|^3.0",
     "menarasolutions/geographer": "^0.3.13",
     "paragonie/random-lib": "^2.0",
     "interaction-design-foundation/laravel-geoip": "^3.3",
-    "volistx/validation": "^2.0.0",
+    "volistx/validation": "^3.0",
     "elgibor-solution/laravel-database-encryption": "^1.1"
   },
   "require-dev": {
