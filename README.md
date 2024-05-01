@@ -3,9 +3,9 @@
 This is a part of Volistx Framework.
 
 ### Requirements
-- Laravel 10.x or Above
-- PHP 8.1.2 or Above
-- MariaDB 10.5.x
+- Laravel 11.x
+- PHP 8.2 or Above
+- MariaDB 10.11.x
 
 ### Installation
 ```shell
