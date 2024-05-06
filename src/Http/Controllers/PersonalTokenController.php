@@ -22,7 +22,7 @@ class PersonalTokenController extends Controller
     /**
      * PersonalTokenController constructor.
      *
-     * @param  PersonalTokenRepository  $personalTokenRepository  The personal token repository
+     * @param PersonalTokenRepository $personalTokenRepository The personal token repository
      */
     public function __construct(PersonalTokenRepository $personalTokenRepository)
     {
@@ -33,14 +33,14 @@ class PersonalTokenController extends Controller
     /**
      * Create a personal token.
      *
-     * @param  Request  $request  The HTTP request
-     * @param  string  $userId  The user ID
+     * @param Request $request The HTTP request
+     * @param string $userId The user ID
      * @return JsonResponse The JSON response
      */
     public function CreatePersonalToken(Request $request, string $userId): JsonResponse
     {
         try {
-            if (! Permissions::check(AccessTokens::getToken(), $this->module, 'create')) {
+            if (!Permissions::check(AccessTokens::getToken(), $this->module, 'create')) {
                 return response()->json(Messages::E401(), 401);
             }
 
@@ -80,15 +80,15 @@ class PersonalTokenController extends Controller
     /**
      * Update a personal token.
      *
-     * @param  Request  $request  The HTTP request
-     * @param  string  $userId  The user ID
-     * @param  string  $tokenId  The token ID
+     * @param Request $request The HTTP request
+     * @param string $userId The user ID
+     * @param string $tokenId The token ID
      * @return JsonResponse The JSON response
      */
     public function UpdatePersonalToken(Request $request, string $userId, string $tokenId): JsonResponse
     {
         try {
-            if (! Permissions::check(AccessTokens::getToken(), $this->module, 'update')) {
+            if (!Permissions::check(AccessTokens::getToken(), $this->module, 'update')) {
                 return response()->json(Messages::E401(), 401);
             }
 
@@ -103,7 +103,7 @@ class PersonalTokenController extends Controller
 
             $updatedToken = $this->personalTokenRepository->Update($userId, $tokenId, $request->all());
 
-            if (! $updatedToken) {
+            if (!$updatedToken) {
                 return response()->json(Messages::E404(), 404);
             }
 
@@ -116,15 +116,15 @@ class PersonalTokenController extends Controller
     /**
      * Reset a personal token.
      *
-     * @param  Request  $request  The HTTP request
-     * @param  string  $userId  The user ID
-     * @param  string  $tokenId  The token ID
+     * @param Request $request The HTTP request
+     * @param string $userId The user ID
+     * @param string $tokenId The token ID
      * @return JsonResponse The JSON response
      */
     public function ResetPersonalToken(Request $request, string $userId, string $tokenId): JsonResponse
     {
         try {
-            if (! Permissions::check(AccessTokens::getToken(), $this->module, 'reset')) {
+            if (!Permissions::check(AccessTokens::getToken(), $this->module, 'reset')) {
                 return response()->json(Messages::E401(), 401);
             }
 
@@ -140,7 +140,7 @@ class PersonalTokenController extends Controller
             $saltedKey = Keys::randomSaltedKey();
             $resetToken = $this->personalTokenRepository->Reset($userId, $tokenId, $saltedKey);
 
-            if (! $resetToken) {
+            if (!$resetToken) {
                 return response()->json(Messages::E404(), 404);
             }
 
@@ -153,15 +153,15 @@ class PersonalTokenController extends Controller
     /**
      * Delete a personal token.
      *
-     * @param  Request  $request  The HTTP request
-     * @param  string  $userId  The user ID
-     * @param  string  $tokenId  The token ID
+     * @param Request $request The HTTP request
+     * @param string $userId The user ID
+     * @param string $tokenId The token ID
      * @return JsonResponse The JSON response
      */
     public function DeletePersonalToken(Request $request, string $userId, string $tokenId): JsonResponse
     {
         try {
-            if (! Permissions::check(AccessTokens::getToken(), $this->module, 'delete')) {
+            if (!Permissions::check(AccessTokens::getToken(), $this->module, 'delete')) {
                 return response()->json(Messages::E401(), 401);
             }
 
@@ -176,7 +176,7 @@ class PersonalTokenController extends Controller
 
             $result = $this->personalTokenRepository->Delete($userId, $tokenId);
 
-            if (! $result) {
+            if (!$result) {
                 return response()->json(Messages::E404(), 404);
             }
 
@@ -189,15 +189,15 @@ class PersonalTokenController extends Controller
     /**
      * Get a personal token.
      *
-     * @param  Request  $request  The HTTP request
-     * @param  string  $userId  The user ID
-     * @param  string  $tokenId  The token ID
+     * @param Request $request The HTTP request
+     * @param string $userId The user ID
+     * @param string $tokenId The token ID
      * @return JsonResponse The JSON response
      */
     public function GetPersonalToken(Request $request, string $userId, string $tokenId): JsonResponse
     {
         try {
-            if (! Permissions::check(AccessTokens::getToken(), $this->module, 'view')) {
+            if (!Permissions::check(AccessTokens::getToken(), $this->module, 'view')) {
                 return response()->json(Messages::E401(), 401);
             }
 
@@ -212,7 +212,7 @@ class PersonalTokenController extends Controller
 
             $token = $this->personalTokenRepository->Find($userId, $tokenId);
 
-            if (! $token) {
+            if (!$token) {
                 return response()->json(Messages::E404(), 404);
             }
 
@@ -225,13 +225,13 @@ class PersonalTokenController extends Controller
     /**
      * Get all personal tokens.
      *
-     * @param  Request  $request  The HTTP request
+     * @param Request $request The HTTP request
      * @return JsonResponse The JSON response
      */
     public function GetPersonalTokens(Request $request): JsonResponse
     {
         try {
-            if (! Permissions::check(AccessTokens::getToken(), $this->module, 'view-all')) {
+            if (!Permissions::check(AccessTokens::getToken(), $this->module, 'view-all')) {
                 return response()->json(Messages::E401(), 401);
             }
 
@@ -250,7 +250,7 @@ class PersonalTokenController extends Controller
 
             $tokens = $this->personalTokenRepository->FindAll($search, $page, $limit);
 
-            if (! $tokens) {
+            if (!$tokens) {
                 return response()->json(Messages::E400(trans('volistx::invalid_search_column')), 400);
             }
 
@@ -276,14 +276,14 @@ class PersonalTokenController extends Controller
     /**
      * Sync personal tokens.
      *
-     * @param  Request  $request  The HTTP request
-     * @param  string  $userId  The user ID
+     * @param Request $request The HTTP request
+     * @param string $userId The user ID
      * @return JsonResponse The JSON response
      */
     public function Sync(Request $request, string $userId): JsonResponse
     {
         try {
-            if (! Permissions::check(AccessTokens::getToken(), $this->module, 'sync')) {
+            if (!Permissions::check(AccessTokens::getToken(), $this->module, 'sync')) {
                 return response()->json(Messages::E401(), 401);
             }
 

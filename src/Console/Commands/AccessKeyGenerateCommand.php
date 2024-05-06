@@ -9,32 +9,30 @@ use Volistx\FrameworkKernel\Repositories\AccessTokenRepository;
 
 class AccessKeyGenerateCommand extends Command
 {
-    private AccessTokenRepository $accessTokenRepository;
-
-    /**
-     * Create a new AccessKeyGenerateCommand instance.
-     *
-     * @param  AccessTokenRepository  $accessTokenRepository  The access token repository.
-     */
-    public function __construct(AccessTokenRepository $accessTokenRepository)
-    {
-        parent::__construct();
-        $this->accessTokenRepository = $accessTokenRepository;
-    }
-
     /**
      * The console command signature.
      *
      * @var string
      */
     protected $signature = 'access-key:generate';
-
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Create an access key';
+    private AccessTokenRepository $accessTokenRepository;
+
+    /**
+     * Create a new AccessKeyGenerateCommand instance.
+     *
+     * @param AccessTokenRepository $accessTokenRepository The access token repository.
+     */
+    public function __construct(AccessTokenRepository $accessTokenRepository)
+    {
+        parent::__construct();
+        $this->accessTokenRepository = $accessTokenRepository;
+    }
 
     /**
      * Handle the console command.
@@ -56,6 +54,6 @@ class AccessKeyGenerateCommand extends Command
         ]);
 
         // Display the created access key
-        $this->info('Your access key is created: "'.$saltedKey['key'].'"');
+        $this->info('Your access key is created: "' . $saltedKey['key'] . '"');
     }
 }

@@ -23,7 +23,7 @@ class LocalUserLoggingService implements IUserLoggingService
     /**
      * Create a new user log entry.
      *
-     * @param  array  $inputs  [log_id, log_data, log_type]
+     * @param array $inputs [log_id, log_data, log_type]
      */
     public function CreateUserLog(array $inputs): void
     {
@@ -108,7 +108,7 @@ class LocalUserLoggingService implements IUserLoggingService
         $startDate = Carbon::createFromFormat('Y-m-d H:i:s', $subscription->activated_at);
         $endDate = $startDate->clone()->addDays($planDuration);
 
-        while (! Carbon::now()->between($startDate, $endDate)) {
+        while (!Carbon::now()->between($startDate, $endDate)) {
             $startDate->addDays($planDuration);
             $endDate->addDays($planDuration);
         }
@@ -139,8 +139,8 @@ class LocalUserLoggingService implements IUserLoggingService
         return [
             'usages' => [
                 'current' => $totalCount,
-                'max' => (int) $requestsCount,
-                'percent' => $requestsCount ? (float) number_format(($totalCount * 100) / $requestsCount, 2) : null,
+                'max' => (int)$requestsCount,
+                'percent' => $requestsCount ? (float)number_format(($totalCount * 100) / $requestsCount, 2) : null,
             ],
             'details' => $stats,
         ];

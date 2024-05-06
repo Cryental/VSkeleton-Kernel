@@ -30,6 +30,21 @@ class UserControllerTest extends TestCase
         ]);
     }
 
+    private function GenerateAccessToken(string $key): Collection|Model
+    {
+        $salt = Str::random(16);
+
+        $token = AccessTokenFactory::new()
+            ->create(['key' => substr($key, 0, 32),
+                'secret' => SHA256Hasher::make(substr($key, 32), ['salt' => $salt]),
+                'secret_salt' => $salt,
+                'permissions' => ['user:*'],]);
+
+        UserFactory::new()->create();
+
+        return $token;
+    }
+
     #[Test]
     public function create_user(): void
     {
@@ -37,7 +52,7 @@ class UserControllerTest extends TestCase
         $this->GenerateAccessToken($key);
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer '.$key,
+            'Authorization' => 'Bearer ' . $key,
         ])->post('/sys-bin/admin/users');
 
         $response->assertStatus(201);
@@ -65,7 +80,7 @@ class UserControllerTest extends TestCase
         $user = User::query()->first();
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer '.$key,
+            'Authorization' => 'Bearer ' . $key,
             'Content-Type' => 'application/json',
         ])->patchJson("/sys-bin/admin/users/$user->id", [
             'is_active' => false,
@@ -97,7 +112,7 @@ class UserControllerTest extends TestCase
         $user = User::query()->first();
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer '.$key,
+            'Authorization' => 'Bearer ' . $key,
             'Content-Type' => 'application/json',
         ])->delete("/sys-bin/admin/users/$user->id");
 
@@ -126,26 +141,11 @@ class UserControllerTest extends TestCase
         $user = User::query()->first();
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer '.$key,
+            'Authorization' => 'Bearer ' . $key,
             'Content-Type' => 'application/json',
         ])->get("/sys-bin/admin/users/$user->id");
 
         $response->assertStatus(200);
         $response->assertJson(UserDTO::fromModel($user)->GetDTO());
-    }
-
-    private function GenerateAccessToken(string $key): Collection|Model
-    {
-        $salt = Str::random(16);
-
-        $token = AccessTokenFactory::new()
-            ->create(['key' => substr($key, 0, 32),
-                'secret' => SHA256Hasher::make(substr($key, 32), ['salt' => $salt]),
-                'secret_salt' => $salt,
-                'permissions' => ['user:*'], ]);
-
-        UserFactory::new()->create();
-
-        return $token;
     }
 }

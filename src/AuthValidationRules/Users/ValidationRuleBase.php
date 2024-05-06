@@ -14,7 +14,7 @@ abstract class ValidationRuleBase
     /**
      * Create a new ValidationRuleBase instance.
      *
-     * @param  Request  $request  The HTTP request object.
+     * @param Request $request The HTTP request object.
      */
     public function __construct(Request $request)
     {

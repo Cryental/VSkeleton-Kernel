@@ -24,13 +24,13 @@ class PlanController extends Controller
     /**
      * Create a new plan.
      *
-     * @param  Request  $request  The HTTP request
+     * @param Request $request The HTTP request
      * @return JsonResponse The JSON response
      */
     public function CreatePlan(Request $request): JsonResponse
     {
         try {
-            if (! Permissions::check(AccessTokens::getToken(), $this->module, 'create')) {
+            if (!Permissions::check(AccessTokens::getToken(), $this->module, 'create')) {
                 return response()->json(Messages::E401(), 401);
             }
 
@@ -51,14 +51,14 @@ class PlanController extends Controller
     /**
      * Update a plan.
      *
-     * @param  Request  $request  The HTTP request
-     * @param  string  $planId  The plan ID
+     * @param Request $request The HTTP request
+     * @param string $planId The plan ID
      * @return JsonResponse The JSON response
      */
     public function UpdatePlan(Request $request, string $planId): JsonResponse
     {
         try {
-            if (! Permissions::check(AccessTokens::getToken(), $this->module, 'update')) {
+            if (!Permissions::check(AccessTokens::getToken(), $this->module, 'update')) {
                 return response()->json(Messages::E401(), 401);
             }
 
@@ -72,7 +72,7 @@ class PlanController extends Controller
 
             $updatedPlan = $this->planRepository->Update($planId, $request->all());
 
-            if (! $updatedPlan) {
+            if (!$updatedPlan) {
                 return response()->json(Messages::E404(), 404);
             }
 
@@ -85,14 +85,14 @@ class PlanController extends Controller
     /**
      * Delete a plan.
      *
-     * @param  Request  $request  The HTTP request
-     * @param  string  $planId  The plan ID
+     * @param Request $request The HTTP request
+     * @param string $planId The plan ID
      * @return JsonResponse The JSON response
      */
     public function DeletePlan(Request $request, string $planId): JsonResponse
     {
         try {
-            if (! Permissions::check(AccessTokens::getToken(), $this->module, 'delete')) {
+            if (!Permissions::check(AccessTokens::getToken(), $this->module, 'delete')) {
                 return response()->json(Messages::E401(), 401);
             }
 
@@ -123,14 +123,14 @@ class PlanController extends Controller
     /**
      * Get a plan.
      *
-     * @param  Request  $request  The HTTP request
-     * @param  string  $planId  The plan ID
+     * @param Request $request The HTTP request
+     * @param string $planId The plan ID
      * @return JsonResponse The JSON response
      */
     public function GetPlan(Request $request, string $planId): JsonResponse
     {
         try {
-            if (! Permissions::check(AccessTokens::getToken(), $this->module, 'view')) {
+            if (!Permissions::check(AccessTokens::getToken(), $this->module, 'view')) {
                 return response()->json(Messages::E401(), 401);
             }
 
@@ -144,7 +144,7 @@ class PlanController extends Controller
 
             $plan = $this->planRepository->Find($planId);
 
-            if (! $plan) {
+            if (!$plan) {
                 return response()->json(Messages::E404(), 404);
             }
 
@@ -157,13 +157,13 @@ class PlanController extends Controller
     /**
      * Get all plans.
      *
-     * @param  Request  $request  The HTTP request
+     * @param Request $request The HTTP request
      * @return JsonResponse The JSON response
      */
     public function GetPlans(Request $request): JsonResponse
     {
         try {
-            if (! Permissions::check(AccessTokens::getToken(), $this->module, 'view-all')) {
+            if (!Permissions::check(AccessTokens::getToken(), $this->module, 'view-all')) {
                 return response()->json(Messages::E401(), 401);
             }
 
@@ -180,9 +180,9 @@ class PlanController extends Controller
                 return response()->json(Messages::E400($validator->errors()->first()), 400);
             }
 
-            $plans = $this->planRepository->FindAll($search, (int) $page, (int) $limit);
+            $plans = $this->planRepository->FindAll($search, (int)$page, (int)$limit);
 
-            if (! $plans) {
+            if (!$plans) {
                 return response()->json(Messages::E400(trans('volistx::invalid_search_column')), 400);
             }
 

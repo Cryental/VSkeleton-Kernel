@@ -26,7 +26,7 @@ class UserLogController extends Controller
     public function GetUserLog(Request $request, string $logId): JsonResponse
     {
         try {
-            if (! Permissions::check(AccessTokens::getToken(), $this->module, 'view')) {
+            if (!Permissions::check(AccessTokens::getToken(), $this->module, 'view')) {
                 return response()->json(Messages::E401(), 401);
             }
 
@@ -40,7 +40,7 @@ class UserLogController extends Controller
 
             $log = $this->userLoggingService->GetLog($logId);
 
-            if (! $log) {
+            if (!$log) {
                 return response()->json(Messages::E404(), 404);
             }
 
@@ -56,7 +56,7 @@ class UserLogController extends Controller
     public function GetUserLogs(Request $request): JsonResponse
     {
         try {
-            if (! Permissions::check(AccessTokens::getToken(), $this->module, 'view-all')) {
+            if (!Permissions::check(AccessTokens::getToken(), $this->module, 'view-all')) {
                 return response()->json(Messages::E401(), 401);
             }
 
@@ -75,7 +75,7 @@ class UserLogController extends Controller
 
             $logs = $this->userLoggingService->GetLogs($search, $page, $limit);
 
-            if (! $logs) {
+            if (!$logs) {
                 return response()->json(Messages::E400(trans('volistx::invalid_search_column')), 400);
             }
 

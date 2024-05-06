@@ -32,7 +32,7 @@ class SubscriptionExpired implements ShouldQueue
         $url = config('volistx.webhooks.subscription.expired.url');
         $token = config('volistx.webhooks.subscription.expired.token');
 
-        if ($this->attemptNumber > 3 || ! $url || ! $token) {
+        if ($this->attemptNumber > 3 || !$url || !$token) {
             return;
         }
 

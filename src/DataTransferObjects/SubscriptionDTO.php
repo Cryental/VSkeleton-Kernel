@@ -24,11 +24,6 @@ class SubscriptionDTO extends DataTransferObjectBase
 
     public ?int $status;
 
-    public static function fromModel($subscription): self
-    {
-        return new self($subscription);
-    }
-
     public function GetDTO(): array
     {
         return [
@@ -45,5 +40,10 @@ class SubscriptionDTO extends DataTransferObjectBase
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
+    }
+
+    public static function fromModel($subscription): self
+    {
+        return new self($subscription);
     }
 }

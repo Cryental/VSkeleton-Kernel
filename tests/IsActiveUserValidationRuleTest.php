@@ -32,6 +32,27 @@ class IsActiveUserValidationRuleTest extends TestCase
         $this->assertTrue($result);
     }
 
+    private function generateUser(bool $is_active): Collection|Model
+    {
+        return UserFactory::new()->create([
+            'is_active' => $is_active,
+        ]);
+    }
+
+    private function generatePlan(array $data): Collection|Model
+    {
+        return PlanFactory::new()->create(['data' => $data]);
+    }
+
+    private function generateSubscription($user_id, $plan_id, SubscriptionStatus $status): Collection|Model
+    {
+        return SubscriptionFactory::new()->create([
+            'user_id' => $user_id,
+            'plan_id' => $plan_id,
+            'status' => $status,
+        ]);
+    }
+
     #[Test]
     public function test_access_denied_when_user_is_inactive()
     {
@@ -52,26 +73,5 @@ class IsActiveUserValidationRuleTest extends TestCase
             ],
             $result
         );
-    }
-
-    private function generateSubscription($user_id, $plan_id, SubscriptionStatus $status): Collection|Model
-    {
-        return SubscriptionFactory::new()->create([
-            'user_id' => $user_id,
-            'plan_id' => $plan_id,
-            'status' => $status,
-        ]);
-    }
-
-    private function generateUser(bool $is_active): Collection|Model
-    {
-        return UserFactory::new()->create([
-            'is_active' => $is_active,
-        ]);
-    }
-
-    private function generatePlan(array $data): Collection|Model
-    {
-        return PlanFactory::new()->create(['data' => $data]);
     }
 }

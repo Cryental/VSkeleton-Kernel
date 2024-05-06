@@ -37,7 +37,7 @@ class HMACCenterTest extends TestCase
         Carbon::setTestNow(Carbon::create(2022, 1, 1, 0, 0, 0));
         $stringUuid = '018c1f6a-332f-9145-6c47-f82692bc0a94';
         $uuid = Uuid::fromString($stringUuid);
-        $factoryMock = Mockery::mock(UuidFactory::class.'[uuid4]', [
+        $factoryMock = Mockery::mock(UuidFactory::class . '[uuid4]', [
             'uuid4' => $uuid,
         ]);
         Uuid::setFactory($factoryMock);
@@ -46,7 +46,7 @@ class HMACCenterTest extends TestCase
         $url = urlencode(URL::full());
         $nonce = $stringUuid;
         $timestamp = Carbon::now()->timestamp;
-        $valueToSign = $method.$url.$nonce.$timestamp.json_encode($content);
+        $valueToSign = $method . $url . $nonce . $timestamp . json_encode($content);
         $expectedSignature = [
             'X-HMAC-Timestamp' => $timestamp,
             'X-HMAC-Content-SHA256' => base64_encode(hash_hmac('sha256', $valueToSign, 'test_token', true)),
@@ -70,7 +70,7 @@ class HMACCenterTest extends TestCase
         $nonce = '018c1f6a-332f-9145-6c47-f82692bc0a94';
         $timestamp = Carbon::now()->timestamp;
         $contentString = json_encode(['key' => 'value']);
-        $valueToSign = $method.$url.$nonce.$timestamp.$contentString;
+        $valueToSign = $method . $url . $nonce . $timestamp . $contentString;
 
         $sha256 = base64_encode(hash_hmac('sha256', $valueToSign, $hmacToken, true));
 

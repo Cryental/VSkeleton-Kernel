@@ -5,7 +5,7 @@ This is a part of Volistx Framework.
 ### Requirements
 - Laravel 11.x
 - PHP 8.2 or Above
-- MariaDB 10.11.x
+- MariaDB 11.1.x
 
 ### Installation
 ```shell

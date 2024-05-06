@@ -19,7 +19,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         parent::setUp();
 
         $this->loadMigrationsFrom([
-            '--path' => realpath(__DIR__.'/../../database/migrations'),
+            '--path' => realpath(__DIR__ . '/../../database/migrations'),
             '--realpath' => true,
         ]);
 
@@ -29,7 +29,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
 
     protected function getEnvironmentSetUp($app)
     {
-        $app->make('config')->set('app.key', 'base64:'.base64_encode(\Illuminate\Support\Str::random(32)));
+        $app->make('config')->set('app.key', 'base64:' . base64_encode(\Illuminate\Support\Str::random(32)));
 
         // Setup default database to use sqlite :memory:
         $app['config']->set('database.default', 'testbench');
@@ -54,7 +54,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
             $token->save();
 
             $response = $this->withHeaders([
-                'Authorization' => 'Bearer '.$key,
+                'Authorization' => 'Bearer ' . $key,
                 'Content-Type: application/json',
             ])->{$method}($route, $input);
 

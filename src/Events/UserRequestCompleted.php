@@ -15,7 +15,7 @@ class UserRequestCompleted
     /**
      * Create a new UserRequestCompleted event instance.
      *
-     * @param  array  $inputs  The inputs for the user request.
+     * @param array $inputs The inputs for the user request.
      */
     public function __construct(array $inputs)
     {

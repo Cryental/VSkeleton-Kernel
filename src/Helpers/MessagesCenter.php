@@ -5,10 +5,21 @@ namespace Volistx\FrameworkKernel\Helpers;
 class MessagesCenter
 {
     /**
+     * Creates a 400 Bad Request error message.
+     *
+     * @param string|null $error The specific error message (default: null)
+     * @return array The error message
+     */
+    public function E400(?string $error = null): array
+    {
+        return self::Error('InvalidParameter', $error ?? trans('volistx::error.e400'));
+    }
+
+    /**
      * Creates an error message.
      *
-     * @param  string  $type  The type of the error
-     * @param  string  $info  The information about the error
+     * @param string $type The type of the error
+     * @param string $info The information about the error
      * @return array The error message
      */
     public function Error(string $type, string $info): array
@@ -22,20 +33,9 @@ class MessagesCenter
     }
 
     /**
-     * Creates a 400 Bad Request error message.
-     *
-     * @param  string|null  $error  The specific error message (default: null)
-     * @return array The error message
-     */
-    public function E400(?string $error = null): array
-    {
-        return self::Error('InvalidParameter', $error ?? trans('volistx::error.e400'));
-    }
-
-    /**
      * Creates a 401 Unauthorized error message.
      *
-     * @param  string|null  $error  The specific error message (default: null)
+     * @param string|null $error The specific error message (default: null)
      * @return array The error message
      */
     public function E401(?string $error = null): array
@@ -46,7 +46,7 @@ class MessagesCenter
     /**
      * Creates a 403 Forbidden error message.
      *
-     * @param  string|null  $error  The specific error message (default: null)
+     * @param string|null $error The specific error message (default: null)
      * @return array The error message
      */
     public function E403(?string $error = null): array
@@ -57,7 +57,7 @@ class MessagesCenter
     /**
      * Creates a 404 Not Found error message.
      *
-     * @param  string|null  $error  The specific error message (default: null)
+     * @param string|null $error The specific error message (default: null)
      * @return array The error message
      */
     public function E404(?string $error = null): array
@@ -68,7 +68,7 @@ class MessagesCenter
     /**
      * Creates a 409 Conflict error message.
      *
-     * @param  string|null  $error  The specific error message (default: null)
+     * @param string|null $error The specific error message (default: null)
      * @return array The error message
      */
     public function E409(?string $error = null): array
@@ -79,7 +79,7 @@ class MessagesCenter
     /**
      * Creates a 429 Too Many Requests error message.
      *
-     * @param  string|null  $error  The specific error message (default: null)
+     * @param string|null $error The specific error message (default: null)
      * @return array The error message
      */
     public function E429(?string $error = null): array
@@ -90,7 +90,7 @@ class MessagesCenter
     /**
      * Creates a 500 Internal Server Error message.
      *
-     * @param  string|null  $error  The specific error message (default: null)
+     * @param string|null $error The specific error message (default: null)
      * @return array The error message
      */
     public function E500(?string $error = null): array

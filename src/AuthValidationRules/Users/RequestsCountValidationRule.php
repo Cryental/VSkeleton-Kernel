@@ -16,7 +16,7 @@ class RequestsCountValidationRule extends ValidationRuleBase
     /**
      * Create a new RequestsCountValidationRule instance.
      *
-     * @param  Request  $request  The HTTP request object.
+     * @param Request $request The HTTP request object.
      */
     public function __construct(Request $request)
     {
@@ -48,7 +48,7 @@ class RequestsCountValidationRule extends ValidationRuleBase
             }
 
             // If the plan requests limit is not set or the requests count exceeds the limit, deny access
-            if (! $planRequestsLimit || ($planRequestsLimit != -1 && $requestsMadeCount >= $planRequestsLimit)) {
+            if (!$planRequestsLimit || ($planRequestsLimit != -1 && $requestsMadeCount >= $planRequestsLimit)) {
                 return [
                     'message' => Messages::E403(trans('volistx::request_count.exceeded_limit')),
                     'code' => 429,

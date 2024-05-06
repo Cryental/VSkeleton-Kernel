@@ -44,6 +44,40 @@ class SubscriptionValidationRuleTest extends TestCase
         $this->assertTrue($result);
     }
 
+    private function generateUser(): Collection|Model
+    {
+        return UserFactory::new()->create();
+    }
+
+    private function generatePlan(array $data): Collection|Model
+    {
+        return PlanFactory::new()->create(['data' => $data]);
+    }
+
+    private function generatePersonalToken(string $user_id, array $inputs): Collection|Model
+    {
+        return PersonalTokenFactory::new()->create(
+            array_merge(
+                [
+                    'user_id' => $user_id,
+                ],
+                $inputs
+            )
+        );
+    }
+
+    private function generateSubscription(string $user_id, array $inputs): Collection|Model
+    {
+        return SubscriptionFactory::new()->create(
+            array_merge(
+                [
+                    'user_id' => $user_id,
+                ],
+                $inputs
+            )
+        );
+    }
+
     #[Test]
     public function test_access_allowed_with_inactive_subscription()
     {
@@ -89,40 +123,6 @@ class SubscriptionValidationRuleTest extends TestCase
                 'code' => 403,
             ],
             $result
-        );
-    }
-
-    private function generateUser(): Collection|Model
-    {
-        return UserFactory::new()->create();
-    }
-
-    private function generatePlan(array $data): Collection|Model
-    {
-        return PlanFactory::new()->create(['data' => $data]);
-    }
-
-    private function generatePersonalToken(string $user_id, array $inputs): Collection|Model
-    {
-        return PersonalTokenFactory::new()->create(
-            array_merge(
-                [
-                    'user_id' => $user_id,
-                ],
-                $inputs
-            )
-        );
-    }
-
-    private function generateSubscription(string $user_id, array $inputs): Collection|Model
-    {
-        return SubscriptionFactory::new()->create(
-            array_merge(
-                [
-                    'user_id' => $user_id,
-                ],
-                $inputs
-            )
         );
     }
 }

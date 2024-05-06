@@ -38,7 +38,7 @@ class SubscriptionCancelled implements ShouldQueue
         $token = config('volistx.webhooks.subscription.cancelled.token');
 
         // Check if the attempt number exceeds the limit or if the URL or token is not provided
-        if ($this->attemptNumber > 3 || ! $url || ! $token) {
+        if ($this->attemptNumber > 3 || !$url || !$token) {
             return;
         }
 

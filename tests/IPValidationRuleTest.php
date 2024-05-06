@@ -33,6 +33,23 @@ class IPValidationRuleTest extends TestCase
         $this->assertTrue($result);
     }
 
+    private function GenerateUser(): Collection|Model
+    {
+        return UserFactory::new()->create();
+    }
+
+    private function GeneratePersonalToken(string $user_id, array $inputs): Collection|Model
+    {
+        return PersonalTokenFactory::new()->create(
+            array_merge(
+                [
+                    'user_id' => $user_id,
+                ],
+                $inputs
+            )
+        );
+    }
+
     #[Test]
     public function test_access_denied_when_i_p_blacklisted()
     {
@@ -59,6 +76,14 @@ class IPValidationRuleTest extends TestCase
         );
     }
 
+    private function createIPSetMock(bool $matchResult): IPSet
+    {
+        $ipSetMock = $this->createMock(IPSet::class);
+        $ipSetMock->method('match')->willReturn($matchResult);
+
+        return $ipSetMock;
+    }
+
     #[Test]
     public function test_access_denied_when_i_p_whitelisted()
     {
@@ -83,30 +108,5 @@ class IPValidationRuleTest extends TestCase
             ],
             $result
         );
-    }
-
-    private function GenerateUser(): Collection|Model
-    {
-        return UserFactory::new()->create();
-    }
-
-    private function GeneratePersonalToken(string $user_id, array $inputs): Collection|Model
-    {
-        return PersonalTokenFactory::new()->create(
-            array_merge(
-                [
-                    'user_id' => $user_id,
-                ],
-                $inputs
-            )
-        );
-    }
-
-    private function createIPSetMock(bool $matchResult): IPSet
-    {
-        $ipSetMock = $this->createMock(IPSet::class);
-        $ipSetMock->method('match')->willReturn($matchResult);
-
-        return $ipSetMock;
     }
 }

@@ -5,7 +5,6 @@ namespace Volistx\FrameworkKernel\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Volistx\FrameworkKernel\Facades\Messages;
-
 use function response;
 
 class JsonBodyValidationFilteringMiddleware
@@ -19,7 +18,7 @@ class JsonBodyValidationFilteringMiddleware
     public function handle(Request $request, Closure $next)
     {
         // Check if the request is in JSON format
-        if (! $request->isJson()) {
+        if (!$request->isJson()) {
             return response()->json(Messages::E400(), 400);
         }
 

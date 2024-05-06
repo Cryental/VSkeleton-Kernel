@@ -7,16 +7,6 @@ class AccessTokensCenter
     private mixed $token = null;
 
     /**
-     * Set the access token.
-     *
-     * @param  mixed  $token  The access token
-     */
-    public function setToken(mixed $token): void
-    {
-        $this->token = $token;
-    }
-
-    /**
      * Get the access token.
      *
      * @return mixed The access token
@@ -24,5 +14,15 @@ class AccessTokensCenter
     public function getToken(): mixed
     {
         return $this->token;
+    }
+
+    /**
+     * Set the access token.
+     *
+     * @param mixed $token The access token
+     */
+    public function setToken(mixed $token): void
+    {
+        $this->token = $token;
     }
 }

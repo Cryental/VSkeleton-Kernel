@@ -30,7 +30,7 @@ class EventServiceProvider extends ServiceProvider
         foreach ($this->listen as $event => $listeners) {
             foreach ($listeners as $listener) {
                 $listenerExists = $events->hasListeners($event);
-                if (! $listenerExists) {
+                if (!$listenerExists) {
                     $events->listen($event, $listener);
                 }
             }

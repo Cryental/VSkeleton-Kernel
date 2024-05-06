@@ -30,6 +30,22 @@ class AdminLogControllerTest extends TestCase
         ]);
     }
 
+    private function GenerateAccessToken(string $key, int $logsCount): Collection|Model
+    {
+        $salt = Str::random(16);
+        $token = AccessTokenFactory::new()
+            ->create(['key' => substr($key, 0, 32),
+                'secret' => SHA256Hasher::make(substr($key, 32), ['salt' => $salt]),
+                'secret_salt' => $salt,
+                'permissions' => ['admin-logs:*'],]);
+
+        AdminLogFactory::new()->count($logsCount)->create([
+            'access_token_id' => $token->id,
+        ]);
+
+        return $token;
+    }
+
     #[Test]
     public function get_log(): void
     {
@@ -38,7 +54,7 @@ class AdminLogControllerTest extends TestCase
         $log = AdminLog::query()->first();
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer '.$key,
+            'Authorization' => 'Bearer ' . $key,
         ])->get("/sys-bin/admin/logs/$log->id");
 
         $response->assertStatus(200);
@@ -65,7 +81,7 @@ class AdminLogControllerTest extends TestCase
         $this->GenerateAccessToken($key, 50);
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer '.$key,
+            'Authorization' => 'Bearer ' . $key,
         ])->get('/sys-bin/admin/logs');
 
         $response->assertStatus(200);
@@ -79,26 +95,10 @@ class AdminLogControllerTest extends TestCase
         $this->GenerateAccessToken($key, 50);
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer '.$key,
+            'Authorization' => 'Bearer ' . $key,
         ])->get('/sys-bin/admin/logs?limit=1');
 
         $response->assertStatus(200);
         self::assertCount(1, json_decode($response->getContent())->items);
-    }
-
-    private function GenerateAccessToken(string $key, int $logsCount): Collection|Model
-    {
-        $salt = Str::random(16);
-        $token = AccessTokenFactory::new()
-            ->create(['key' => substr($key, 0, 32),
-                'secret' => SHA256Hasher::make(substr($key, 32), ['salt' => $salt]),
-                'secret_salt' => $salt,
-                'permissions' => ['admin-logs:*'], ]);
-
-        AdminLogFactory::new()->count($logsCount)->create([
-            'access_token_id' => $token->id,
-        ]);
-
-        return $token;
     }
 }

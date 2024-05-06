@@ -8,7 +8,6 @@ use Volistx\FrameworkKernel\AuthValidationRules\Admins\IPValidationRule;
 use Volistx\FrameworkKernel\Facades\AccessTokens;
 use Volistx\FrameworkKernel\Facades\Messages;
 use Volistx\FrameworkKernel\Repositories\AccessTokenRepository;
-
 use function response;
 
 class AdminAuthMiddleware
@@ -33,7 +32,7 @@ class AdminAuthMiddleware
     {
         // Authenticate the access token
         $token = $this->accessTokenRepository->AuthAccessToken($request->bearerToken());
-        if (! $token) {
+        if (!$token) {
             return response()->json(Messages::E401(), 401);
         }
 

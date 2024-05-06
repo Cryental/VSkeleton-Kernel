@@ -19,7 +19,7 @@ class ProcessedResponse
     /**
      * ProcessedResponse constructor.
      *
-     * @param  mixed  $response  The response object
+     * @param mixed $response The response object
      */
     public function __construct(mixed $response)
     {

@@ -34,6 +34,28 @@ class IPRateLimitValidationRuleTest extends TestCase
         $this->assertTrue($result);
     }
 
+    private function GeneratePlan(array $data): Collection|Model
+    {
+        return PlanFactory::new()->create(['data' => $data]);
+    }
+
+    private function GenerateUser(): Collection|Model
+    {
+        return UserFactory::new()->create();
+    }
+
+    private function GeneratePersonalToken(string $user_id, array $inputs): Collection|Model
+    {
+        return PersonalTokenFactory::new()->create(
+            array_merge(
+                [
+                    'user_id' => $user_id,
+                ],
+                $inputs
+            )
+        );
+    }
+
     #[Test]
     public function test_access_allowed_when_rate_limit_not_exceeded()
     {
@@ -75,28 +97,6 @@ class IPRateLimitValidationRuleTest extends TestCase
                 'code' => 429,
             ],
             $result
-        );
-    }
-
-    private function GenerateUser(): Collection|Model
-    {
-        return UserFactory::new()->create();
-    }
-
-    private function GeneratePlan(array $data): Collection|Model
-    {
-        return PlanFactory::new()->create(['data' => $data]);
-    }
-
-    private function GeneratePersonalToken(string $user_id, array $inputs): Collection|Model
-    {
-        return PersonalTokenFactory::new()->create(
-            array_merge(
-                [
-                    'user_id' => $user_id,
-                ],
-                $inputs
-            )
         );
     }
 }

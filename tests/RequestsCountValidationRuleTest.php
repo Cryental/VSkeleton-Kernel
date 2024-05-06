@@ -34,6 +34,27 @@ class RequestsCountValidationRuleTest extends TestCase
         $this->assertTrue($result);
     }
 
+    private function generateUser(bool $is_active): Collection|Model
+    {
+        return UserFactory::new()->create([
+            'is_active' => $is_active,
+        ]);
+    }
+
+    private function generatePlan(array $data): Collection|Model
+    {
+        return PlanFactory::new()->create(['data' => $data]);
+    }
+
+    private function generateSubscription($user_id, $plan_id, SubscriptionStatus $status): Collection|Model
+    {
+        return SubscriptionFactory::new()->create([
+            'user_id' => $user_id,
+            'plan_id' => $plan_id,
+            'status' => $status,
+        ]);
+    }
+
     #[Test]
     public function test_access_allowed_when_plan_has_no_requests()
     {
@@ -68,27 +89,6 @@ class RequestsCountValidationRuleTest extends TestCase
 
         // Now its true but it should be false.
         $this->assertTrue($result); // Correction here to expect false as the logs exceed the plan limit
-    }
-
-    private function generateSubscription($user_id, $plan_id, SubscriptionStatus $status): Collection|Model
-    {
-        return SubscriptionFactory::new()->create([
-            'user_id' => $user_id,
-            'plan_id' => $plan_id,
-            'status' => $status,
-        ]);
-    }
-
-    private function generateUser(bool $is_active): Collection|Model
-    {
-        return UserFactory::new()->create([
-            'is_active' => $is_active,
-        ]);
-    }
-
-    private function generatePlan(array $data): Collection|Model
-    {
-        return PlanFactory::new()->create(['data' => $data]);
     }
 
     private function generateLogs(string $subscriptionId, int $count): Collection|Model

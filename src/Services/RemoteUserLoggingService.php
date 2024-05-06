@@ -22,7 +22,7 @@ class RemoteUserLoggingService implements IUserLoggingService
     /**
      * Create a new user log entry.
      *
-     * @param  array  $inputs  [log_id, log_data, log_type]
+     * @param array $inputs [log_id, log_data, log_type]
      */
     public function CreateUserLog(array $inputs): void
     {

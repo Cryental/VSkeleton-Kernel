@@ -30,7 +30,7 @@ class UserAuthMiddleware
     {
         // Authenticate the personal token
         $token = $this->personalTokenRepository->AuthPersonalToken($request->bearerToken());
-        if (! $token) {
+        if (!$token) {
             return response()->json(Messages::E401(), 401);
         }
 

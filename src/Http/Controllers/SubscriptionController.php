@@ -33,7 +33,7 @@ class SubscriptionController extends Controller
     public function CreateSubscription(Request $request, string $userId): JsonResponse
     {
         try {
-            if (! Permissions::check(AccessTokens::getToken(), $this->module, 'create')) {
+            if (!Permissions::check(AccessTokens::getToken(), $this->module, 'create')) {
                 return response()->json(Messages::E401(), 401);
             }
 
@@ -69,7 +69,7 @@ class SubscriptionController extends Controller
     public function MutateSubscription(Request $request, string $userId, string $subscriptionId): JsonResponse
     {
         try {
-            if (! Permissions::check(AccessTokens::getToken(), $this->module, 'mutate')) {
+            if (!Permissions::check(AccessTokens::getToken(), $this->module, 'mutate')) {
                 return response()->json(Messages::E401(), 401);
             }
 
@@ -102,7 +102,7 @@ class SubscriptionController extends Controller
     public function DeleteSubscription(Request $request, string $userId, string $subscriptionId): JsonResponse
     {
         try {
-            if (! Permissions::check(AccessTokens::getToken(), $this->module, 'delete')) {
+            if (!Permissions::check(AccessTokens::getToken(), $this->module, 'delete')) {
                 return response()->json(Messages::E401(), 401);
             }
 
@@ -117,7 +117,7 @@ class SubscriptionController extends Controller
 
             $result = $this->subscriptionRepository->Delete($userId, $subscriptionId);
 
-            if (! $result) {
+            if (!$result) {
                 return response()->json(Messages::E404(), 404);
             }
 
@@ -132,7 +132,7 @@ class SubscriptionController extends Controller
      */
     public function CancelSubscription(Request $request, string $userId, string $subscriptionId): JsonResponse
     {
-        if (! Permissions::check(AccessTokens::getToken(), $this->module, 'cancel')) {
+        if (!Permissions::check(AccessTokens::getToken(), $this->module, 'cancel')) {
             return response()->json(Messages::E401(), 401);
         }
 
@@ -170,7 +170,7 @@ class SubscriptionController extends Controller
      */
     public function RevertCancelSubscription(Request $request, string $userId, string $subscriptionId): JsonResponse
     {
-        if (! Permissions::check(AccessTokens::getToken(), $this->module, 'revert-cancel')) {
+        if (!Permissions::check(AccessTokens::getToken(), $this->module, 'revert-cancel')) {
             return response()->json(Messages::E401(), 401);
         }
 
@@ -206,7 +206,7 @@ class SubscriptionController extends Controller
     public function GetSubscription(Request $request, string $userId, string $subscriptionId): JsonResponse
     {
         try {
-            if (! Permissions::check(AccessTokens::getToken(), $this->module, 'view')) {
+            if (!Permissions::check(AccessTokens::getToken(), $this->module, 'view')) {
                 return response()->json(Messages::E401(), 401);
             }
 
@@ -221,7 +221,7 @@ class SubscriptionController extends Controller
 
             $subscription = $this->subscriptionRepository->Find($userId, $subscriptionId);
 
-            if (! $subscription) {
+            if (!$subscription) {
                 return response()->json(Messages::E404(), 404);
             }
 
@@ -237,7 +237,7 @@ class SubscriptionController extends Controller
     public function GetSubscriptions(Request $request, string $userId): JsonResponse
     {
         try {
-            if (! Permissions::check(AccessTokens::getToken(), $this->module, 'view-all')) {
+            if (!Permissions::check(AccessTokens::getToken(), $this->module, 'view-all')) {
                 return response()->json(Messages::E401(), 401);
             }
 
@@ -257,7 +257,7 @@ class SubscriptionController extends Controller
 
             $subs = $this->subscriptionRepository->FindAll($userId, $search, $page, $limit);
 
-            if (! $subs) {
+            if (!$subs) {
                 return response()->json(Messages::E400(trans('invalid_search_column')), 400);
             }
 
@@ -285,7 +285,7 @@ class SubscriptionController extends Controller
     public function GetSubscriptionLogs(Request $request, string $userId, string $subscriptionId): JsonResponse
     {
         try {
-            if (! Permissions::check(AccessTokens::getToken(), $this->module, 'logs')) {
+            if (!Permissions::check(AccessTokens::getToken(), $this->module, 'logs')) {
                 return response()->json(Messages::E401(), 401);
             }
 
@@ -318,7 +318,7 @@ class SubscriptionController extends Controller
     public function GetSubscriptionUsages(Request $request, string $userId, string $subscriptionId): JsonResponse
     {
         try {
-            if (! Permissions::check(AccessTokens::getToken(), $this->module, 'stats')) {
+            if (!Permissions::check(AccessTokens::getToken(), $this->module, 'stats')) {
                 return response()->json(Messages::E401(), 401);
             }
 
@@ -333,7 +333,7 @@ class SubscriptionController extends Controller
 
             $usages = $this->loggingService->GetSubscriptionUsages($userId, $subscriptionId);
 
-            if (! $usages) {
+            if (!$usages) {
                 return response()->json(Messages::E500(), 500);
             }
 

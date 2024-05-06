@@ -13,33 +13,15 @@ use Volistx\FrameworkKernel\Models\Subscription;
 class SubscriptionRepository
 {
     /**
-     * Create a new subscription.
-     *
-     * @param  array  $inputs  [user_id, plan_id, status, activated_at, expires_at]
-     */
-    public function Create(array $inputs): Model|Builder
-    {
-        return Subscription::query()->create([
-            'user_id' => $inputs['user_id'],
-            'plan_id' => $inputs['plan_id'],
-            'status' => $inputs['status'],
-            'activated_at' => $inputs['activated_at'] ?? Carbon::now(),
-            'expires_at' => $inputs['expires_at'],
-            'cancels_at' => null,
-            'cancelled_at' => null,
-        ]);
-    }
-
-    /**
      * Clone an existing subscription.
      *
-     * @param  array  $inputs  [plan_id, status, activated_at, expires_at, expired_at, cancels_at, cancelled_at]
+     * @param array $inputs [plan_id, status, activated_at, expires_at, expired_at, cancels_at, cancelled_at]
      */
     public function Clone(string $userId, string $subscriptionId, array $inputs): Builder|Model|null
     {
         $subscription = $this->Find($userId, $subscriptionId);
 
-        if (! $subscription) {
+        if (!$subscription) {
             return null;
         }
 
@@ -56,15 +38,44 @@ class SubscriptionRepository
     }
 
     /**
+     * Find a subscription by user ID and subscription ID.
+     */
+    public function Find(string $userId, string $subscriptionId): ?object
+    {
+        return Subscription::with('plan')
+            ->where('id', $subscriptionId)
+            ->where('user_id', $userId)
+            ->first();
+    }
+
+    /**
+     * Create a new subscription.
+     *
+     * @param array $inputs [user_id, plan_id, status, activated_at, expires_at]
+     */
+    public function Create(array $inputs): Model|Builder
+    {
+        return Subscription::query()->create([
+            'user_id' => $inputs['user_id'],
+            'plan_id' => $inputs['plan_id'],
+            'status' => $inputs['status'],
+            'activated_at' => $inputs['activated_at'] ?? Carbon::now(),
+            'expires_at' => $inputs['expires_at'],
+            'cancels_at' => null,
+            'cancelled_at' => null,
+        ]);
+    }
+
+    /**
      * Update an existing subscription.
      *
-     * @param  array  $inputs  [status, cancels_at, cancelled_at, expires_at, expired_at]
+     * @param array $inputs [status, cancels_at, cancelled_at, expires_at, expired_at]
      */
     public function Update(string $userId, string $subscriptionId, array $inputs): ?object
     {
         $subscription = $this->Find($userId, $subscriptionId);
 
-        if (! $subscription) {
+        if (!$subscription) {
             return null;
         }
 
@@ -91,17 +102,6 @@ class SubscriptionRepository
         $subscription->save();
 
         return $subscription;
-    }
-
-    /**
-     * Find a subscription by user ID and subscription ID.
-     */
-    public function Find(string $userId, string $subscriptionId): ?object
-    {
-        return Subscription::with('plan')
-            ->where('id', $subscriptionId)
-            ->where('user_id', $userId)
-            ->first();
     }
 
     /**
@@ -134,7 +134,7 @@ class SubscriptionRepository
     {
         $toBeDeletedSub = $this->Find($userId, $subscriptionId);
 
-        if (! $toBeDeletedSub) {
+        if (!$toBeDeletedSub) {
             return null;
         }
 
@@ -153,7 +153,7 @@ class SubscriptionRepository
             $search = 'id:';
         }
 
-        if (! str_contains($search, ':')) {
+        if (!str_contains($search, ':')) {
             return null;
         }
 
@@ -161,7 +161,7 @@ class SubscriptionRepository
         $values = explode(':', $search, 2);
         $columnName = strtolower(trim($values[0]));
 
-        if (! in_array($columnName, $columns)) {
+        if (!in_array($columnName, $columns)) {
             return null;
         }
 

@@ -44,6 +44,28 @@ class PersonalTokenControllerTest extends TestCase
         ]);
     }
 
+    private function generateAccessToken(string $key): Collection|Model
+    {
+        $salt = Str::random(16);
+
+        return AccessTokenFactory::new()
+            ->create(['key' => substr($key, 0, 32),
+                'secret' => SHA256Hasher::make(substr($key, 32), ['salt' => $salt]),
+                'secret_salt' => $salt,
+                'permissions' => ['personal-tokens:*'],]);
+    }
+
+    private function generateUserWithTokens($tokensCount): Collection|Model
+    {
+        $user = UserFactory::new()->create();
+
+        PersonalTokenFactory::new()->count($tokensCount)->create([
+            'user_id' => $user->id,
+        ]);
+
+        return $user;
+    }
+
     #[Test]
     public function create_personal_token(): void
     {
@@ -52,7 +74,7 @@ class PersonalTokenControllerTest extends TestCase
         $user = $this->generateUserWithTokens(1);
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer '.$key,
+            'Authorization' => 'Bearer ' . $key,
         ])->postJson("/sys-bin/admin/users/$user->id/personal-tokens", [
             'name' => 'Test Token',
             'expires_at' => null,
@@ -92,7 +114,7 @@ class PersonalTokenControllerTest extends TestCase
         $personalToken = PersonalToken::query()->first();
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer '.$key,
+            'Authorization' => 'Bearer ' . $key,
             'Content-Type' => 'application/json',
         ])->patchJson("/sys-bin/admin/users/{$user->id}/personal-tokens/{$personalToken->id}", [
             'name' => 'Updated Token',
@@ -127,7 +149,7 @@ class PersonalTokenControllerTest extends TestCase
         $personalToken = PersonalToken::query()->first();
         $oldKey = $personalToken->key;
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer '.$key,
+            'Authorization' => 'Bearer ' . $key,
         ])->post("/sys-bin/admin/users/{$user->id}/personal-tokens/{$personalToken->id}/reset");
 
         $personalToken = PersonalToken::query()->first();
@@ -159,7 +181,7 @@ class PersonalTokenControllerTest extends TestCase
         $personalToken = PersonalToken::query()->first();
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer '.$key,
+            'Authorization' => 'Bearer ' . $key,
             'Content-Type' => 'application/json',
         ])->delete("/sys-bin/admin/users/{$user->id}/personal-tokens/{$personalToken->id}");
 
@@ -191,7 +213,7 @@ class PersonalTokenControllerTest extends TestCase
         $personalToken = PersonalToken::query()->first();
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer '.$key,
+            'Authorization' => 'Bearer ' . $key,
         ])->get("/sys-bin/admin/users/{$user->id}/personal-tokens/{$personalToken->id}");
 
         $personalToken = PersonalToken::query()->first();
@@ -221,7 +243,7 @@ class PersonalTokenControllerTest extends TestCase
         $user = $this->generateUserWithTokens(5);
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer '.$key,
+            'Authorization' => 'Bearer ' . $key,
         ])->get("/sys-bin/admin/users/{$user->id}/personal-tokens");
 
         $response->assertStatus(200);
@@ -236,31 +258,9 @@ class PersonalTokenControllerTest extends TestCase
         $user = $this->generateUserWithTokens(1);
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer '.$key,
+            'Authorization' => 'Bearer ' . $key,
         ])->post("/sys-bin/admin/users/$user->id/personal-tokens/sync");
 
         $response->assertStatus(201);
-    }
-
-    private function generateAccessToken(string $key): Collection|Model
-    {
-        $salt = Str::random(16);
-
-        return AccessTokenFactory::new()
-            ->create(['key' => substr($key, 0, 32),
-                'secret' => SHA256Hasher::make(substr($key, 32), ['salt' => $salt]),
-                'secret_salt' => $salt,
-                'permissions' => ['personal-tokens:*'], ]);
-    }
-
-    private function generateUserWithTokens($tokensCount): Collection|Model
-    {
-        $user = UserFactory::new()->create();
-
-        PersonalTokenFactory::new()->count($tokensCount)->create([
-            'user_id' => $user->id,
-        ]);
-
-        return $user;
     }
 }

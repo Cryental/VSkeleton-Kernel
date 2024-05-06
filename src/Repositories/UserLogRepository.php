@@ -14,7 +14,7 @@ class UserLogRepository
     /**
      * Create a new user log entry.
      *
-     * @param  array  $inputs  [subscription_id, url, ip, method, user_agent]
+     * @param array $inputs [subscription_id, url, ip, method, user_agent]
      */
     public function Create(array $inputs): Model|Builder
     {
@@ -45,7 +45,7 @@ class UserLogRepository
             $search = 'id:';
         }
 
-        if (! str_contains($search, ':')) {
+        if (!str_contains($search, ':')) {
             return null;
         }
 
@@ -53,7 +53,7 @@ class UserLogRepository
         $values = explode(':', $search, 2);
         $columnName = strtolower(trim($values[0]));
 
-        if (! in_array($columnName, $columns)) {
+        if (!in_array($columnName, $columns)) {
             return null;
         }
 
@@ -75,7 +75,7 @@ class UserLogRepository
             $search = 'id:';
         }
 
-        if (! str_contains($search, ':')) {
+        if (!str_contains($search, ':')) {
             return null;
         }
 
@@ -83,7 +83,7 @@ class UserLogRepository
         $values = explode(':', $search, 2);
         $columnName = strtolower(trim($values[0]));
 
-        if (! in_array($columnName, $columns)) {
+        if (!in_array($columnName, $columns)) {
             return null;
         }
 

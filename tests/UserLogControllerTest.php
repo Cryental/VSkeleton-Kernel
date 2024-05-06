@@ -33,6 +33,31 @@ class UserLogControllerTest extends TestCase
         ]);
     }
 
+    private function GenerateAccessToken(string $key, int $logsCount): Collection|Model
+    {
+        $salt = Str::random(16);
+        $token = AccessTokenFactory::new()
+            ->create(['key' => substr($key, 0, 32),
+                'secret' => SHA256Hasher::make(substr($key, 32), ['salt' => $salt]),
+                'secret_salt' => $salt,
+                'permissions' => ['user-logs:*'],]);
+
+        $user = UserFactory::new()->create();
+
+        $plan = PlanFactory::new()->create();
+
+        $subscription = SubscriptionFactory::new()->create([
+            'plan_id' => $plan->id,
+            'user_id' => $user->id,
+        ]);
+
+        UserLogFactory::new()->count($logsCount)->create([
+            'subscription_id' => $subscription->id,
+        ]);
+
+        return $token;
+    }
+
     #[Test]
     public function get_log(): void
     {
@@ -41,7 +66,7 @@ class UserLogControllerTest extends TestCase
         $log = UserLog::query()->first();
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer '.$key,
+            'Authorization' => 'Bearer ' . $key,
         ])->get("/sys-bin/admin/user-logs/$log->id");
 
         $response->assertStatus(200);
@@ -68,7 +93,7 @@ class UserLogControllerTest extends TestCase
         $this->GenerateAccessToken($key, 50);
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer '.$key,
+            'Authorization' => 'Bearer ' . $key,
         ])->get('/sys-bin/admin/user-logs');
 
         $response->assertStatus(200);
@@ -82,35 +107,10 @@ class UserLogControllerTest extends TestCase
         $this->GenerateAccessToken($key, 50);
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer '.$key,
+            'Authorization' => 'Bearer ' . $key,
         ])->get('/sys-bin/admin/user-logs?limit=1');
 
         $response->assertStatus(200);
         self::assertCount(1, json_decode($response->getContent())->items);
-    }
-
-    private function GenerateAccessToken(string $key, int $logsCount): Collection|Model
-    {
-        $salt = Str::random(16);
-        $token = AccessTokenFactory::new()
-            ->create(['key' => substr($key, 0, 32),
-                'secret' => SHA256Hasher::make(substr($key, 32), ['salt' => $salt]),
-                'secret_salt' => $salt,
-                'permissions' => ['user-logs:*'], ]);
-
-        $user = UserFactory::new()->create();
-
-        $plan = PlanFactory::new()->create();
-
-        $subscription = SubscriptionFactory::new()->create([
-            'plan_id' => $plan->id,
-            'user_id' => $user->id,
-        ]);
-
-        UserLogFactory::new()->count($logsCount)->create([
-            'subscription_id' => $subscription->id,
-        ]);
-
-        return $token;
     }
 }

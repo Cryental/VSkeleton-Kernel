@@ -41,6 +41,28 @@ class SubscriptionControllerTest extends TestCase
         ]);
     }
 
+    private function GenerateAccessToken(string $key): Collection|Model
+    {
+        $salt = Str::random(16);
+
+        return AccessTokenFactory::new()
+            ->create(['key' => substr($key, 0, 32),
+                'secret' => SHA256Hasher::make(substr($key, 32), ['salt' => $salt]),
+                'secret_salt' => $salt,
+                'permissions' => ['subscriptions:*'],
+            ]);
+    }
+
+    private function GenerateUser(): Collection|Model
+    {
+        return UserFactory::new()->create();
+    }
+
+    private function GeneratePlan(): Collection|Model
+    {
+        return PlanFactory::new()->create();
+    }
+
     #[Test]
     public function create_subscription(): void
     {
@@ -50,7 +72,7 @@ class SubscriptionControllerTest extends TestCase
         $plan = $this->GeneratePlan();
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer '.$key,
+            'Authorization' => 'Bearer ' . $key,
             'Content-Type' => 'application/json',
         ])->postJson("/sys-bin/admin/users/$user->id/subscriptions", [
             'plan_id' => $plan->id,
@@ -79,6 +101,14 @@ class SubscriptionControllerTest extends TestCase
         ]);
     }
 
+    private function GenerateSubscription(string $user_id, string $plan_id, $data = []): Collection|Model
+    {
+        return SubscriptionFactory::new()->create(array_merge([
+            'user_id' => $user_id,
+            'plan_id' => $plan_id,
+        ], $data));
+    }
+
     #[Test]
     public function mutate_subscription(): void
     {
@@ -89,7 +119,7 @@ class SubscriptionControllerTest extends TestCase
         $subscription = $this->GenerateSubscription($user->id, $plan->id);
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer '.$key,
+            'Authorization' => 'Bearer ' . $key,
             'Content-Type' => 'application/json',
         ])->postJson("/sys-bin/admin/users/$user->id/subscriptions/$subscription->id", [
             'expires_at' => Carbon::now(),
@@ -126,7 +156,7 @@ class SubscriptionControllerTest extends TestCase
         $subscription = $this->GenerateSubscription($user->id, $plan->id);
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer '.$key,
+            'Authorization' => 'Bearer ' . $key,
             'Content-Type' => 'application/json',
         ])->delete("/sys-bin/admin/users/$user->id/subscriptions/$subscription->id");
 
@@ -163,7 +193,7 @@ class SubscriptionControllerTest extends TestCase
         $cancels_at_date = Carbon::now()->addDay()->toString();
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer '.$key,
+            'Authorization' => 'Bearer ' . $key,
             'Content-Type' => 'application/json',
         ])->patchJson("/sys-bin/admin/users/$user->id/subscriptions/$subscription->id/cancel", [
             'cancels_at' => $cancels_at_date,
@@ -202,7 +232,7 @@ class SubscriptionControllerTest extends TestCase
         ]);
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer '.$key,
+            'Authorization' => 'Bearer ' . $key,
             'Content-Type' => 'application/json',
         ])->patchJson("/sys-bin/admin/users/$user->id/subscriptions/$subscription->id/revert-cancel");
 
@@ -236,7 +266,7 @@ class SubscriptionControllerTest extends TestCase
         $subscription = $this->GenerateSubscription($user->id, $plan->id);
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer '.$key,
+            'Authorization' => 'Bearer ' . $key,
             'Content-Type' => 'application/json',
         ])->get("/sys-bin/admin/users/$user->id/subscriptions/$subscription->id");
 
@@ -268,7 +298,7 @@ class SubscriptionControllerTest extends TestCase
         $subscriptions = SubscriptionFactory::new()->count(3)->create(['user_id' => $user->id, 'plan_id' => $plan->id]);
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer '.$key,
+            'Authorization' => 'Bearer ' . $key,
             'Content-Type' => 'application/json',
         ])->get("/sys-bin/admin/users/$user->id/subscriptions");
 
@@ -303,7 +333,7 @@ class SubscriptionControllerTest extends TestCase
         UserLogFactory::new()->count(5)->create(['subscription_id' => $subscription->id]);
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer '.$key,
+            'Authorization' => 'Bearer ' . $key,
             'Content-Type' => 'application/json',
         ])->get("/sys-bin/admin/users/$user->id/subscriptions/$subscription->id/logs");
 
@@ -338,41 +368,11 @@ class SubscriptionControllerTest extends TestCase
         UserLogFactory::new()->count(5)->create(['subscription_id' => $subscription->id]);
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer '.$key,
+            'Authorization' => 'Bearer ' . $key,
             'Content-Type' => 'application/json',
         ])->get("/sys-bin/admin/users/$user->id/subscriptions/$subscription->id/usages");
 
         $response->assertStatus(200);
         self::assertSame(5, json_decode($response->getContent())->usages->current);
-    }
-
-    private function GenerateAccessToken(string $key): Collection|Model
-    {
-        $salt = Str::random(16);
-
-        return AccessTokenFactory::new()
-            ->create(['key' => substr($key, 0, 32),
-                'secret' => SHA256Hasher::make(substr($key, 32), ['salt' => $salt]),
-                'secret_salt' => $salt,
-                'permissions' => ['subscriptions:*'],
-            ]);
-    }
-
-    private function GenerateUser(): Collection|Model
-    {
-        return UserFactory::new()->create();
-    }
-
-    private function GeneratePlan(): Collection|Model
-    {
-        return PlanFactory::new()->create();
-    }
-
-    private function GenerateSubscription(string $user_id, string $plan_id, $data = []): Collection|Model
-    {
-        return SubscriptionFactory::new()->create(array_merge([
-            'user_id' => $user_id,
-            'plan_id' => $plan_id,
-        ], $data));
     }
 }

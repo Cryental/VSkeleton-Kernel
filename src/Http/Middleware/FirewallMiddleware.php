@@ -6,7 +6,6 @@ use Closure;
 use Illuminate\Http\Request;
 use Volistx\FrameworkKernel\Facades\Messages;
 use Wikimedia\IPSet;
-
 use function config;
 use function response;
 

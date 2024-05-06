@@ -7,32 +7,30 @@ use Volistx\FrameworkKernel\Repositories\AccessTokenRepository;
 
 class AccessKeyDeleteCommand extends Command
 {
-    private AccessTokenRepository $accessTokenRepository;
-
-    /**
-     * Create a new AccessKeyDeleteCommand instance.
-     *
-     * @param  AccessTokenRepository  $accessTokenRepository  The access token repository.
-     */
-    public function __construct(AccessTokenRepository $accessTokenRepository)
-    {
-        parent::__construct();
-        $this->accessTokenRepository = $accessTokenRepository;
-    }
-
     /**
      * The console command signature.
      *
      * @var string
      */
     protected $signature = 'access-key:delete {--key=}';
-
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Delete an access key';
+    private AccessTokenRepository $accessTokenRepository;
+
+    /**
+     * Create a new AccessKeyDeleteCommand instance.
+     *
+     * @param AccessTokenRepository $accessTokenRepository The access token repository.
+     */
+    public function __construct(AccessTokenRepository $accessTokenRepository)
+    {
+        parent::__construct();
+        $this->accessTokenRepository = $accessTokenRepository;
+    }
 
     /**
      * Handle the console command.
@@ -54,7 +52,7 @@ class AccessKeyDeleteCommand extends Command
         $accessToken = $this->accessTokenRepository->AuthAccessToken($token);
 
         // Check if the access token exists
-        if (! $accessToken) {
+        if (!$accessToken) {
             $this->error('The specified access key is invalid.');
 
             return;
@@ -63,6 +61,6 @@ class AccessKeyDeleteCommand extends Command
         // Delete the access token
         $this->accessTokenRepository->Delete($accessToken->id);
 
-        $this->info('Your access key is deleted: '.$token);
+        $this->info('Your access key is deleted: ' . $token);
     }
 }

@@ -69,7 +69,7 @@ class PersonalTokenDTO extends DataTransferObjectBase
             'updated_at' => $this->updated_at,
         ];
 
-        if (! $key) {
+        if (!$key) {
             unset($result['key']);
         }
 

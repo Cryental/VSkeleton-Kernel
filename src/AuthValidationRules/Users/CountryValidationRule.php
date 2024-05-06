@@ -37,7 +37,7 @@ class CountryValidationRule extends ValidationRuleBase
         // If the country rule is set to BLACKLIST and the country code is in the range or If the country rule
         // is set to WHITELIST and the country code is not in the range, deny access
         if (($token->country_rule === AccessRule::BLACKLIST && in_array($countryCode, $token->country_range)) ||
-            ($token->country_rule === AccessRule::WHITELIST && ! in_array($countryCode, $token->country_range))) {
+            ($token->country_rule === AccessRule::WHITELIST && !in_array($countryCode, $token->country_range))) {
             return [
                 'message' => Messages::E403(trans('volistx::service.not_allowed_to_access_from_your_country')),
                 'code' => 403,

@@ -33,6 +33,25 @@ class PersonalTokenExpiryValidationRuleTest extends TestCase
         $this->assertTrue($result);
     }
 
+    private function generateUser(bool $is_active): Collection|Model
+    {
+        return UserFactory::new()->create([
+            'is_active' => $is_active,
+        ]);
+    }
+
+    private function generatePersonalToken(string $user_id, array $inputs): Collection|Model
+    {
+        return PersonalTokenFactory::new()->create(
+            array_merge(
+                [
+                    'user_id' => $user_id,
+                ],
+                $inputs
+            )
+        );
+    }
+
     #[Test]
     public function test_access_allowed_when_token_has_no_expiry()
     {
@@ -72,25 +91,6 @@ class PersonalTokenExpiryValidationRuleTest extends TestCase
                 'code' => 403,
             ],
             $result
-        );
-    }
-
-    private function generateUser(bool $is_active): Collection|Model
-    {
-        return UserFactory::new()->create([
-            'is_active' => $is_active,
-        ]);
-    }
-
-    private function generatePersonalToken(string $user_id, array $inputs): Collection|Model
-    {
-        return PersonalTokenFactory::new()->create(
-            array_merge(
-                [
-                    'user_id' => $user_id,
-                ],
-                $inputs
-            )
         );
     }
 }

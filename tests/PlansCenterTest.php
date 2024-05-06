@@ -9,16 +9,6 @@ class PlansCenterTest extends TestCase
 {
     private ?PlansCenter $plansCenter;
 
-    protected function setUp(): void
-    {
-        $this->plansCenter = new PlansCenter();
-    }
-
-    protected function tearDown(): void
-    {
-        $this->plansCenter = null;
-    }
-
     #[Test]
     public function test_set_plan()
     {
@@ -35,5 +25,15 @@ class PlansCenterTest extends TestCase
         $this->plansCenter->setPlan($plan);
 
         $this->assertEquals($plan, $this->plansCenter->getPlan());
+    }
+
+    protected function setUp(): void
+    {
+        $this->plansCenter = new PlansCenter();
+    }
+
+    protected function tearDown(): void
+    {
+        $this->plansCenter = null;
     }
 }

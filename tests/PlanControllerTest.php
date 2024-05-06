@@ -41,13 +41,28 @@ class PlanControllerTest extends TestCase
         ]);
     }
 
+    private function generateAccessToken(string $key): Collection|Model
+    {
+        $salt = Str::random(16);
+
+        $token = AccessTokenFactory::new()
+            ->create(['key' => substr($key, 0, 32),
+                'secret' => SHA256Hasher::make(substr($key, 32), ['salt' => $salt]),
+                'secret_salt' => $salt,
+                'permissions' => ['plans:*'],]);
+
+        PlanFactory::new()->create();
+
+        return $token;
+    }
+
     #[Test]
     public function create_plan(): void
     {
         $key = Str::random(64);
         $this->generateAccessToken($key);
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer '.$key,
+            'Authorization' => 'Bearer ' . $key,
         ])->postJson('/sys-bin/admin/plans', [
             'name' => 'plan name',
             'tag' => 'plan-tag',
@@ -83,7 +98,7 @@ class PlanControllerTest extends TestCase
         $plan = Plan::query()->first();
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer '.$key,
+            'Authorization' => 'Bearer ' . $key,
             'Content-Type' => 'application/json',
         ])->patchJson("/sys-bin/admin/plans/$plan->id", [
             'name' => 'updated name',
@@ -115,7 +130,7 @@ class PlanControllerTest extends TestCase
         $plan = Plan::query()->first();
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer '.$key,
+            'Authorization' => 'Bearer ' . $key,
             'Content-Type' => 'application/json',
         ])->delete("/sys-bin/admin/plans/$plan->id");
 
@@ -145,7 +160,7 @@ class PlanControllerTest extends TestCase
         $plan = Plan::query()->first();
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer '.$key,
+            'Authorization' => 'Bearer ' . $key,
             'Content-Type' => 'application/json',
         ])->get("/sys-bin/admin/plans/$plan->id");
 
@@ -175,26 +190,11 @@ class PlanControllerTest extends TestCase
         PlanFactory::new()->count($plansCount)->create();
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer '.$key,
+            'Authorization' => 'Bearer ' . $key,
             'Content-Type' => 'application/json',
         ])->get('/sys-bin/admin/plans');
 
         $response->assertStatus(200);
         self::assertCount($plansCount, json_decode($response->getContent())->items);
-    }
-
-    private function generateAccessToken(string $key): Collection|Model
-    {
-        $salt = Str::random(16);
-
-        $token = AccessTokenFactory::new()
-            ->create(['key' => substr($key, 0, 32),
-                'secret' => SHA256Hasher::make(substr($key, 32), ['salt' => $salt]),
-                'secret_salt' => $salt,
-                'permissions' => ['plans:*'], ]);
-
-        PlanFactory::new()->create();
-
-        return $token;
     }
 }

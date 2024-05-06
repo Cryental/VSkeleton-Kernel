@@ -21,9 +21,9 @@ class RequestHelper
     /**
      * Sends a GET request.
      *
-     * @param  string  $url  The URL to send the request to
-     * @param  string  $token  The authorization token
-     * @param  array  $query  The query parameters
+     * @param string $url The URL to send the request to
+     * @param string $token The authorization token
+     * @param array $query The query parameters
      * @return ProcessedResponse The processed response
      */
     public function get(string $url, string $token, array $query = []): ProcessedResponse
@@ -46,9 +46,9 @@ class RequestHelper
     /**
      * Sends a POST request.
      *
-     * @param  string  $url  The URL to send the request to
-     * @param  string  $token  The authorization token
-     * @param  array  $query  The request body
+     * @param string $url The URL to send the request to
+     * @param string $token The authorization token
+     * @param array $query The request body
      * @return ProcessedResponse The processed response
      */
     public function post(string $url, string $token, array $query = []): ProcessedResponse
@@ -71,9 +71,9 @@ class RequestHelper
     /**
      * Sends a PUT request.
      *
-     * @param  string  $url  The URL to send the request to
-     * @param  string  $token  The authorization token
-     * @param  array  $query  The request body
+     * @param string $url The URL to send the request to
+     * @param string $token The authorization token
+     * @param array $query The request body
      * @return ProcessedResponse The processed response
      */
     public function put(string $url, string $token, array $query = []): ProcessedResponse
@@ -96,9 +96,9 @@ class RequestHelper
     /**
      * Sends a PATCH request.
      *
-     * @param  string  $url  The URL to send the request to
-     * @param  string  $token  The authorization token
-     * @param  array  $query  The request body
+     * @param string $url The URL to send the request to
+     * @param string $token The authorization token
+     * @param array $query The request body
      * @return ProcessedResponse The processed response
      */
     public function patch(string $url, string $token, array $query = []): ProcessedResponse
@@ -121,8 +121,8 @@ class RequestHelper
     /**
      * Sends a DELETE request.
      *
-     * @param  string  $url  The URL to send the request to
-     * @param  string  $token  The authorization token
+     * @param string $url The URL to send the request to
+     * @param string $token The authorization token
      * @return ProcessedResponse The processed response
      */
     public function delete(string $url, string $token): ProcessedResponse

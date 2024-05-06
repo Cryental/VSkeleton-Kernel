@@ -20,24 +20,10 @@ class SubscriptionsCenterTest extends TestCase
 
     private ?MockObject $eventDispatcherMock;
 
-    protected function setUp(): void
-    {
-        $this->subscriptionRepositoryMock = $this->createMock(SubscriptionRepository::class);
-        $this->eventDispatcherMock = $this->createMock(Dispatcher::class);
-        $this->subscriptionCenter = new SubscriptionCenter($this->subscriptionRepositoryMock, $this->eventDispatcherMock);
-    }
-
-    protected function tearDown(): void
-    {
-        $this->subscriptionCenter = null;
-        $this->subscriptionRepositoryMock = null;
-        $this->eventDispatcherMock = null;
-    }
-
     #[Test]
     public function test_should_subscription_be_expired()
     {
-        $subscription = (object) [
+        $subscription = (object)[
             'expires_at' => Carbon::now()->subDay(),
         ];
 
@@ -49,7 +35,7 @@ class SubscriptionsCenterTest extends TestCase
     #[Test]
     public function test_should_subscription_be_cancelled()
     {
-        $subscription = (object) [
+        $subscription = (object)[
             'cancels_at' => Carbon::now()->subDay(),
         ];
 
@@ -63,7 +49,7 @@ class SubscriptionsCenterTest extends TestCase
     {
         $userId = 'user123';
         $subscriptionId = 'subscription123';
-        $subscription = (object) [
+        $subscription = (object)[
             'id' => $subscriptionId,
             'user_id' => $userId,
             'expires_at' => Carbon::now()->subDay(),
@@ -85,7 +71,7 @@ class SubscriptionsCenterTest extends TestCase
     {
         $userId = 'user123';
         $subscriptionId = 'subscription123';
-        $subscription = (object) [
+        $subscription = (object)[
             'id' => $subscriptionId,
             'user_id' => $userId,
             'cancels_at' => Carbon::now()->subDay(),
@@ -148,5 +134,19 @@ class SubscriptionsCenterTest extends TestCase
         $result = $this->subscriptionCenter->processUserInactiveSubscriptionsStatus($userId);
 
         $this->assertSame($inactiveSubscription, $result);
+    }
+
+    protected function setUp(): void
+    {
+        $this->subscriptionRepositoryMock = $this->createMock(SubscriptionRepository::class);
+        $this->eventDispatcherMock = $this->createMock(Dispatcher::class);
+        $this->subscriptionCenter = new SubscriptionCenter($this->subscriptionRepositoryMock, $this->eventDispatcherMock);
+    }
+
+    protected function tearDown(): void
+    {
+        $this->subscriptionCenter = null;
+        $this->subscriptionRepositoryMock = null;
+        $this->eventDispatcherMock = null;
     }
 }

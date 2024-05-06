@@ -15,7 +15,7 @@ class UserRepository
     /**
      * Create a new user.
      *
-     * @param  array  $inputs  [user_id]
+     * @param array $inputs [user_id]
      */
     public function Create(array $inputs): Model|Builder
     {
@@ -28,13 +28,13 @@ class UserRepository
     /**
      * Update an existing user.
      *
-     * @param  array  $inputs  [is_active]
+     * @param array $inputs [is_active]
      */
     public function Update(string $userId, array $inputs): ?object
     {
         $user = $this->Find($userId);
 
-        if (! $user) {
+        if (!$user) {
             return null;
         }
 
@@ -62,7 +62,7 @@ class UserRepository
     {
         $toBeDeletedUser = $this->find($userId);
 
-        if (! $toBeDeletedUser) {
+        if (!$toBeDeletedUser) {
             return null;
         }
 
@@ -85,7 +85,7 @@ class UserRepository
             $search = 'id:';
         }
 
-        if (! str_contains($search, ':')) {
+        if (!str_contains($search, ':')) {
             return null;
         }
 
@@ -93,7 +93,7 @@ class UserRepository
         $values = explode(':', $search, 2);
         $columnName = strtolower(trim($values[0]));
 
-        if (! in_array($columnName, $columns)) {
+        if (!in_array($columnName, $columns)) {
             return null;
         }
 

@@ -14,7 +14,7 @@ class PlanRepository
     /**
      * Create a new plan.
      *
-     * @param  array  $inputs  [name, tag, description, data, price, tier, custom]
+     * @param array $inputs [name, tag, description, data, price, tier, custom]
      */
     public function Create(array $inputs): Model|Builder
     {
@@ -33,13 +33,13 @@ class PlanRepository
     /**
      * Update an existing plan.
      *
-     * @param  array  $inputs  [name, tag, description, data, price, tier, custom, is_active]
+     * @param array $inputs [name, tag, description, data, price, tier, custom, is_active]
      */
     public function Update(string $planId, array $inputs): ?object
     {
         $plan = $this->Find($planId);
 
-        if (! $plan) {
+        if (!$plan) {
             return null;
         }
 
@@ -95,7 +95,7 @@ class PlanRepository
     {
         $toBeDeletedPlan = $this->Find($planId);
 
-        if (! $toBeDeletedPlan) {
+        if (!$toBeDeletedPlan) {
             return null;
         }
 
@@ -118,7 +118,7 @@ class PlanRepository
             $search = 'id:';
         }
 
-        if (! str_contains($search, ':')) {
+        if (!str_contains($search, ':')) {
             return null;
         }
 
@@ -126,7 +126,7 @@ class PlanRepository
         $values = explode(':', $search, 2);
         $columnName = strtolower(trim($values[0]));
 
-        if (! in_array($columnName, $columns)) {
+        if (!in_array($columnName, $columns)) {
             return null;
         }
 

@@ -9,16 +9,6 @@ class PersonalTokensCenterTest extends TestCase
 {
     private ?PersonalTokensCenter $personalTokensCenter;
 
-    protected function setUp(): void
-    {
-        $this->personalTokensCenter = new PersonalTokensCenter();
-    }
-
-    protected function tearDown(): void
-    {
-        $this->personalTokensCenter = null;
-    }
-
     #[Test]
     public function test_set_token()
     {
@@ -35,5 +25,15 @@ class PersonalTokensCenterTest extends TestCase
         $this->personalTokensCenter->setToken($token);
 
         $this->assertEquals($token, $this->personalTokensCenter->getToken());
+    }
+
+    protected function setUp(): void
+    {
+        $this->personalTokensCenter = new PersonalTokensCenter();
+    }
+
+    protected function tearDown(): void
+    {
+        $this->personalTokensCenter = null;
     }
 }

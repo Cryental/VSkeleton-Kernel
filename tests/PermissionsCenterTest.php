@@ -10,7 +10,7 @@ class PermissionsCenterTest extends TestCase
     #[Test]
     public function test_check_with_matching_permission()
     {
-        $key = (object) ['permissions' => ['subscriptions:view']];
+        $key = (object)['permissions' => ['subscriptions:view']];
         $module = 'subscriptions';
         $operation = 'view';
 
@@ -23,7 +23,7 @@ class PermissionsCenterTest extends TestCase
     #[Test]
     public function test_check_with_wildcard_permission()
     {
-        $key = (object) ['permissions' => ['*']];
+        $key = (object)['permissions' => ['*']];
         $module = 'plans';
         $operation = 'create';
 
@@ -36,7 +36,7 @@ class PermissionsCenterTest extends TestCase
     #[Test]
     public function test_check_with_no_matching_permission()
     {
-        $key = (object) ['permissions' => ['subscriptions:view']];
+        $key = (object)['permissions' => ['subscriptions:view']];
         $module = 'plans';
         $operation = 'create';
 
@@ -49,7 +49,7 @@ class PermissionsCenterTest extends TestCase
     #[Test]
     public function test_check_with_empty_permissions()
     {
-        $key = (object) ['permissions' => []];
+        $key = (object)['permissions' => []];
         $module = 'subscriptions';
         $operation = 'view';
 
