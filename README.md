@@ -13,4 +13,4 @@ composer require volistx/framework-kernel
 ```
 
 ### Warnings
-- This kernel is optimized for [Volistx Framework](https://github.com/VolistxTeam/Framework) only. We do not guarantee that it will work with standard laravel framework.
+- This kernel is specifically optimized for the [Volistx Framework](https://github.com/VolistxTeam/Framework) and may not be compatible with the standard Laravel framework. We cannot guarantee its functionality outside of Volistx.
