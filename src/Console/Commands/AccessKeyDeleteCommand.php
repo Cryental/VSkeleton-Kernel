@@ -4,6 +4,7 @@ namespace Volistx\FrameworkKernel\Console\Commands;
 
 use Illuminate\Console\Command;
 use Volistx\FrameworkKernel\Repositories\AccessTokenRepository;
+use function Laravel\Prompts\text;
 
 class AccessKeyDeleteCommand extends Command
 {
@@ -37,13 +38,16 @@ class AccessKeyDeleteCommand extends Command
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
-        $token = $this->option('key');
+        $token = text(
+            label: 'Please specify your access key to delete.',
+            default: '',
+            required: true
+        );
 
-        // Check if the access key is provided
         if (empty($token)) {
-            $this->error('Please specify your access key to delete.');
+            $this->components->error('Please specify your access key to delete.');
 
             return;
         }
