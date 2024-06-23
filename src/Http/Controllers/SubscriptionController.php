@@ -63,7 +63,7 @@ class SubscriptionController extends Controller
     }
 
     /**
-     * Mutate a subscription by creating a new one and setting the previous subscription status to MUTATED.
+     * Mutate a subscription by creating a new one and setting the previous subscription status to DEACTIVATED.
      * USE WITH CAUTION, as it can put the system in an invalid state.
      */
     public function MutateSubscription(Request $request, string $userId, string $subscriptionId): JsonResponse

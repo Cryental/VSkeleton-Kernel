@@ -174,6 +174,10 @@ class PersonalTokenRepository
      */
     public function AuthPersonalToken(string $token): ?object
     {
+        if (empty($token)) {
+            return null;
+        }
+
         return PersonalToken::query()->where('key', substr($token, 0, 32))
             ->get()->filter(function ($v) use ($token) {
                 return SHA256Hasher::check(substr($token, 32), $v->secret, ['salt' => $v->secret_salt]);
