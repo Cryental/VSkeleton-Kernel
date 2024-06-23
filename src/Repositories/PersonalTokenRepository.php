@@ -169,10 +169,10 @@ class PersonalTokenRepository
     /**
      * Authenticate a personal token.
      *
-     * @param string $token The personal token to authenticate.
+     * @param ?string $token The personal token to authenticate.
      * @return object|null The authenticated personal token object or null if authentication fails.
      */
-    public function AuthPersonalToken(string $token): ?object
+    public function AuthPersonalToken(?string $token): ?object
     {
         if (empty($token)) {
             return null;
