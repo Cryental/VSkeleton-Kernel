@@ -151,7 +151,7 @@ class SubscriptionController extends Controller
         $subscription = $this->subscriptionRepository->Find($userId, $subscriptionId);
 
         if ($subscription->status !== SubscriptionStatus::ACTIVE && $subscription->status !== SubscriptionStatus::INACTIVE) {
-            return response()->json(Messages::E400(trans('volistx::subscriptions.can_not_cancel_subscription')), 400);
+            return response()->json(Messages::E400(trans('volistx::messages.subscriptions.can_not_cancel_subscription')), 400);
         }
 
         $updatedSub = $this->subscriptionRepository->Update(
@@ -186,7 +186,7 @@ class SubscriptionController extends Controller
         $subscription = $this->subscriptionRepository->Find($userId, $subscriptionId);
 
         if (($subscription->status !== SubscriptionStatus::ACTIVE && $subscription->status !== SubscriptionStatus::INACTIVE) || empty($subscription->cancels_at)) {
-            return response()->json(Messages::E400(trans('volistx::subscription.can_not_uncancel')), 400);
+            return response()->json(Messages::E400(trans('volistx::messages.subscription.can_not_uncancel')), 400);
         }
 
         $updatedSub = $this->subscriptionRepository->Update(

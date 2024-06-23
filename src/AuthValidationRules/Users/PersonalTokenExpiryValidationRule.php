@@ -20,7 +20,7 @@ class PersonalTokenExpiryValidationRule extends ValidationRuleBase
         // If the token has an expiry date and the current time is greater than the expiry date, deny access
         if ($token->expires_at && Carbon::now()->greaterThan(Carbon::createFromTimeString($token->expires_at))) {
             return [
-                'message' => Messages::E403(trans('volistx::token.expired')),
+                'message' => Messages::E403(trans('volistx::messages.token.expired')),
                 'code' => 403,
             ];
         }

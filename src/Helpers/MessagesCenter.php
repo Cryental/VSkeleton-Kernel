@@ -12,7 +12,7 @@ class MessagesCenter
      */
     public function E400(?string $error = null): array
     {
-        return self::Error('InvalidParameter', $error ?? trans('volistx::error.e400'));
+        return self::Error('InvalidParameter', $error ?? trans('volistx::messages.error.e400'));
     }
 
     /**
@@ -40,7 +40,7 @@ class MessagesCenter
      */
     public function E401(?string $error = null): array
     {
-        return self::Error('Unauthorized', $error ?? trans('volistx::error.e401'));
+        return self::Error('Unauthorized', $error ?? trans('volistx::messages.error.e401'));
     }
 
     /**
@@ -51,7 +51,7 @@ class MessagesCenter
      */
     public function E403(?string $error = null): array
     {
-        return self::Error('Forbidden', $error ?? trans('volistx::error.e403'));
+        return self::Error('Forbidden', $error ?? trans('volistx::messages.error.e403'));
     }
 
     /**
@@ -62,7 +62,7 @@ class MessagesCenter
      */
     public function E404(?string $error = null): array
     {
-        return self::Error('NotFound', $error ?? trans('volistx::error.e404'));
+        return self::Error('NotFound', $error ?? trans('volistx::messages.error.e404'));
     }
 
     /**
@@ -73,7 +73,7 @@ class MessagesCenter
      */
     public function E409(?string $error = null): array
     {
-        return self::Error('Conflict', $error ?? trans('volistx::error.e409'));
+        return self::Error('Conflict', $error ?? trans('volistx::messages.error.e409'));
     }
 
     /**
@@ -84,7 +84,7 @@ class MessagesCenter
      */
     public function E429(?string $error = null): array
     {
-        return self::Error('RateLimitReached', $error ?? trans('volistx::error.e429'));
+        return self::Error('RateLimitReached', $error ?? trans('volistx::messages.error.e429'));
     }
 
     /**
@@ -95,6 +95,6 @@ class MessagesCenter
      */
     public function E500(?string $error = null): array
     {
-        return self::Error('Unknown', $error ?? trans('volistx::error.e500'));
+        return self::Error('Unknown', $error ?? trans('volistx::messages.error.e500'));
     }
 }

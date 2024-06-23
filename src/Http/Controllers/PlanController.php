@@ -183,7 +183,7 @@ class PlanController extends Controller
             $plans = $this->planRepository->FindAll($search, (int)$page, (int)$limit);
 
             if (!$plans) {
-                return response()->json(Messages::E400(trans('volistx::invalid_search_column')), 400);
+                return response()->json(Messages::E400(trans('volistx::messages.invalid_search_column')), 400);
             }
 
             $items = [];

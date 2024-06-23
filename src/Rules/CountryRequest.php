@@ -27,6 +27,6 @@ class CountryRequest implements Rule
 
     public function message(): string
     {
-        return __('volistx::country_range.*.required_if');
+        return __('volistx::messages.country_range.*.required_if');
     }
 }

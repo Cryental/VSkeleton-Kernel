@@ -251,7 +251,7 @@ class PersonalTokenController extends Controller
             $tokens = $this->personalTokenRepository->FindAll($search, $page, $limit);
 
             if (!$tokens) {
-                return response()->json(Messages::E400(trans('volistx::invalid_search_column')), 400);
+                return response()->json(Messages::E400(trans('volistx::messages.invalid_search_column')), 400);
             }
 
             $userTokens = [];

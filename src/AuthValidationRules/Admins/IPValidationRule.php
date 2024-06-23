@@ -31,7 +31,7 @@ class IPValidationRule extends ValidationRuleBase
         // rule is set to WHITELIST and the client IP does not match the IP range, deny access
         if ($token->ip_rule === AccessRule::BLACKLIST && $ipSet->match($clientIp) || $token->ip_rule === AccessRule::WHITELIST && !$ipSet->match($clientIp)) {
             return [
-                'message' => Messages::E403(trans('volistx::service.not_allowed_to_access_from_your_ip')),
+                'message' => Messages::E403(trans('volistx::messages.service.not_allowed_to_access_from_your_ip')),
                 'code' => 403,
             ];
         }

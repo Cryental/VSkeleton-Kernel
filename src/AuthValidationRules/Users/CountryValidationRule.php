@@ -27,7 +27,7 @@ class CountryValidationRule extends ValidationRuleBase
         // If the geolocation is not available, deny access
         if ($geolocation->default) {
             return [
-                'message' => Messages::E403(trans('volistx::service.not_allowed_to_access_from_your_country')),
+                'message' => Messages::E403(trans('volistx::messages.service.not_allowed_to_access_from_your_country')),
                 'code' => 403,
             ];
         }
@@ -39,7 +39,7 @@ class CountryValidationRule extends ValidationRuleBase
         if (($token->country_rule === AccessRule::BLACKLIST && in_array($countryCode, $token->country_range)) ||
             ($token->country_rule === AccessRule::WHITELIST && !in_array($countryCode, $token->country_range))) {
             return [
-                'message' => Messages::E403(trans('volistx::service.not_allowed_to_access_from_your_country')),
+                'message' => Messages::E403(trans('volistx::messages.service.not_allowed_to_access_from_your_country')),
                 'code' => 403,
             ];
         }

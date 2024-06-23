@@ -42,7 +42,7 @@ class RequestsCountValidationRule extends ValidationRuleBase
             // If the requests count cannot be retrieved, deny access
             if ($requestsMadeCount === null) {
                 return [
-                    'message' => Messages::E500(trans('volistx::request_count.can_not_retrieve')),
+                    'message' => Messages::E500(trans('volistx::messages.request_count.can_not_retrieve')),
                     'code' => 500,
                 ];
             }
@@ -50,7 +50,7 @@ class RequestsCountValidationRule extends ValidationRuleBase
             // If the plan requests limit is not set or the requests count exceeds the limit, deny access
             if (!$planRequestsLimit || ($planRequestsLimit != -1 && $requestsMadeCount >= $planRequestsLimit)) {
                 return [
-                    'message' => Messages::E403(trans('volistx::request_count.exceeded_limit')),
+                    'message' => Messages::E403(trans('volistx::messages.request_count.exceeded_limit')),
                     'code' => 429,
                 ];
             }
